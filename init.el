@@ -63,7 +63,9 @@
 
 (add-to-map "<SPC>" nil)
 
-(add-to-map "<SPC> f f" 'find-file)
+(require 'helm)
+
+(add-to-map "<SPC> f f" 'helm-find-files)
 (add-to-map "<SPC> f s" 'save-buffer)
 (add-to-map "<SPC> p p" 'helm-projectile-switch-project)
 (add-to-map "<SPC> p f" 'helm-projectile-find-file)
@@ -74,34 +76,25 @@
 (add-to-map "<SPC> w j" 'evil-window-down)
 (add-to-map "<SPC> w k" 'evil-window-up)
 (add-to-map "<SPC> w l" 'evil-window-right)
-(add-to-map "<SPC> w /" 'evil-window-split)
-(add-to-map "<SPC> w ?" 'evil-window-vsplit)
+(add-to-map "<SPC> w /" 'evil-window-vsplit)
+(add-to-map "<SPC> w ?" 'evil-window-split)
 (add-to-map "<SPC> w d" 'evil-window-delete)
 (add-to-map "<SPC> b d" 'kill-buffer)
 (add-to-map "<SPC> b b" 'next-buffer)
 (add-to-map "<SPC> b B" 'previous-buffer)
+(add-to-map "<SPC> q q" 'kill-emacs)
+(add-to-map "<SPC> b l" 'helm-mini)
+(add-to-map "<SPC> y"   'helm-show-kill-ring)
+(add-to-map "<SPC> '"   'shell)
+(add-to-map "<SPC> h"   'helm-command-prefix-key)
+(define-key helm-map (kbd "C-j") 'helm-next-line)
+(define-key helm-map (kbd "C-k") 'helm-previous-line)
 
 (projectile-mode +1)
 
 ;; HELM CONFIG ;;
-
-(require 'helm)
-(require 'helm-config)
-
-;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
-
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
-(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-(define-key helm-map (kbd "C-j") 'helm-next-line)
-(define-key helm-map (kbd "C-k") 'helm-previous-line)
-
-(global-unset-key (kbd "C-s"))
-(global-set-key (kbd "C-s s") 'helm-swoop)
+;; (global-unset-key (kbd "C-s"))
+;; (global-set-key (kbd "C-s s") 'helm-swoop)
 
 (when (executable-find "curl")
   (setq helm-google-suggest-use-curl-p t))
@@ -112,20 +105,6 @@
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t
       helm-echo-input-in-header-line t)
-
-(defun spacemacs//helm-hide-minibuffer-maybe ()
-  "Hide minibuffer in Helm session if we use the header line as input field."
-  (when (with-helm-buffer helm-echo-input-in-header-line)
-    (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
-      (overlay-put ov 'window (selected-window))
-      (overlay-put ov 'face
-                   (let ((bg-color (face-background 'default nil)))
-                     `(:background ,bg-color :foreground ,bg-color)))
-      (setq-local cursor-type nil))))
-
-
-(add-hook 'helm-minibuffer-set-up-hook
-          'spacemacs//helm-hide-minibuffer-maybe)
 
 (setq helm-autoresize-max-height 0)
 (setq helm-autoresize-min-height 20)
@@ -140,3 +119,6 @@
 
 ;; Theme
 (load-theme 'doom-one t)
+
+(add-to-list 'default-frame-alist
+    '(font . "Consolas-10"))
