@@ -313,9 +313,9 @@ you should place your code here."
   (setq projectile-git-submodule-command nil)
 
  ;; Move mode line from bottom to top
- (setq-default header-line-format mode-line-format)
- (setq-default mode-line-format 'nil)
- (setq-default evil-mode-line-format 'nil)
+ ;; (setq-default header-line-format mode-line-format)
+ ;; (setq-default mode-line-format 'nil)
+ ;; (setq-default evil-mode-line-format 'nil)
 
  ;; Find file in known projects shortcut
  (define-key evil-normal-state-map (kbd "SPC p `") 'projectile-find-file-in-known-projects)
