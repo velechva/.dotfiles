@@ -258,7 +258,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'origami
@@ -308,8 +308,19 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; Add path variables manually if on Windows
+  ;; TODO - a better way to do this?
+  (if (eq system-type 'windows-nt)
+      (setq exec-path (append exec-path '(
+        ;; NodeJS
+        "C:\\Program Files\\nodejs"
+        ;; Python
+        "C:\\Python37\\"
+        ;; Ag
+        "C:\\ProgramData\\chocolatey\\bin"))))
+
   ;; Workaround for projectile issue #1302
-  ;; see https://github.com/bbatsov/projectile/issues/1302
+  ;; See https://github.com/bbatsov/projectile/issues/1302
   (setq projectile-git-submodule-command nil)
 
  ;; Move mode line from bottom to top
