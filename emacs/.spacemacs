@@ -258,7 +258,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers nil
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'origami
@@ -279,7 +279,7 @@ values."
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
+   dotspacemacs-search-tools '("ack" "pt" "ag" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
@@ -316,7 +316,9 @@ you should place your code here."
         "C:\\Program Files\\nodejs"
         ;; Python
         "C:\\Python37\\"
-        ;; Ag
+        ;; Perl
+        "C:\\Strawberry\\perl\\bin"
+        ;; Ag, Ack
         "C:\\ProgramData\\chocolatey\\bin"))))
 
   ;; Workaround for projectile issue #1302
@@ -324,9 +326,9 @@ you should place your code here."
   (setq projectile-git-submodule-command nil)
 
  ;; Move mode line from bottom to top
- ;; (setq-default header-line-format mode-line-format)
- ;; (setq-default mode-line-format 'nil)
- ;; (setq-default evil-mode-line-format 'nil)
+ (setq-default header-line-format mode-line-format)
+ (setq-default mode-line-format 'nil)
+ (setq-default evil-mode-line-format 'nil)
 
  ;; Find file in known projects shortcut
  (define-key evil-normal-state-map (kbd "SPC p `") 'projectile-find-file-in-known-projects)
