@@ -126,7 +126,9 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+                         spacemacs-light
+                         doom-one
+                         doom-one-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -330,7 +332,41 @@ you should place your code here."
 
  ;; Find file in known projects shortcut
  (define-key evil-normal-state-map (kbd "SPC p `") 'projectile-find-file-in-known-projects)
+
+ ;; Sane indenting
+ (setq-default electric-indent-inhibit t)
+
+ ;; Enable or disable tabs
+ (defun disable-tabs () (interactive) (setq indent-tabs-mode nil))
+ (defun enable-tabs  ()
+   (interactive)
+   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+   (setq indent-tabs-mode t)
+   (setq tab-width custom-tab-width))
+
+ ;; Make the backspace properly erase the tab instead of
+ ;; removing 1 space at a time.
+ (setq backward-delete-char-untabify-method 'hungry)
+
+ ;; Sets tab width in major modes
+ ;; Local to buffer, where possible
+ (defun set-indent (w)
+   (interactive "n")
+   (setq custom-tab-width w)
+
+   ;; Language specific tweaks
+   (setq python-indent-offset custom-tab-width)
+   (setq js-indent-level custom-tab-width)
+   (setq typescript-indent-level custom-tab-width)
+   (setq web-mode-markup-indent-offset custom-tab-width)
+   (setq web-mode-code-indent-offset custom-tab-width)
+   (setq web-mode-css-indent-offset custom-tab-width)
+   (setq web-mode-sql-indent-offset custom-tab-width)
+   (setq web-mode-attr-indent-offset custom-tab-width)
+   (setq web-mode-attr-value-indent-offset custom-tab-width))
 )
+
+(set-indent 2)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
