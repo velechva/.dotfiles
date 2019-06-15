@@ -336,6 +336,7 @@ you should place your code here."
  ;; Find file in known projects shortcut
  (define-key evil-normal-state-map (kbd "SPC p `") 'projectile-find-file-in-known-projects)
 
+<<<<<<< HEAD
  ;; Org mode tweaks
  (setq org-image-actual-width nil)
 
@@ -343,7 +344,43 @@ you should place your code here."
  (setq-default electric-indent-inhibit t)
 
  (set-background-color "#222A33")
+=======
+ ;; Sane indenting
+ (setq-default electric-indent-inhibit t)
+
+ ;; Enable or disable tabs
+ (defun disable-tabs () (interactive) (setq indent-tabs-mode nil))
+ (defun enable-tabs  ()
+   (interactive)
+   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+   (setq indent-tabs-mode t)
+   (setq tab-width custom-tab-width))
+
+ ;; Make the backspace properly erase the tab instead of
+ ;; removing 1 space at a time.
+ (setq backward-delete-char-untabify-method 'hungry)
+
+ ;; Sets tab width in major modes
+ ;; Local to buffer, where possible
+ (defun set-indent (w)
+   (interactive "n")
+   (setq custom-tab-width w)
+
+   ;; Language specific tweaks
+   (setq python-indent-offset custom-tab-width)
+   (setq js-indent-level custom-tab-width)
+   (setq typescript-indent-level custom-tab-width)
+   (setq web-mode-markup-indent-offset custom-tab-width)
+   (setq web-mode-code-indent-offset custom-tab-width)
+   (setq web-mode-css-indent-offset custom-tab-width)
+   (setq web-mode-sql-indent-offset custom-tab-width)
+   (setq web-mode-attr-indent-offset custom-tab-width)
+   (setq web-mode-attr-value-indent-offset custom-tab-width))
+
+  (set-indent 2)
+>>>>>>> d6f1c811ceb9a234fd1785c9f55eaca9d17cbe1e
 )
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -352,18 +389,9 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("49ec957b508c7d64708b40b0273697a84d3fee4f15dd9fc4a9588016adee3dad" default)))
- '(evil-custom-safe-themes nil)
- '(evil-want-Y-yank-to-eol nil)
- '(fci-rule-color "#5B6268" t)
- '(jdee-db-active-breakpoint-face-colors (cons "#1B2229" "#51afef"))
- '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#98be65"))
- '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
- '(org-agenda-files (quote ("/mnt/c/Users/Victor/Google Drive/Org/TODO.org")))
  '(package-selected-packages
    (quote
+<<<<<<< HEAD
     (yaml-mode insert-shebang fish-mode company-shell tide typescript-mode sql-indent all-the-icons memoize dash doom-dracula-theme zenburn-theme zen-and-art-theme white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme clojure-snippets clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider sesman queue parseedn clojure-mode parseclj a epl request flx highlight smartparens iedit anzu evil goto-chg undo-tree bind-map packed f s helm avy helm-core async popup company-emacs-eclim eclim smart-mode-line origami web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern tern coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data arduino-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc company-anaconda pythonic intero flycheck hlint-refactor hindent ghc haskell-mode company-cabal xterm-color unfill smeargle shell-pop orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-company helm-c-yasnippet gitignore-mode fuzzy magit transient git-commit with-editor company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info helm-mode-manager helm-make helm-hoogle helm-gitignore helm-flx helm-descbinds helm-ag haskell-snippets google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump doom-themes diminish define-word cython-mode company-ghci company-ghc column-enforce-mode cmm-mode clean-aindent-mode bind-key auto-highlight-symbol auto-compile anaconda-mode aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(vc-annotate-background "#282c34")
  '(vc-annotate-color-map
@@ -387,6 +415,9 @@ you should place your code here."
     (cons 340 "#5B6268")
     (cons 360 "#5B6268")))
  '(vc-annotate-very-old-color nil))
+=======
+    (ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+>>>>>>> d6f1c811ceb9a234fd1785c9f55eaca9d17cbe1e
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
