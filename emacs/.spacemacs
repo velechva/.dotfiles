@@ -341,6 +341,9 @@ you should place your code here."
 
  ;; Indentation tweaks
  (setq-default electric-indent-inhibit t)
+
+ ;; Line spacing
+ (setq-default line-spacing 5)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
