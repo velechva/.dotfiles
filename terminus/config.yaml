@@ -1,0 +1,78 @@
+hotkeys:
+  shell: {}
+  profile: {}
+  pane-nav-right: Ctrl-Shift-l
+  pane-nav-left: Ctrl-Shift-h
+  pane-nav-up: Ctrl-Shift-k
+  pane-nav-down: Ctrl-Shift-j
+  close-tab: []
+  close-pane: Ctrl-Shift-W
+ssh:
+  connections: []
+  options: {}
+terminal:
+  font: Menlo
+  shell: clink
+  profile: cmd-clink
+  rightClick: menu
+  copyOnSelect: false
+  frontend: xterm
+  autoOpen: false
+  fontSize: 15
+  linePadding: 0
+  bell: 'off'
+  bracketedPaste: false
+  background: colorScheme
+  ligatures: false
+  cursor: block
+  cursorBlink: true
+  customShell: ''
+  scrollOnInput: true
+  workingDirectory: ''
+  altIsMeta: false
+  colorScheme:
+    name: OneHalfDark
+    foreground: '#dcdfe4'
+    background: '#282c34'
+    cursor: '#a3b3cc'
+    colors:
+      - '#282c34'
+      - '#e06c75'
+      - '#98c379'
+      - '#e5c07b'
+      - '#61afef'
+      - '#c678dd'
+      - '#56b6c2'
+      - '#dcdfe4'
+      - '#282c34'
+      - '#e06c75'
+      - '#98c379'
+      - '#e5c07b'
+      - '#61afef'
+      - '#c678dd'
+      - '#56b6c2'
+      - '#dcdfe4'
+  customColorSchemes: []
+  environment: {}
+  profiles: []
+  useConPTY: true
+pluginBlacklist: []
+appearance:
+  dock: 'off'
+  dockScreen: current
+  dockFill: 50
+  tabsLocation: top
+  cycleTabs: true
+  theme: Standard
+  frame: thin
+  css: |-
+    app-root,
+    tab-header
+    {
+      background-color: #282c34 !important;
+    }
+  opacity: 1
+  vibrancy: false
+  vibrancyType: blur
+enableAnalytics: false
+enableWelcomeTab: false
