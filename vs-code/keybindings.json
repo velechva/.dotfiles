@@ -1,0 +1,8 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "Cmd+b",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "editorTextFocus"
+    },
+]

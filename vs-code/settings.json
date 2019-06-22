@@ -1,0 +1,15 @@
+{
+    "workbench.activityBar.visible": false,
+    "extensions.showRecommendationsOnlyOnDemand": true,
+    "editor.fontFamily": "Menlo",
+    "editor.fontSize": 13,
+    "vim.useCtrlKeys": false,
+    "window.restoreWindows": "none",
+    "editor.minimap.enabled": false,
+    "workbench.colorTheme": "Material Theme Palenight High Contrast",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.wordWrap": "on",
+    "vsicons.projectDetection.disableDetect": true,
+    "terminal.integrated.fontSize": 14
+}
