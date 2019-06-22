@@ -344,6 +344,23 @@ you should place your code here."
 
  ;; Line spacing
  (setq-default line-spacing 5)
+
+ (defun set-indent (w)
+   (interactive "n")
+   (setq custom-tab-width w)
+
+   ;; Language specific tweaks
+   (setq python-indent-offset custom-tab-width)
+   (setq js-indent-level custom-tab-width)
+   (setq typescript-indent-level custom-tab-width)
+   (setq web-mode-markup-indent-offset custom-tab-width)
+   (setq web-mode-code-indent-offset custom-tab-width)
+   (setq web-mode-css-indent-offset custom-tab-width)
+   (setq web-mode-sql-indent-offset custom-tab-width)
+   (setq web-mode-attr-indent-offset custom-tab-width)
+   (setq web-mode-attr-value-indent-offset custom-tab-width))
+
+ (set-indent 2)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
