@@ -128,10 +128,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         doom-one
-                         doom-one-light
-                         spacemacs-light)
+   dotspacemacs-themes '(doom-one-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -346,8 +343,8 @@ you should place your code here."
  (setq-default line-spacing 8)
 
  ;; Apperarance tweaks
- (set-background-color "#292d3e")
- (set-face-attribute 'fringe nil :background nil)
+;; (set-background-color "#292d3e")
+;; (set-face-attribute 'fringe nil :background nil)
 
  ;; Custom set indent function that changes the indent offset
  ;; for all of my major modes
@@ -378,7 +375,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "a63355b90843b228925ce8b96f88c587087c3ee4f428838716505fd01cf741c8" "f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "49ec957b508c7d64708b40b0273697a84d3fee4f15dd9fc4a9588016adee3dad" default)))
+    ("43c808b039893c885bdeec885b4f7572141bd9392da7f0bd8d8346e02b2ec8da" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "a63355b90843b228925ce8b96f88c587087c3ee4f428838716505fd01cf741c8" "f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "49ec957b508c7d64708b40b0273697a84d3fee4f15dd9fc4a9588016adee3dad" default)))
  '(evil-custom-safe-themes nil)
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "#5B6268" t)
