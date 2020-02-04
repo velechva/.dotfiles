@@ -296,6 +296,7 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
+  (setq package-check-signature nil)
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init', before layer configuration
 executes.
