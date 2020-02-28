@@ -98,6 +98,12 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias gs="git status"
+alias gb="git branch"
+alias gpull="git pull"
+alias gpush="git push"
+alias ll="ls -lrt"
+
 plugins=(zsh-autosuggestions)
 
 ZSH_THEME="spaceship"
