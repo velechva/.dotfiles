@@ -1,23 +1,16 @@
 {
-    // General //
-
     "workbench.activityBar.visible": false,
-    "extensions.showRecommendationsOnlyOnDemand": true,
-    "window.restoreWindows": "none",
-    "workbench.startupEditor": "newUntitledFile",
-    "editor.wordWrap": "on",
 
-    // Font & Appearance//
-
-    "workbench.colorTheme": "One Dark Pro",
-    "editor.fontFamily": "Menlo",
     "editor.fontSize": 14,
-    "editor.lineHeight": 25,
-    "workbench.iconTheme": "material-icon-theme",
-    "terminal.integrated.fontFamily": "Menlo",
+    "editor.fontFamily": "Fira Code",
+    "editor.minimap.enabled": false,
     "terminal.integrated.fontSize": 14,
 
-    // VIM //
-
     "vim.useSystemClipboard": true,
+    "explorer.confirmDragAndDrop": false,
+    "workbench.startupEditor": "welcomePage",
+    "workbench.colorTheme": "One Dark Pro",
+    "workbench.iconTheme": "vscode-icons",
+    "vsicons.dontShowNewVersionMessage": true,
+    "extensions.ignoreRecommendations": true
 }
