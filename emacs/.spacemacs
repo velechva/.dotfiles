@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     html
      javascript
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -130,15 +131,13 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(doom-one
-                         spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(doom-monokai-spectrum)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Menlo"
-                               :size 14
+                               :size 15
                                :weight normal
                                :width normal
                                :powerline-scale 1.2)
@@ -319,8 +318,9 @@ you should place your code here."
   (setq-default helm-ag-base-command "rg --vimgrep --no-heading --smart-case")
 
   (setq-default js2-strict-missing-semi-warning nil)
-  (setq-default spacemacs-show-trailing-whitespace nil))
+  (setq-default spacemacs-show-trailing-whitespace nil)
 
+  (load-theme 'doom-monokai-spectrum 't))
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
@@ -330,11 +330,11 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "99ea831ca79a916f1bd789de366b639d09811501e8c092c85b2cb7d697777f93" default)))
+    ("5b809c3eae60da2af8a8cfba4e9e04b4d608cb49584cb5998f6e4a1c87c057c4" "71e5acf6053215f553036482f3340a5445aee364fb2e292c70d9175fb0cc8af7" "76bfa9318742342233d8b0b42e824130b3a50dcc732866ff8e47366aed69de11" "a3b6a3708c6692674196266aad1cb19188a6da7b4f961e1369a68f06577afa16" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "99ea831ca79a916f1bd789de366b639d09811501e8c092c85b2cb7d697777f93" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode origami doome-one-theme solidity-mode doom-themes xterm-color toml-mode tide typescript-mode smeargle shell-pop racer orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download multi-term magit-gitflow magit-popup htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy flycheck-rust flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company-emacs-eclim eclim company cargo markdown-mode rust-mode auto-yasnippet yasnippet ac-ispell auto-complete ws-butler winum volatile-highlights vi-tilde-fringe uuidgen toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visual-mark-mode evil-unimpaired f evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu eval-sexp-fu dumb-jump dash s define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol aggressive-indent adaptive-wrap ace-link which-key use-package pcre2el macrostep hydra lv helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx flx helm-descbinds helm-ag exec-path-from-shell evil-visualstar evil-escape evil goto-chg undo-tree elisp-slime-nav diminish bind-map bind-key auto-compile packed ace-window ace-jump-helm-line helm avy helm-core popup async))))
+    (doom-monokai-spectrum-theme doom-monokai-pro-theme web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode origami doome-one-theme solidity-mode doom-themes xterm-color toml-mode tide typescript-mode smeargle shell-pop racer orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download multi-term magit-gitflow magit-popup htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy flycheck-rust flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company-emacs-eclim eclim company cargo markdown-mode rust-mode auto-yasnippet yasnippet ac-ispell auto-complete ws-butler winum volatile-highlights vi-tilde-fringe uuidgen toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visual-mark-mode evil-unimpaired f evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-ediff evil-args evil-anzu anzu eval-sexp-fu dumb-jump dash s define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol aggressive-indent adaptive-wrap ace-link which-key use-package pcre2el macrostep hydra lv helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx flx helm-descbinds helm-ag exec-path-from-shell evil-visualstar evil-escape evil goto-chg undo-tree elisp-slime-nav diminish bind-map bind-key auto-compile packed ace-window ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
