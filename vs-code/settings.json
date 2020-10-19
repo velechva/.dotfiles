@@ -1,0 +1,41 @@
+{
+    // General //
+
+    "workbench.activityBar.visible": false,
+    "editor.minimap.enabled": false,
+    "extensions.showRecommendationsOnlyOnDemand": true,
+    "window.restoreWindows": "none",
+    "workbench.startupEditor": "newUntitledFile",
+    "editor.wordWrap": "on",
+    "editor.acceptSuggestionOnEnter": "off",
+
+    // Font & Appearance//
+
+    "editor.fontFamily": "Menlo for Powerline",
+    "editor.fontSize": 14,
+    "workbench.colorTheme": "One Dark Pro",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.editor.enablePreview": false,
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontFamily": "Menlo",
+
+    // VIM //
+
+    "vim.useCtrlKeys": false,
+    "vim.useSystemClipboard": true,
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.integrated.shell.windows": "powershell",
+
+    // Rust //
+    
+    "rust-client.rustupPath": "$HOME/.cargo/bin/rustup",
+    "debug.allowBreakpointsEverywhere": true,
+
+    // Python //
+
+    "python.defaultInterpreterPath": "python3",
+
+    // Solidity //
+    "solidity.compileUsingRemoteVersion": "v0.6.0+commit.26b70077"
+}
