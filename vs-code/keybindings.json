@@ -1,0 +1,18 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "Cmd+b",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "Ctrl+-",
+        "command": "workbench.action.splitEditorDown",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "Ctrl+/",
+        "command": "workbench.action.splitEditorRight",
+        "when": "editorTextFocus"
+    }
+]

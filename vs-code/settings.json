@@ -1,31 +1,81 @@
 {
     // General //
 
-    "workbench.activityBar.visible": false,
-    "editor.minimap.enabled": false,
     "extensions.showRecommendationsOnlyOnDemand": true,
+
+    // Terminal
+
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.integrated.shell.windows": "powershell",
+
+    // Editor
+    "editor.minimap.enabled": false,
     "window.restoreWindows": "none",
     "workbench.startupEditor": "newUntitledFile",
     "editor.wordWrap": "on",
     "editor.acceptSuggestionOnEnter": "off",
+    "workbench.editor.enablePreview": false,
 
-    // Font & Appearance//
+    // Appearance
 
+    "workbench.activityBar.visible": false,
     "editor.fontFamily": "Menlo for Powerline",
     "editor.fontSize": 14,
-    "workbench.colorTheme": "One Dark Pro",
-    "workbench.iconTheme": "vscode-icons",
-    "workbench.editor.enablePreview": false,
-    "terminal.integrated.fontSize": 14,
     "terminal.integrated.fontFamily": "Menlo",
+    "terminal.integrated.fontSize": 14,
 
     // VIM //
 
     "vim.useCtrlKeys": false,
     "vim.useSystemClipboard": true,
-    "terminal.integrated.shell.osx": "/bin/zsh",
-    "terminal.integrated.shell.linux": "/bin/zsh",
-    "terminal.integrated.shell.windows": "powershell",
+    "vim.incsearch": true,
+    "vim.hlsearch": true,
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "C-f": false
+    },
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["<leader>", "f", "s"],
+            "commands": [ "workbench.action.files.save"]
+        },
+        {
+            "before": ["<leader>", "f", "d"],
+            "commands": [ "workbench.action.closeActiveEditor"]
+        },
+        {
+            "before": ["<leader>", "w", "d"],
+            "commands": [ "workbench.action.closeEditorsInGroup"]
+        },
+        {
+            "before": ["<leader>", "w", "/"],
+            "commands": [ "workbench.action.splitEditorDown"]
+        },
+        {
+            "before": ["<leader>", "w", "-"],
+            "commands": [ "workbench.action.splitEditorRight"]
+        },
+        {
+
+            "before": ["<leader>", "w", "j"],
+            "commands": [ "workbench.action.navigateDown"]
+        },
+
+        {
+            "before": ["<leader>", "w", "k"],
+            "commands": [ "workbench.action.navigateUp"]
+        },
+        {
+            "before": ["<leader>", "w", "l"],
+            "commands": [ "workbench.action.navigateRight"]
+        },
+        {
+            "before": ["<leader>", "w", "h"],
+            "commands": [ "workbench.action.navigateLeft"]
+        }
+    ],
 
     // Rust //
     
@@ -37,5 +87,6 @@
     "python.defaultInterpreterPath": "python3",
 
     // Solidity //
-    "solidity.compileUsingRemoteVersion": "v0.6.0+commit.26b70077"
+    "solidity.compileUsingRemoteVersion": "v0.6.0+commit.26b70077",
+    "workbench.colorTheme": "One Dark Pro"
 }
