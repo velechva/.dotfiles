@@ -1,7 +1,8 @@
 {
     // General //
 
-    "extensions.showRecommendationsOnlyOnDemand": true,
+    "extensions.ignoreRecommendations": true,
+    "explorer.confirmDelete": false,
 
     // Terminal
 
@@ -10,20 +11,26 @@
     "terminal.integrated.shell.windows": "powershell",
 
     // Editor
+
     "editor.minimap.enabled": false,
-    "window.restoreWindows": "none",
-    "workbench.startupEditor": "newUntitledFile",
     "editor.wordWrap": "on",
     "editor.acceptSuggestionOnEnter": "off",
+
+    "window.restoreWindows": "none",
+
     "workbench.editor.enablePreview": false,
+    "workbench.startupEditor": "newUntitledFile",
 
     // Appearance
 
-    "workbench.activityBar.visible": false,
-    "editor.fontFamily": "Menlo for Powerline",
-    "editor.fontSize": 14,
-    "terminal.integrated.fontFamily": "Menlo",
-    "terminal.integrated.fontSize": 14,
+    "editor.fontFamily": "Consolas",
+    "editor.fontSize": 15,
+    "editor.lineHeight": 25,
+
+    "terminal.integrated.fontFamily": "Consolas",
+    "terminal.integrated.fontSize": 15,
+
+    "workbench.activityBar.visible": true,
 
     // VIM //
 
@@ -37,24 +44,28 @@
         "C-f": false
     },
     "vim.normalModeKeyBindings": [
+        { 
+            "before": ["<leader>", "x"],
+            "commands": ["workbench.action.showCommands"]
+        },
         {
             "before": ["<leader>", "f", "s"],
             "commands": [ "workbench.action.files.save"]
         },
         {
-            "before": ["<leader>", "f", "d"],
+            "before": ["<leader>", "w", "d"],
             "commands": [ "workbench.action.closeActiveEditor"]
         },
+        // {
+        //     "before": ["<leader>", "w", "d"],
+        //     "commands": [ "workbench.action.closeEditorsInGroup"]
+        // },
         {
-            "before": ["<leader>", "w", "d"],
-            "commands": [ "workbench.action.closeEditorsInGroup"]
-        },
-        {
-            "before": ["<leader>", "w", "/"],
+            "before": ["<leader>", "w", "-"],
             "commands": [ "workbench.action.splitEditorDown"]
         },
         {
-            "before": ["<leader>", "w", "-"],
+            "before": ["<leader>", "w", "/"],
             "commands": [ "workbench.action.splitEditorRight"]
         },
         {
@@ -74,6 +85,26 @@
         {
             "before": ["<leader>", "w", "h"],
             "commands": [ "workbench.action.navigateLeft"]
+        },
+        {
+            "before": ["<leader>", "p", "p"],
+            "commands": ["projectManager.listProjects"]
+        },
+        {
+            "before": ["<leader>", "p", "f"],
+            "commands": ["workbench.action.quickOpen"]
+        },
+        {
+            "before": ["<leader>", "p", "s"],
+            "commands": ["workbench.action.findInFiles"]
+        },
+        {
+            "before": ["<leader>", "s", "s"],
+            "commands": ["actions.find"]
+        },
+        {
+            "before": ["<leader>", "'"],
+            "commands": ["workbench.action.showCommands"]
         }
     ],
 
@@ -87,6 +118,17 @@
     "python.defaultInterpreterPath": "python3",
 
     // Solidity //
+
     "solidity.compileUsingRemoteVersion": "v0.6.0+commit.26b70077",
-    "workbench.colorTheme": "One Dark Pro"
+    "workbench.colorTheme": "Panda Syntax",
+
+    // Web //
+
+    "html.autoClosingTags": false,
+    "yaml.schemas": { "file:///Users/VVLC/.vscode/extensions/atlassian.atlascode-2.8.5/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml" },
+
+    // Git //
+
+    "gitlens.views.lineHistory.enabled": true,
+    "window.zoomLevel": 0
 }
