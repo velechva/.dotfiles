@@ -1,134 +1,14 @@
 {
     // General //
 
-    "extensions.ignoreRecommendations": true,
-    "explorer.confirmDelete": false,
+    "security.workspace.trust.enabled": false,
 
-    // Terminal
-
-    "terminal.integrated.shell.osx": "/bin/zsh",
-    "terminal.integrated.shell.linux": "/bin/zsh",
-    "terminal.integrated.shell.windows": "powershell",
-
-    // Editor
-
-    "editor.minimap.enabled": false,
-    "editor.wordWrap": "on",
-    "editor.acceptSuggestionOnEnter": "off",
-
-    "window.restoreWindows": "none",
-
-    "workbench.editor.enablePreview": false,
-    "workbench.startupEditor": "newUntitledFile",
-
-    // Appearance
+    "workbench.colorTheme": "Monokai Dimmed",
 
     "editor.fontFamily": "Consolas",
     "editor.fontSize": 15,
-    "editor.lineHeight": 25,
-
     "terminal.integrated.fontFamily": "Consolas",
     "terminal.integrated.fontSize": 15,
 
-    "workbench.activityBar.visible": true,
-
-    // VIM //
-
-    "vim.useCtrlKeys": false,
-    "vim.useSystemClipboard": true,
-    "vim.incsearch": true,
-    "vim.hlsearch": true,
-    "vim.leader": "<space>",
-    "vim.handleKeys": {
-        "<C-a>": false,
-        "C-f": false
-    },
-    "vim.normalModeKeyBindings": [
-        { 
-            "before": ["<leader>", "x"],
-            "commands": ["workbench.action.showCommands"]
-        },
-        {
-            "before": ["<leader>", "f", "s"],
-            "commands": [ "workbench.action.files.save"]
-        },
-        {
-            "before": ["<leader>", "w", "d"],
-            "commands": [ "workbench.action.closeActiveEditor"]
-        },
-        // {
-        //     "before": ["<leader>", "w", "d"],
-        //     "commands": [ "workbench.action.closeEditorsInGroup"]
-        // },
-        {
-            "before": ["<leader>", "w", "-"],
-            "commands": [ "workbench.action.splitEditorDown"]
-        },
-        {
-            "before": ["<leader>", "w", "/"],
-            "commands": [ "workbench.action.splitEditorRight"]
-        },
-        {
-
-            "before": ["<leader>", "w", "j"],
-            "commands": [ "workbench.action.navigateDown"]
-        },
-
-        {
-            "before": ["<leader>", "w", "k"],
-            "commands": [ "workbench.action.navigateUp"]
-        },
-        {
-            "before": ["<leader>", "w", "l"],
-            "commands": [ "workbench.action.navigateRight"]
-        },
-        {
-            "before": ["<leader>", "w", "h"],
-            "commands": [ "workbench.action.navigateLeft"]
-        },
-        {
-            "before": ["<leader>", "p", "p"],
-            "commands": ["projectManager.listProjects"]
-        },
-        {
-            "before": ["<leader>", "p", "f"],
-            "commands": ["workbench.action.quickOpen"]
-        },
-        {
-            "before": ["<leader>", "p", "s"],
-            "commands": ["workbench.action.findInFiles"]
-        },
-        {
-            "before": ["<leader>", "s", "s"],
-            "commands": ["actions.find"]
-        },
-        {
-            "before": ["<leader>", "'"],
-            "commands": ["workbench.action.showCommands"]
-        }
-    ],
-
-    // Rust //
-    
-    "rust-client.rustupPath": "$HOME/.cargo/bin/rustup",
-    "debug.allowBreakpointsEverywhere": true,
-
-    // Python //
-
-    "python.defaultInterpreterPath": "python3",
-
-    // Solidity //
-
-    "solidity.compileUsingRemoteVersion": "v0.6.0+commit.26b70077",
-    "workbench.colorTheme": "Panda Syntax",
-
-    // Web //
-
-    "html.autoClosingTags": false,
-    "yaml.schemas": { "file:///Users/VVLC/.vscode/extensions/atlassian.atlascode-2.8.5/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml" },
-
-    // Git //
-
-    "gitlens.views.lineHistory.enabled": true,
-    "window.zoomLevel": 0
+    "vim.useSystemClipboard": true
 }

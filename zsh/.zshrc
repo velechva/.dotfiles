@@ -1,38 +1,68 @@
-# ZSH CONFIG #
+## General
+
+# Oh my Zsh
 
 export ZSH="/Users/victorvelechosky/.oh-my-zsh"
-
 ZSH_THEME="robbyrussell"
 plugins=(git)
 
-# Preserve order
+# Spaceship prompt
+
+autoload -U promptinit; promptinit
+prompt spaceship
+
+# Preserve the order of this
 source $ZSH/oh-my-zsh.sh
 
-# ALIASES #
+## Aliases
 
-# Default command options
-alias grep="grep -iE"
+# General
+
+alias ll=ls -alh
 alias info="info --vi-keys"
 
-# Git abbreviations
-alias g="git"
+# Python
+
+alias python=python3
+alias pip=pip3
+
+# Git
+
 alias gs="git status"
 alias gb="git branch"
-alias gc="git commit"
-alias ga="git add"
 alias gl="git log -n 5"
+alias greset="git reset --hard HEAD"
 
-# Docker and run utils
-alias run="sh ./Run.sh"
-alias run-tf="docker run -u $(id -u):$(id -g) -it --rm tensorflow/tensorflow"
-alias run-in-tf="docker run -u $(id -u):$(id -g) -it --rm tensorflow/tensorflow python -c \"$1\""
+# Run utils
 
-# Utility functions
-killall() {
-	ps aux | grep -i "$1" | grep -v grep | awk '{ print $2; }' | xargs kill -9
+alias run="sh ./run.sh"
+alias build="sh ./build.sh"
+
+## Environment Variables
+
+export PATH=/Applications/CLion.app/Contents/bin/cmake/mac/bin:/usr/local/ghc/bin/:/Users/victorvelechosky/.emacs.d/bin:$PATH
+export RACK_DIR=/usr/local/lib/rack-sdk-1.1.6
+export PYTHONSTARTUP=/Users/victorvelechosky/.pythonrc
+
+## Functions
+
+function fd () {
+	if [ 1 -gt "$#" ]; then
+		echo "Syntax: fnd [path] <searchQuery>"
+		return
+	fi
+
+	if [ 1 -eq "$#" ]; then
+		fnd_query=$1
+		fnd_path="."
+	else
+		fnd_query=$2
+		fnd_path=$1	
+	fi
+	
+	find "$fnd_path" -iname "$fnd_query" 2>&1 | grep -i -v "Permission denied" | grep -v "Operation not permitted"
 }
 
-
-  # Set Spaceship ZSH as a prompt
-  autoload -U promptinit; promptinit
-  prompt spaceship
+function killall() {
+	ps aux | grep -i "$1" | grep -v grep | awk '{ print $2; }' | xargs kill -9
+}
