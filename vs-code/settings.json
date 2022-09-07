@@ -3,8 +3,8 @@
     "security.workspace.trust.enabled": false,
 
     // Editor
-    "editor.fontFamily": "JetBrains Mono",
-    "editor.fontSize": 14,
+    "editor.fontFamily": "Consolas",
+    "editor.fontSize": 15,
     "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.minimap.enabled": false,
 
