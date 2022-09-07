@@ -1,0 +1,11 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "command": "workbench.action.debug.stepOver",
+        "key": "F6"
+    },
+    {
+        "command": "workbench.action.debug.stepInto",
+        "key": "F7"
+    }
+]

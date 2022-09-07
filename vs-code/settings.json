@@ -1,14 +1,24 @@
 {
-    // General //
-
+    // General
     "security.workspace.trust.enabled": false,
 
-    "workbench.colorTheme": "Monokai Dimmed",
+    // Editor
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontSize": 14,
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "editor.minimap.enabled": false,
 
-    "editor.fontFamily": "Consolas",
-    "editor.fontSize": 15,
-    "terminal.integrated.fontFamily": "Consolas",
-    "terminal.integrated.fontSize": 15,
+    // Integrated terminal
+    "terminal.integrated.fontFamily": "JetBrains Mono",
+    "terminal.integrated.fontSize": 14,
 
-    "vim.useSystemClipboard": true
+    // Workbench
+    "workbench.colorTheme": "Atom One Light",
+    "workbench.startupEditor": "none",
+
+    // Extensions
+    "extensions.ignoreRecommendations": true,
+
+    // Vim
+    "vim.useSystemClipboard": true,
 }

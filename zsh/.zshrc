@@ -4,7 +4,7 @@
 
 export ZSH="/Users/victorvelechosky/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
-plugins=(git)
+plugins=(zsh-autosuggestions)
 
 # Spaceship prompt
 
@@ -18,7 +18,7 @@ source $ZSH/oh-my-zsh.sh
 
 # General
 
-alias ll=ls -alh
+alias ll="ls -al"
 alias info="info --vi-keys"
 
 # Python
@@ -43,25 +43,9 @@ alias build="sh ./build.sh"
 export PATH=/Applications/CLion.app/Contents/bin/cmake/mac/bin:/usr/local/ghc/bin/:/Users/victorvelechosky/.emacs.d/bin:$PATH
 export RACK_DIR=/usr/local/lib/rack-sdk-1.1.6
 export PYTHONSTARTUP=/Users/victorvelechosky/.pythonrc
+export EDITOR=vim
 
 ## Functions
-
-function fd () {
-	if [ 1 -gt "$#" ]; then
-		echo "Syntax: fnd [path] <searchQuery>"
-		return
-	fi
-
-	if [ 1 -eq "$#" ]; then
-		fnd_query=$1
-		fnd_path="."
-	else
-		fnd_query=$2
-		fnd_path=$1	
-	fi
-	
-	find "$fnd_path" -iname "$fnd_query" 2>&1 | grep -i -v "Permission denied" | grep -v "Operation not permitted"
-}
 
 function killall() {
 	ps aux | grep -i "$1" | grep -v grep | awk '{ print $2; }' | xargs kill -9
