@@ -1,6 +1,13 @@
 code --install-extension akamud.vscode-theme-onelight
 code --install-extension bungcip.better-toml
+code --install-extension fabiospampinato.vscode-diff
+code --install-extension ms-python.python
+code --install-extension ms-python.vscode-pylance
+code --install-extension ms-toolsai.jupyter
+code --install-extension ms-toolsai.jupyter-keymap
+code --install-extension ms-toolsai.jupyter-renderers
 code --install-extension ms-vscode.hexeditor
 code --install-extension rust-lang.rust-analyzer
+code --install-extension teabyii.ayu
 code --install-extension vadimcn.vscode-lldb
 code --install-extension vscodevim.vim
