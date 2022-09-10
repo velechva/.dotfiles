@@ -7,5 +7,9 @@
     {
         "command": "workbench.action.debug.stepInto",
         "key": "F7"
+    },
+    {
+        "command": "workbench.action.debug.stepOut",
+        "key": "F8"
     }
 ]

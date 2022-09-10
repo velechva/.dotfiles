@@ -11,10 +11,8 @@
     // Integrated terminal
     "terminal.integrated.fontFamily": "JetBrains Mono",
     "terminal.integrated.fontSize": 14,
-
-    // Workbench
-    "workbench.colorTheme": "Atom One Light",
     "workbench.startupEditor": "none",
+    "workbench.colorTheme": "Atom One Light",
 
     // Extensions
     "extensions.ignoreRecommendations": true,
