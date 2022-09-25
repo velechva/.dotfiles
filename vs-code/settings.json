@@ -3,8 +3,8 @@
     "security.workspace.trust.enabled": false,
 
     // Editor
-    "editor.fontFamily": "Consolas",
-    "editor.fontSize": 15,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontSize": 14,
     "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.minimap.enabled": false,
 
@@ -12,11 +12,17 @@
     "terminal.integrated.fontFamily": "JetBrains Mono",
     "terminal.integrated.fontSize": 14,
     "workbench.startupEditor": "none",
-    "workbench.colorTheme": "Atom One Light",
+    "workbench.colorTheme": "Atom One Dark",
 
     // Extensions
     "extensions.ignoreRecommendations": true,
 
     // Vim
     "vim.useSystemClipboard": true,
+
+    "workbench.colorCustomizations": {
+        "editor.background": "#353A44",
+        "tab.activeBackground": "#353A44",
+        "tab.activeForeground": "#ffffff"
+    }
 }

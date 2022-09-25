@@ -11,5 +11,9 @@
     {
         "command": "workbench.action.debug.stepOut",
         "key": "F8"
+    },
+    {
+        "command": "editor.action.replaceAll",
+        "key": "cmd+r"
     }
 ]
