@@ -3,20 +3,20 @@
     "security.workspace.trust.enabled": false,
 
     // Editor
-    "editor.fontFamily": "Consolas",
+    "editor.fontFamily": "JetBrains Mono",
     "editor.fontSize": 15,
     "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.minimap.enabled": false,
 
     // Integrated terminal
     "terminal.integrated.fontFamily": "JetBrains Mono",
-    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontSize": 15,
     "workbench.startupEditor": "none",
-    "workbench.colorTheme": "Atom One Light",
 
     // Extensions
     "extensions.ignoreRecommendations": true,
 
     // Vim
     "vim.useSystemClipboard": true,
+    "workbench.colorTheme": "Catppuccin Latte"
 }
