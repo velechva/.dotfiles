@@ -27,6 +27,8 @@ setopt HIST_SAVE_NO_DUPS
 alias ls="exa"
 alias ll="exa -al"
 
+alias mkdir="mkdir -pv"
+
 alias info="info --vi-keys"
 alias e.="open ."
 
@@ -40,10 +42,6 @@ alias gb="git branch"
 alias gl="git log -n 5"
 alias greset="git reset --hard HEAD"
 
-# Run utils
-
-alias run="sh ./run.sh"
-
 # Python
 
 alias pip=pip3
@@ -54,6 +52,24 @@ alias python=python3
 export EDITOR=vim
 
 # Functions
+
+function run() {
+	if [[ -f "./run.sh" ]]
+	then
+		if [[ -n $1 ]]
+		then
+			func=$1
+		else
+			func="run"
+		fi
+
+		cp ./run.sh /tmp/.run.sh
+		echo "\n\$@" >> /tmp/.run.sh
+		sh /tmp/.run.sh $func
+	else
+		echo "run.sh missing..."
+	fi
+}
 
 function killall() {
 	ps aux | grep -i "$1" | grep -v grep | awk '{ print $2; }' | xargs kill -9
