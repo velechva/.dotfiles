@@ -1,15 +1,15 @@
 ## ZSH
 
-# VI mode
-bindkey -v
-
 # Oh my Zsh
 
-export ZSH="/Users/victorvelechosky/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
-plugins=(zsh-autosuggestions)
-# Preserve the order of this
-source $ZSH/oh-my-zsh.sh
+if [ -d "$HOME/.oh-my-zsh" ]
+then
+	export ZSH="$HOME/.oh-my-zsh"
+	ZSH_THEME="robbyrussell"
+	plugins=(zsh-autosuggestions)
+	# Preserve the order of this
+	source $ZSH/oh-my-zsh.sh
+fi
 
 # ZSH History
 
@@ -20,18 +20,26 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 
+# VI mode
+bindkey -v
+
 ## Aliases
 
 # General
 
-alias ls="exa"
-alias ll="exa -al"
+if command -v "exa" 1> /dev/null 2> /dev/null
+then
+	alias ls="exa"
+	alias ll="exa -al"
+else
+	alias ll="ls -Al"
+fi
 
 alias mkdir="mkdir -pv"
 
 alias info="info --vi-keys"
-alias e.="open ."
 
+alias e.="open ."
 alias ..="cd .."
 
 # Git
@@ -44,8 +52,15 @@ alias greset="git reset --hard HEAD"
 
 # Python
 
-alias pip=pip3
-alias python=python3
+if command -v "pip3" 1> /dev/null 2> /dev/null
+then
+	alias pip=pip3
+fi
+
+if command -v "python3" 1> /dev/null 2> /dev/null
+then
+	alias python=python3
+fi
 
 # Environment Variables
 
@@ -63,11 +78,12 @@ function run() {
 			func="run"
 		fi
 
-		cp ./run.sh /tmp/.run.sh
+		cp run.sh /tmp/.run.sh
 		echo "\n\$@" >> /tmp/.run.sh
 		sh /tmp/.run.sh $func
 	else
 		echo "run.sh missing..."
+		exit 1
 	fi
 }
 
@@ -93,7 +109,6 @@ function devhints() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Machine-specific
+# Load machine-specific config
 
 [ -f ~/.zshcustom ] && source ~/.zshcustom
-
