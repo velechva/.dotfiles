@@ -1,33 +1,37 @@
-## General
+## ZSH
 
 # Oh my Zsh
 
 export ZSH="/Users/victorvelechosky/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 plugins=(zsh-autosuggestions)
-
-# Spaceship prompt
-
-autoload -U promptinit; promptinit
-prompt spaceship
-
 # Preserve the order of this
 source $ZSH/oh-my-zsh.sh
+
+# ZSH History
+
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
 
 ## Aliases
 
 # General
 
-alias ll="ls -al"
+alias ls="exa"
+alias ll="exa -al"
+
 alias info="info --vi-keys"
+alias e.="open ."
 
-# Python
-
-alias python=python3
-alias pip=pip3
+alias ..="cd .."
 
 # Git
 
+alias g="git"
 alias gs="git status"
 alias gb="git branch"
 alias gl="git log -n 5"
@@ -36,17 +40,41 @@ alias greset="git reset --hard HEAD"
 # Run utils
 
 alias run="sh ./run.sh"
-alias build="sh ./build.sh"
 
-## Environment Variables
+# Python
 
-export PATH=/Applications/CLion.app/Contents/bin/cmake/mac/bin:/usr/local/ghc/bin/:/Users/victorvelechosky/.emacs.d/bin:$PATH
-export RACK_DIR=/usr/local/lib/rack-sdk-1.1.6
-export PYTHONSTARTUP=/Users/victorvelechosky/.pythonrc
+alias pip=pip3
+alias python=python3
+
+# Environment Variables
+
 export EDITOR=vim
 
-## Functions
+# Functions
 
 function killall() {
 	ps aux | grep -i "$1" | grep -v grep | awk '{ print $2; }' | xargs kill -9
 }
+
+function devhints() {
+	if [[ -z $1 ]]
+	then
+		open "https://devhints.io"
+	elif [[ $1 == "--help" ]]
+	then
+		echo "Usage: devhints [<name>]"
+		echo "Ex."
+		echo "devhints bash"
+	else
+		open "https://devhints.io/$1"
+	fi
+}
+
+# Fzf
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Machine-specific
+
+[ -f ~/.zshcustom ] && source ~/.zshcustom
+
