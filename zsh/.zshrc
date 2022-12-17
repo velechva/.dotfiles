@@ -1,5 +1,8 @@
 ## ZSH
 
+# VI mode
+bindkey -v
+
 # Oh my Zsh
 
 export ZSH="/Users/victorvelechosky/.oh-my-zsh"
