@@ -27,6 +27,11 @@ bindkey -v
 
 # General
 
+if command -v "htop" 1> /dev/null 2> /dev/null
+then
+	alias top="htop"
+fi
+
 if command -v "exa" 1> /dev/null 2> /dev/null
 then
 	alias ls="exa"
