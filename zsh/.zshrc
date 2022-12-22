@@ -27,6 +27,8 @@ bindkey -v
 
 # General
 
+alias cdp="cd -P"
+
 if command -v "htop" 1> /dev/null 2> /dev/null
 then
 	alias top="htop"
