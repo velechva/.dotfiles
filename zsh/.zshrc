@@ -1,3 +1,12 @@
+## System
+
+un=$(uname -s)
+
+if [[ "$un" == "Darwin" ]]
+then
+	defaults write com.apple.finder CreateDesktop false
+fi
+
 ## ZSH
 
 # Oh my Zsh
