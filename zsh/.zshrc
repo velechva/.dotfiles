@@ -36,13 +36,6 @@ bindkey -v
 
 # General
 
-alias cdp="cd -P"
-
-if command -v "htop" 1> /dev/null 2> /dev/null
-then
-	alias top="htop"
-fi
-
 if command -v "exa" 1> /dev/null 2> /dev/null
 then
 	alias ls="exa"
@@ -65,6 +58,8 @@ alias gs="git status"
 alias gb="git branch"
 alias gl="git log -n 5"
 alias greset="git reset --hard HEAD"
+
+git config --global core.excludesfile ~/.gitignore
 
 # Python
 
