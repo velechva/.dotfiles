@@ -7,18 +7,9 @@ then
 	defaults write com.apple.finder CreateDesktop false
 fi
 
-## ZSH
+# Spaceship Prompt
 
-# Oh my Zsh
-
-if [ -d "$HOME/.oh-my-zsh" ]
-then
-	export ZSH="$HOME/.oh-my-zsh"
-	ZSH_THEME="robbyrussell"
-	plugins=(zsh-autosuggestions)
-	# Preserve the order of this
-	source $ZSH/oh-my-zsh.sh
-fi
+source "$HOME/.zsh/spaceship/spaceship.zsh"
 
 # ZSH History
 
@@ -115,6 +106,8 @@ function devhints() {
 		open "https://devhints.io/$1"
 	fi
 }
+
+export LANG=C.UTF-8
 
 # Fzf
 
