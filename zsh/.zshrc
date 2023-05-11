@@ -1,15 +1,37 @@
-## System
+# System
 
 un=$(uname -s)
+
+# Mac OS
 
 if [[ "$un" == "Darwin" ]]
 then
 	defaults write com.apple.finder CreateDesktop false
 fi
 
-# Spaceship Prompt
+export LANG=C.UTF-8
 
-source "$HOME/.zsh/spaceship/spaceship.zsh"
+# Oh My ZSH
+
+if [ -d "$HOME/.oh-my-zsh" ]
+then
+       export ZSH="$HOME/.oh-my-zsh"
+       ZSH_THEME="spaceship"
+       plugins=(zsh-autosuggestions)
+       # Preserve the order of this
+       source $ZSH/oh-my-zsh.sh
+else
+	echo '
+ZSH installation not found. To install, run these commands:
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+rm ~/.zshrc
+mv ~/.zshrc* ~/.zshrc
+'
+fi
 
 # ZSH History
 
@@ -23,9 +45,7 @@ setopt HIST_SAVE_NO_DUPS
 # VI mode
 bindkey -v
 
-## Aliases
-
-# General
+# General Aliases
 
 if command -v "exa" 1> /dev/null 2> /dev/null
 then
@@ -106,8 +126,6 @@ function devhints() {
 		open "https://devhints.io/$1"
 	fi
 }
-
-export LANG=C.UTF-8
 
 # Fzf
 
