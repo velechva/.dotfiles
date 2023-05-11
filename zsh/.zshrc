@@ -33,6 +33,11 @@ mv ~/.zshrc* ~/.zshrc
 '
 fi
 
+# Spaceship Prompt
+
+export SPACESHIP_RUST_SHOW=false
+export SPACESHIP_PACKAGE_SHOW=false
+
 # ZSH History
 
 setopt HIST_EXPIRE_DUPS_FIRST
