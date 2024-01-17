@@ -108,7 +108,7 @@ function run() {
 
 		cp run.sh /tmp/.run.sh
 		echo "\n\$@" >> /tmp/.run.sh
-		sh /tmp/.run.sh $func
+		bash /tmp/.run.sh $func
 	else
 		echo "run.sh missing..."
 		exit 1
