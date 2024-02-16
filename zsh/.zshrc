@@ -115,6 +115,19 @@ function run() {
 	fi
 }
 
+backup() {
+    if [ $# -eq 0 ]; then
+        echo "Provide a filename"
+        return 1
+    fi
+
+    local src_file="$1"
+    local timestamp=$(date +"%Y-%m-%d_%T")
+    local dst_file="${src_file}.bak.$timestamp"
+
+    cp "$src_file" "$dst_file"
+}
+
 function killall() {
 	ps aux | grep -i "$1" | grep -v grep | awk '{ print $2; }' | xargs kill -9
 }
