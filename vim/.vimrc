@@ -4,4 +4,5 @@ set number
 set ignorecase
 set smartcase
 set incsearch
-set nobackup
+set noswapfile
+set tabstop=4
