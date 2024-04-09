@@ -150,6 +150,10 @@ function devhints() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Pythonrc
+
+[ -f $HOME/.pythonrc ] && export PYTHONSTARTUP="$HOME/.pythonrc"
+
 # Load machine-specific config
 
 [ -f ~/.zshcustom ] && source ~/.zshcustom
