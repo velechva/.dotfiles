@@ -56,9 +56,9 @@ bindkey -v
 if command -v "exa" 1> /dev/null 2> /dev/null
 then
 	alias ls="exa"
-	alias ll="exa -al"
+	alias ll="exa -l"
 else
-	alias ll="ls -Al"
+	alias ll="ls -l"
 fi
 
 alias mkdir="mkdir -pv"
