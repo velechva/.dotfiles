@@ -17,7 +17,7 @@ if [ -d "$HOME/.oh-my-zsh" ]
 then
        export ZSH="$HOME/.oh-my-zsh"
        ZSH_THEME="spaceship"
-       plugins=(zsh-autosuggestions)
+       plugins=(zsh-fzf-history-search)
        export DISABLE_AUTO_UPDATE=true
        # Preserve the order of this
        source $ZSH/oh-my-zsh.sh
