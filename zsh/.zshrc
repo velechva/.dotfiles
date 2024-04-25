@@ -81,18 +81,6 @@ alias greset="git reset --hard HEAD"
 
 git config --global core.excludesfile ~/.gitignore
 
-# Python
-
-if command -v "pip3" 1> /dev/null 2> /dev/null
-then
-	alias pip=pip3
-fi
-
-if command -v "python3" 1> /dev/null 2> /dev/null
-then
-	alias python=python3
-fi
-
 # Environment Variables
 
 export EDITOR=vim
@@ -156,3 +144,14 @@ function devhints() {
 # Load machine-specific config
 
 [ -f ~/.zshcustom ] && source ~/.zshcustom
+
+[ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"
+
+# Pyenv
+
+if command -v "pyenv" 1> /dev/null 2> /dev/null
+then
+		export PYENV_ROOT="$HOME/.pyenv" >> ~/.zshrc
+		[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH" >> ~/.zshrc
+		eval "$(pyenv init -)" >> ~/.zshrc
+fi
