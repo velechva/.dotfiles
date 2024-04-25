@@ -145,6 +145,8 @@ function devhints() {
 
 [ -f ~/.zshcustom ] && source ~/.zshcustom
 
+[ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"
+
 # Pyenv
 
 if command -v "pyenv" 1> /dev/null 2> /dev/null
