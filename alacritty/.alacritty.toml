@@ -1,0 +1,14 @@
+import = [
+	"~/.dotfiles/alacritty/themes/catppuccin-frappe.toml"
+]
+
+shell = "/bin/zsh"
+
+[font]
+
+normal = { family = "Jetbrains Mono" }
+size = 15
+
+[window]
+
+padding = { x = 10, y = 10 }
