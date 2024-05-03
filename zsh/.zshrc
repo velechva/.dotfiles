@@ -59,9 +59,9 @@ bindkey -v
 if command -v "exa" 1> /dev/null 2> /dev/null
 then
 	alias ls="exa"
-	alias ll="exa -l"
+	alias ll="exa -al"
 else
-	alias ll="ls -l"
+	alias ll="ls -al"
 fi
 
 alias mkdir="mkdir -pv"
@@ -119,8 +119,12 @@ backup() {
     cp "$src_file" "$dst_file"
 }
 
+function pgrep() {
+	ps aux | grep -i "$1" | grep -v grep | grep -v defunct | awk '{ print $2; }'
+}
+
 function killall() {
-	ps aux | grep -i "$1" | grep -v grep | awk '{ print $2; }' | xargs kill -9
+	ps aux | grep -i "$1" | grep -v grep | grep -v defunct | awk '{ print $2; }' | xargs kill -9
 }
 
 function devhints() {
@@ -141,17 +145,11 @@ function devhints() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Python
+
+[ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"
+
 # Load machine-specific config
 
 [ -f ~/.zshcustom ] && source ~/.zshcustom
 
-[ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"
-
-# Pyenv
-
-if command -v "pyenv" 1> /dev/null 2> /dev/null
-then
-		export PYENV_ROOT="$HOME/.pyenv" >> ~/.zshrc
-		[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH" >> ~/.zshrc
-		eval "$(pyenv init -)" >> ~/.zshrc
-fi

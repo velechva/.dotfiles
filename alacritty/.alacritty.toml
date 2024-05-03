@@ -1,0 +1,12 @@
+import = [
+	"~/.dotfiles/alacritty/themes/catppuccin-frappe.toml"
+]
+
+[font]
+
+normal = { family = "Jetbrains Mono" }
+size = 15
+
+[window]
+
+padding = { x = 10, y = 10 }
