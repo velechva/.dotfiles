@@ -2,6 +2,8 @@ import = [
 	"~/.dotfiles/alacritty/themes/catppuccin-frappe.toml"
 ]
 
+# shell = "/usr/local/bin/fish"
+
 [font]
 
 normal = { family = "Jetbrains Mono" }
