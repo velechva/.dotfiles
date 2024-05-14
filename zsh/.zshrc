@@ -6,7 +6,7 @@ un=$(uname -s)
 
 if [[ "$un" == "Darwin" ]]
 then
-	defaults write com.apple.finder CreateDesktop false
+	# defaults write com.apple.finder CreateDesktop false
 fi
 
 export LANG=C.UTF-8
@@ -17,10 +17,10 @@ if [ -d "$HOME/.oh-my-zsh" ]
 then
        export ZSH="$HOME/.oh-my-zsh"
        ZSH_THEME="spaceship"
-       plugins=(zsh-fzf-history-search)
+       # plugins=(zsh-fzf-history-search)
        export DISABLE_AUTO_UPDATE=true
        # Preserve the order of this
-       source $ZSH/oh-my-zsh.sh
+       # source $ZSH/oh-my-zsh.sh
 else
 	echo '
 ZSH installation not found. To install, run these commands:
@@ -143,13 +143,13 @@ function devhints() {
 
 # Fzf
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Python
 
-[ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"
+# [ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # Load machine-specific config
 
-[ -f ~/.zshcustom ] && source ~/.zshcustom
+# [ -f ~/.zshcustom ] && source ~/.zshcustom
 
