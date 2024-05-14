@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # System
 
 un=$(uname -s)
@@ -6,7 +13,7 @@ un=$(uname -s)
 
 if [[ "$un" == "Darwin" ]]
 then
-	# defaults write com.apple.finder CreateDesktop false
+	defaults write com.apple.finder CreateDesktop false
 fi
 
 export LANG=C.UTF-8
@@ -16,18 +23,21 @@ export LANG=C.UTF-8
 if [ -d "$HOME/.oh-my-zsh" ]
 then
        export ZSH="$HOME/.oh-my-zsh"
-       ZSH_THEME="spaceship"
-       # plugins=(zsh-fzf-history-search)
-       export DISABLE_AUTO_UPDATE=true
-       # Preserve the order of this
-       # source $ZSH/oh-my-zsh.sh
+       plugins=(zsh-fzf-history-search)
+	   # Preserve the order of this
+       source $ZSH/oh-my-zsh.sh
+	   source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+		# Powerline10k
+		[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 else
 	echo '
 ZSH installation not found. To install, run these commands:
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+# git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 rm ~/.zshrc
@@ -39,8 +49,8 @@ fi
 
 # Spaceship Prompt
 
-export SPACESHIP_RUST_SHOW=false
-export SPACESHIP_PACKAGE_SHOW=false
+# export SPACESHIP_RUST_SHOW=false
+# export SPACESHIP_PACKAGE_SHOW=false
 
 # ZSH History
 
@@ -143,13 +153,13 @@ function devhints() {
 
 # Fzf
 
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Python
 
-# [ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"
+[ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # Load machine-specific config
 
-# [ -f ~/.zshcustom ] && source ~/.zshcustom
+[ -f ~/.zshcustom ] && source ~/.zshcustom
 
