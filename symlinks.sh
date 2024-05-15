@@ -19,3 +19,5 @@ ln -s "$(pwd)/alacritty/.alacritty.toml" ~/.alacritty.toml
 rm ~/.config/fish/config.fish 2> /dev/null
 ln -s "$(pwd)/fish/config.fish" ~/.config/fish/config.fish
 
+rm ~/.config/nvim 2> /dev/null
+ln -s "$(pwd)/nvim" ~/.config/nvim
