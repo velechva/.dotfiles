@@ -11,15 +11,40 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 		"clone",
 		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
+		"--branch=stable", -- latest stable release
 		lazypath,
 	})
 end
 
 vim.opt.rtp:prepend(lazypath)
-require("vimopts")
 
-plugins = require("plugins")
+-- plugins
+
+plugins = {
+	"preservim/nerdtree",
+	"ryanoasis/vim-devicons",
+	"neovim/nvim-lspconfig",
+	"nvim-telescope/telescope.nvim",
+	"nvim-tree/nvim-web-devicons",
+	'neovim/nvim-lspconfig',
+	'hrsh7th/cmp-nvim-lsp',
+	'hrsh7th/cmp-buffer',
+	'hrsh7th/cmp-path',
+	'hrsh7th/cmp-cmdline',
+	'hrsh7th/nvim-cmp',
+	"vim-sleuth",
+	{
+		'nvim-telescope/telescope.nvim', tag = '0.1.6',
+		 dependencies = { 'nvim-lua/plenary.nvim' }
+	},
+	{
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("fzf-lua").setup({})
+		end
+	}
+}
 
 require("lazy").setup(plugins, opts)
 
@@ -59,8 +84,8 @@ cmp.setup({
 
 sources = cmp.config.sources({
 	{ name = 'nvim_lsp' },
-	{ name = 'vsnip' },
-	{ name = 'buffer' }
+	{ name = 'vsnip' }
+	{ name = 'buffer' },
 })
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
