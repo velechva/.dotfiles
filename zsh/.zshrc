@@ -30,6 +30,7 @@ then
 
 		# Powerline10k
 		[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+	    typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 else
 	echo '
 ZSH installation not found. To install, run these commands:
