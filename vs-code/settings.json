@@ -1,24 +1,75 @@
 {
-    // General
     "security.workspace.trust.enabled": false,
 
-    // Appearance
-    "workbench.colorTheme": "Catppuccin Frappé",
+    "extensions.ignoreRecommendations": true,
 
-    // Editor
     "editor.fontFamily": "JetBrains Mono",
     "editor.fontSize": 15,
     "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.minimap.enabled": false,
+    "editor.autoClosingBrackets": "never",
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.rulers": [ 120 ],
 
-    // Integrated terminal
+    "window.autoDetectColorScheme": true,
+
+    "workbench.startupEditor": "none",
+    "workbench.preferredLightColorTheme": "Atom One Light",
+    "workbench.preferredDarkColorTheme": "Catppuccin Frappé",
+    "workbench.editorLargeFileConfirmation": 20,
+    "workbench.colorTheme": "Atom One Light",
+    "workbench.activityBar.location": "hidden",
+    "workbench.sideBar.location": "right",
+
     "terminal.integrated.fontFamily": "JetBrains Mono",
     "terminal.integrated.fontSize": 15,
-    "workbench.startupEditor": "none",
 
-    // Extensions
-    "extensions.ignoreRecommendations": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.associations": {
+        "*.in": "toml"
+    },
+
+    "git.openRepositoryInParentFolders": "never",
 
     // Vim
-    "vim.useSystemClipboard": true
+    "vim.useSystemClipboard": true,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+
+    // Ruby
+    "rubyLsp.rubyVersionManager": "rvm",
+    "rubyLsp.enabledFeatures": {
+        "codeActions": true,
+        "diagnostics": true,
+        "documentHighlights": true,
+        "documentLink": true,
+        "documentSymbols": true,
+        "foldingRanges": true,
+        "formatting": true,
+        "hover": true,
+        "inlayHint": true,
+        "onTypeFormatting": true,
+        "selectionRanges": true,
+        "semanticHighlighting": true,
+        "completion": true,
+        "codeLens": true
+    },
+    "[ruby]": {
+        "editor.defaultFormatter": "Shopify.ruby-lsp",
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.semanticHighlighting.enabled": true
+    },
+
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+
+    "rust-analyzer.server.extraEnv": {
+        "RA_LOG": "warn"
+    },
 }
