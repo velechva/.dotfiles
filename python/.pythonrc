@@ -14,7 +14,7 @@ def ex(cmd):
 	ret = child.returncode
 
 	if ret != 0:
-		raise Exception(stderr)
+		raise Exception("Command failed: %s\n\n%s%s" % (cmd, stderr, stdout))
 	
 	return stdout
 
