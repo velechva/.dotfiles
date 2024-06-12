@@ -161,6 +161,11 @@ function devhints() {
 
 [ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"
 
+if [ -d "$HOME/python-scripts" ]
+then
+	export PYTHONPATH="$HOME/python-scripts:$PYTHONPATH"
+fi
+
 # Load machine-specific config
 
 [ -f ~/.zshcustom ] && source ~/.zshcustom
