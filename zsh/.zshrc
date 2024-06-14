@@ -26,11 +26,12 @@ then
        plugins=(zsh-fzf-history-search)
 	   # Preserve the order of this
        source $ZSH/oh-my-zsh.sh
-	   source ~/powerlevel10k/powerlevel10k.zsh-theme
+	   # source ~/powerlevel10k/powerlevel10k.zsh-theme
+	   export ZSH_THEME="spaceship"
 
 		# Powerline10k
-		[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-	    typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+		# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+	    # typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 else
 	echo '
 ZSH installation not found. To install, run these commands:
