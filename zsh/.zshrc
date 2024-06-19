@@ -1,11 +1,10 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+## Powerlevel10k instant prompt
 
-# System
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+
+## System
 
 un=$(uname -s)
 
@@ -18,19 +17,19 @@ fi
 
 export LANG=C.UTF-8
 
-# Oh My ZSH
+## Oh My ZSH
 
 if [ -d "$HOME/.oh-my-zsh" ]
 then
        export ZSH="$HOME/.oh-my-zsh"
+	   export ZSH_THEME="spaceship"
        plugins=(zsh-fzf-history-search)
-	   # Preserve the order of this
        source $ZSH/oh-my-zsh.sh
-	   source ~/powerlevel10k/powerlevel10k.zsh-theme
 
-		# Powerline10k
-		[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-	    typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+		## Powerline10k
+	    # source ~/powerlevel10k/powerlevel10k.zsh-theme
+		# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+	    # typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 else
 	echo '
 ZSH installation not found. To install, run these commands:
@@ -49,12 +48,12 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 '
 fi
 
-# Spaceship Prompt
+## Spaceship Prompt
 
 # export SPACESHIP_RUST_SHOW=false
 # export SPACESHIP_PACKAGE_SHOW=false
 
-# ZSH History
+## ZSH History
 
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
@@ -63,10 +62,10 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 
-# VI mode
+## VI mode
 bindkey -v
 
-# General Aliases
+## General Aliases
 
 if command -v "exa" 1> /dev/null 2> /dev/null
 then
@@ -83,7 +82,7 @@ alias info="info --vi-keys"
 alias e.="open ."
 alias ..="cd .."
 
-# Git
+## Git
 
 alias g="git"
 alias gs="git status"
@@ -93,11 +92,11 @@ alias greset="git reset --hard HEAD"
 
 git config --global core.excludesfile ~/.gitignore
 
-# Environment Variables
+## Environment Variables
 
 export EDITOR=vim
 
-# Functions
+## Functions
 
 function run() {
 	if [[ -f "./run.sh" ]]
@@ -153,15 +152,15 @@ function devhints() {
 	fi
 }
 
-# Fzf
+## Fzf
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Python
+## Python
 
 [ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"
 
-# Load machine-specific config
+## Machine-specific config
 
 [ -f ~/.zshcustom ] && source ~/.zshcustom
 
