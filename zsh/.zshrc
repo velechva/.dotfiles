@@ -1,4 +1,4 @@
-## Powerlevel10k instant prompt
+# Powerlevel10k
 
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 #  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -50,13 +50,17 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 '
 fi
 
-## Spaceship Prompt
+# Spaceship Prompt
 
 # export SPACESHIP_RUST_SHOW=false
 # export SPACESHIP_PACKAGE_SHOW=false
 
-## ZSH History
+## ZSH ##
 
+# VI mode
+bindkey -v
+
+# ZSH History
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
@@ -64,10 +68,7 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 
-## VI mode
-bindkey -v
-
-## General Aliases
+## Aliases ##
 
 if command -v "exa" 1> /dev/null 2> /dev/null
 then
@@ -84,7 +85,7 @@ alias info="info --vi-keys"
 alias e.="open ."
 alias ..="cd .."
 
-## Git
+## Git ##
 
 alias g="git"
 alias gs="git status"
@@ -94,11 +95,11 @@ alias greset="git reset --hard HEAD"
 
 git config --global core.excludesfile ~/.gitignore
 
-## Environment Variables
+## Environment ##
 
 export EDITOR=vim
 
-## Functions
+## Functions ##
 
 function run() {
 	if [[ -f "./run.sh" ]]
@@ -133,11 +134,11 @@ backup() {
 }
 
 function pgrep() {
-	ps aux | grep -i "$1" | grep -v grep | grep -v defunct | awk '{ print $2; }'
+	ps aux | grep "$@" | grep -v grep | grep -v defunct | awk '{ print $2; }'
 }
 
 function killall() {
-	ps aux | grep -i "$1" | grep -v grep | grep -v defunct | awk '{ print $2; }' | xargs kill -9
+	ps aux | grep "$@" | grep -v grep | grep -v defunct | awk '{ print $2; }' | xargs kill -9
 }
 
 function devhints() {
@@ -154,20 +155,19 @@ function devhints() {
 	fi
 }
 
-## Fzf
+## Fzf ##
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-## Python
+## Python ##
 
 [ -f "$HOME/.pythonrc" ] && export PYTHONSTARTUP="$HOME/.pythonrc"
-
-## Machine-specific config
 
 if [ -d "$HOME/python-scripts" ]
 then
 	export PYTHONPATH="$HOME/python-scripts:$PYTHONPATH"
 fi
 
+# Machine-specific config
 [ -f ~/.zshcustom ] && source ~/.zshcustom
 
