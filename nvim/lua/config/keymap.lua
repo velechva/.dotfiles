@@ -7,5 +7,6 @@ vim.keymap.set("n", "<Space>fd", "<cmd>Telescope lsp_definitions<CR>")
 vim.keymap.set("n", "<Space>gs", "<cmd>Telescope git_status<CR>")
 vim.keymap.set("n", "<Space>gb", "<cmd>Telescope git_branches<CR>")
 vim.keymap.set("n", "<Space>gc", "<cmd>Telescope git_commits<CR>")
+vim.keymap.set("n", "<Space>b", "<cmd>Telescope buffers<CR>")
 vim.keymap.set("n", "<Space>n", "<cmd>NERDTree<CR>")
 

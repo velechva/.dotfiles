@@ -13,17 +13,17 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ["<C-b>"]       = cmp.mapping.scroll_docs(-4),
         ["<C-f>"]       = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"]   = cmp.mapping.complete(),
+        ["<C-Space>"]       = cmp.mapping.complete(),
         ["<C-e>"]       = cmp.mapping.abort(),
         ["<CR>"]        = cmp.mapping.confirm({ select = true })
+    }),
+    sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "vsnip"    },
+        { name = "buffer"   }
     })
 })
 
-sources = cmp.config.sources({
-    { name = "nvim_lsp" },
-    { name = "vsnip"    },
-    { name = "buffer"   }
-})
 
 -- Use buffer source for `/` and `?`
 -- (if you enabled `native_menu`, this won"t work anymore)
@@ -47,3 +47,12 @@ cmp.setup.cmdline(":", {
     matching = { disallow_symbol_nonprefix_matching = false }
 })
 
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+require('lspconfig')['rust-analyzer'].setup {
+    capabilities = capabilities
+}
+
+require('lspconfig')['pyright'].setup {
+    capabilities = capabilities
+}
