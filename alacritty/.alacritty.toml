@@ -1,5 +1,5 @@
 import = [
-	"~/.dotfiles/alacritty/themes/catppuccin-frappe.toml"
+	"~/.dotfiles/alacritty/themes/catppuccin-mocha.toml"
 ]
 
 # shell = "/usr/local/bin/fish"
