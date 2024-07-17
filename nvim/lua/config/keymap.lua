@@ -1,6 +1,6 @@
 vim.keymap.set("n", "<Space>ff", "<cmd>lua require('fzf-lua').files()<CR>")
 vim.keymap.set("n", "<Space>fs", "<cmd>write<CR>")
-vim.keymap.set("n", "<Space>fx", "<cmd>exit<CR>")
+vim.keymap.set("n", "<Space>fq", "<cmd>exit<CR>")
 vim.keymap.set("n", "<Space>rg", "<cmd>Telescope live_grep<CR>")
 vim.keymap.set("n", "<Space>fr", "<cmd>Telescope lsp_references<CR>")
 vim.keymap.set("n", "<Space>fd", "<cmd>Telescope lsp_definitions<CR>")
