@@ -2,7 +2,8 @@ import = [
 	"~/.dotfiles/alacritty/themes/catppuccin-mocha.toml"
 ]
 
-# shell = "/usr/local/bin/fish"
+[shell]
+program = "/opt/homebrew/bin/tmux"
 
 [font]
 
