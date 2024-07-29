@@ -1,5 +1,5 @@
 if status is-interactive
-		set un $(uname -s)
+		set un (uname -s)
 
 		if [ "$un" = "Darwin" ]
 			defaults write com.apple.finder CreateDesktop false
@@ -33,8 +33,8 @@ if status is-interactive
 			export PYTHONSTARTUP="$HOME/.pythonrc"
 		end
 
-		if test -f ~/.config/fish/custom.fish
-			source ~/.config/fish/custom.fish
+		if test -f "$HOME/.config/fish/custom.fish"
+			source "$HOME/.config/fish/custom.fish"
 		end
 end
 
