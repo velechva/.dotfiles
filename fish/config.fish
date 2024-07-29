@@ -1,6 +1,6 @@
-if status is-interactive
-		set un $(uname -s)
+set un (uname -s)
 
+if status is-interactive
 		if [ "$un" = "Darwin" ]
 			defaults write com.apple.finder CreateDesktop false
 		end
@@ -19,7 +19,7 @@ if status is-interactive
 
 		git config --global core.excludesfile ~/.gitignore
 
-		export EDITOR "vim"
+		export EDITOR "nvim"
 
 		function killall
 			ps aux | grep -i "$1" | grep -v grep | grep -v defunct | awk '{ print $2; }' | xargs kill -9
@@ -32,9 +32,13 @@ if status is-interactive
 		if test -f "$HOME/.pythonrc"
 			export PYTHONSTARTUP="$HOME/.pythonrc"
 		end
+end
 
-		if test -f ~/.config/fish/custom.fish
-			source ~/.config/fish/custom.fish
-		end
+if [ "$un" = "Darwin" ]
+		fish_add_path -P /opt/homebrew/bin
+end
+
+if test -f "$HOME/.config/fish/custom.fish"
+	source "$HOME/.config/fish/custom.fish"
 end
 
