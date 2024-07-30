@@ -1,11 +1,3 @@
-# Powerlevel10k
-
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
-## System
-
 un=$(uname -s)
 
 # Mac OS
@@ -15,8 +7,10 @@ then
 	defaults write com.apple.finder CreateDesktop false
 fi
 
+export LANGUAGE=C.UTF-8
+export LC_CTYPE=C.UTF-8
+export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
-export LC_CTYPE=en_US.UTF-8
 export TMUX=hello
 
 ## Oh My ZSH
