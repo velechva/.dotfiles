@@ -11,7 +11,7 @@ export LANGUAGE=C.UTF-8
 export LC_CTYPE=C.UTF-8
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
-export TMUX=hello
+export TMUX=tmux
 
 ## Oh My ZSH
 
