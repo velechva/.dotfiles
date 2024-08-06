@@ -1,28 +1,19 @@
 {
+    // GENERAL //
+
+    // Spammy bullshit
+    "extensions.ignoreRecommendations": true,
     "security.workspace.trust.enabled": false,
 
-    "extensions.ignoreRecommendations": true,
+    // EDITOR //
 
     "editor.fontFamily": "JetBrains Mono",
     "editor.fontSize": 15,
     "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.minimap.enabled": false,
     "editor.autoClosingBrackets": "never",
-    "editor.multiCursorModifier": "ctrlCmd",
     "editor.rulers": [ 120 ],
-
-    "window.autoDetectColorScheme": true,
-
-    "workbench.startupEditor": "none",
-    "workbench.preferredLightColorTheme": "Atom One Light",
-    "workbench.preferredDarkColorTheme": "Catppuccin Frappé",
-    "workbench.editorLargeFileConfirmation": 20,
-    "workbench.colorTheme": "Atom One Light",
-    "workbench.activityBar.location": "hidden",
-    "workbench.sideBar.location": "right",
-
-    "terminal.integrated.fontFamily": "JetBrains Mono",
-    "terminal.integrated.fontSize": 15,
+    "editor.wordWrap": "off",
 
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
@@ -30,15 +21,46 @@
         "*.in": "toml"
     },
 
+    // WORKBENCH //
+
+    "workbench.startupEditor": "none",
+    "workbench.editorLargeFileConfirmation": 20,
+    "workbench.sideBar.location": "right",
+
+    // THEME //
+
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredLightColorTheme": "Atom One Light",
+    "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+
+    // TERMINAL //
+
+    "terminal.integrated.fontFamily": "JetBrains Mono",
+    "terminal.integrated.fontSize": 15,
+
+    // RUST //
+
+    "rust-analyzer.trace.server": "verbose",
+    "rust-analyzer.server.extraEnv": {
+        "RA_LOG": "warn"
+    },
+
+    // GIT //
+
     "git.openRepositoryInParentFolders": "never",
 
-    // Vim
+    // VIM //
+
     "vim.useSystemClipboard": true,
+
+    // PYTHON //
+
     "[python]": {
         "editor.formatOnType": true
     },
 
-    // Ruby
+    // RUBY //
+
     "rubyLsp.rubyVersionManager": "rvm",
     "rubyLsp.enabledFeatures": {
         "codeActions": true,
@@ -56,6 +78,7 @@
         "completion": true,
         "codeLens": true
     },
+
     "[ruby]": {
         "editor.defaultFormatter": "Shopify.ruby-lsp",
         "editor.formatOnSave": true,
@@ -65,11 +88,9 @@
         "editor.semanticHighlighting.enabled": true
     },
 
+    // JAVASCRIPT //
+
     "[javascript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
-    },
-
-    "rust-analyzer.server.extraEnv": {
-        "RA_LOG": "warn"
-    },
+    }
 }
