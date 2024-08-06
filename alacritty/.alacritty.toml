@@ -3,7 +3,7 @@ import = [
 ]
 
 [shell]
-program = "/opt/homebrew/bin/tmux"
+program = "zsh"
 
 [font]
 
