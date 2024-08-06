@@ -15,6 +15,8 @@ export TMUX=hello
 
 ## Oh My ZSH
 
+export DISABLE_UPDATE_PROMPT=true
+
 if [ -d "$HOME/.oh-my-zsh" ]
 then
        export ZSH="$HOME/.oh-my-zsh"
