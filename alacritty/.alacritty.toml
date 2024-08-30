@@ -1,13 +1,13 @@
 import = [
-	"~/.dotfiles/alacritty/themes/catppuccin-mocha.toml"
+	"~/.dotfiles/alacritty/themes/dracula.toml"
 ]
 
 [shell]
-program = "zsh"
+program = "/bin/zsh"
 
 [font]
 
-normal = { family = "Jetbrains Mono" }
+normal = { family = "JetbrainsMono Nerd Font" }
 size = 15
 
 [window]

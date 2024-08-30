@@ -7,10 +7,8 @@ then
 	defaults write com.apple.finder CreateDesktop false
 fi
 
-export LANGUAGE=C.UTF-8
-export LC_CTYPE=C.UTF-8
-export LC_ALL=C.UTF-8
-export LANG=C.UTF-8
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 export TMUX=tmux
 
 ## Oh My ZSH
