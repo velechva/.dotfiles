@@ -1,9 +1,9 @@
 import = [
-	"~/.dotfiles/alacritty/themes/catppuccin-mocha.toml"
+	"~/.dotfiles/alacritty/themes/dracula.toml"
 ]
 
 [shell]
-program = "zsh"
+program = "/bin/zsh"
 
 [font]
 
