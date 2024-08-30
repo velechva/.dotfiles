@@ -8,4 +8,5 @@ lspconfig.rust_analyzer.setup {
 }
 
 lspconfig.pyright.setup {}
+lspconfig.clangd.setup  {}
 

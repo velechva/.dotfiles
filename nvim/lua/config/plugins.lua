@@ -15,6 +15,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 plugins = {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
     "preservim/nerdtree",
     "ryanoasis/vim-devicons",
     "neovim/nvim-lspconfig",
@@ -28,6 +30,7 @@ plugins = {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "tpope/vim-sleuth",
+    "Mofiqul/dracula.nvim",
     { 
         "catppuccin/nvim", 
         name = "catppuccin", 
@@ -48,3 +51,7 @@ plugins = {
 
 require("lazy").setup(plugins, opts)
 
+require("mason").setup()
+require("mason-lspconfig").setup {
+    ensure_installed = { "rust_analyzer", "clangd", "pyright" }
+}
