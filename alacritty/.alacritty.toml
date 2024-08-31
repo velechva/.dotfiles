@@ -2,8 +2,7 @@ import = [
 	"~/.dotfiles/alacritty/themes/dracula.toml"
 ]
 
-[shell]
-program = "/bin/zsh"
+shell = "/bin/zsh"
 
 [font]
 
