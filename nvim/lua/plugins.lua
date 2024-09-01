@@ -47,6 +47,28 @@ plugins = {
         config = function()
                 require("fzf-lua").setup({})
         end
+    },
+    {
+      "folke/which-key.nvim",
+      event = "VeryLazy",
+      opts = {
+        spec = {
+            { "<leader>f", group = "+File" },
+            { "<leader>s", group = "+Search" },
+            { "<leader>g", group = "+Git" },
+            { "<leader>w", group = "+Window" },
+            { "<leader>l", group = "+Lsp" },
+        },
+      },
+      keys = {
+        {
+          "<leader>?",
+          function()
+            require("which-key").show()
+          end,
+          desc = "Buffer Local Keymaps (which-key)",
+        },
+      },
     }
 }
 
@@ -56,3 +78,4 @@ require("mason").setup()
 require("mason-lspconfig").setup {
     ensure_installed = { "rust_analyzer", "clangd", "pyright" }
 }
+

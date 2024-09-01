@@ -1,6 +1,6 @@
-require("config.plugins")
-require("config.keymap")
-require("config.completions")
-require("config.lsp")
-require("config.vimopts")
-
+require("vimopts")
+require("plugins")
+require("keymap")
+require("completions")
+require("lsp")
+require("post")
