@@ -72,6 +72,11 @@ else
 	alias ll="ls -al"
 fi
 
+if command -v "lazygit" 1> /dev/null 2> /dev/null
+then
+	alias lg="lazygit"
+fi
+
 alias mkdir="mkdir -pv"
 
 alias info="info --vi-keys"
