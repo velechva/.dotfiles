@@ -23,6 +23,8 @@ plugins = {
     "nvim-telescope/telescope.nvim",
     "nvim-tree/nvim-web-devicons",
     "neovim/nvim-lspconfig",
+    "nvim-lualine/lualine.nvim",
+    'numToStr/Comment.nvim',
     "hrsh7th/vim-vsnip",
     "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-nvim-lsp",
@@ -32,6 +34,7 @@ plugins = {
     "tpope/vim-sleuth",
     "Mofiqul/dracula.nvim",
     "sindrets/diffview.nvim",
+    "rmagatti/auto-session",
     { 
         "catppuccin/nvim", 
         name = "catppuccin", 
