@@ -66,6 +66,8 @@ plugins = {
         spec = {
             { "<leader>f", group = "+File" },
             { "<leader>s", group = "+Search" },
+            { "<leader>sh", group = "+Search history" },
+            { "<leader>u", group = "+Configure" },
             { "<leader>g", group = "+Git" },
             { "<leader>w", group = "+Window" },
             { "<leader>l", group = "+Lsp" },
@@ -89,4 +91,6 @@ require("mason").setup()
 require("mason-lspconfig").setup {
     ensure_installed = { "rust_analyzer", "clangd", "pyright" }
 }
+
+require('lualine').setup()
 

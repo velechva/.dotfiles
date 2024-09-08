@@ -3,13 +3,19 @@ vim.keymap.set("n", "<leader>fs", "<cmd>write<CR>", { desc = "Save" })
 vim.keymap.set("n", "<leader>fq", "<cmd>exit<CR>", { desc = "Quit" })
 
 -- Window
-vim.keymap.set("n", "<leader>w\\", "<cmd>vsplit<CR>", { desc = "Split vertically" })
-vim.keymap.set("n", "<leader>w-", "<cmd>split<CR>", { desc = "Split horizontally" })
+vim.keymap.set("n", "<C-w>-", "<cmd>split<CR>", { desc = "Split vertically" })
+vim.keymap.set("n", "<C-w>\\", "<cmd>vsplit<CR>", { desc = "Split vertically" })
+vim.keymap.set("n", "<C-w>x", "<cmd>quit<CR>", { desc = "Quit" })
 
 -- Search
 vim.keymap.set("n", "<leader>sf", "<cmd>lua require('fzf-lua').files()<CR>", { desc = "Files" })
 vim.keymap.set("n", "<leader>ss", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { desc = "Grep" })
+vim.keymap.set("n", "<leader>sm", "<cmd>Telescope marks<CR>", { desc = "Grep" })
 vim.keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>", { desc = "List buffers" })
+vim.keymap.set("n", "<leader>so", "<cmd>Telescope oldfiles<CR>", { desc = "Old files" })
+vim.keymap.set("n", "<leader>shc", "<cmd>Telescope command_history<CR>", { desc = "Command history" })
+vim.keymap.set("n", "<leader>shs", "<cmd>Telescope search_history<CR>", { desc = "Search history" })
+vim.keymap.set("n", "<leader>ut", "<cmd>Telescope colorscheme<CR>", { desc = "Theme" })
 
 -- Git
 vim.keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Git status" })
