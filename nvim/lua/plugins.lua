@@ -35,6 +35,7 @@ plugins = {
     "Mofiqul/dracula.nvim",
     "sindrets/diffview.nvim",
     "rmagatti/auto-session",
+    "ahmedkhalf/project.nvim",
     { 
         "catppuccin/nvim", 
         name = "catppuccin", 
@@ -50,6 +51,7 @@ plugins = {
         config = function ()
             local telescope = require("telescope")
             telescope.load_extension("live_grep_args")
+            telescope.load_extension("projects")
         end
     },
     {
@@ -94,3 +96,4 @@ require("mason-lspconfig").setup {
 
 require('lualine').setup()
 
+require("project_nvim").setup()

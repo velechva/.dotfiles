@@ -10,6 +10,7 @@ vim.keymap.set("n", "<C-w>x", "<cmd>quit<CR>", { desc = "Quit" })
 -- Search
 vim.keymap.set("n", "<leader>sf", "<cmd>lua require('fzf-lua').files()<CR>", { desc = "Files" })
 vim.keymap.set("n", "<leader>ss", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { desc = "Grep" })
+vim.keymap.set("n", "<leader>sp", ":lua require('telescope').extensions.projects.projects{}<CR>", { desc = "Projects" })
 vim.keymap.set("n", "<leader>sm", "<cmd>Telescope marks<CR>", { desc = "Grep" })
 vim.keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>", { desc = "List buffers" })
 vim.keymap.set("n", "<leader>so", "<cmd>Telescope oldfiles<CR>", { desc = "Old files" })
