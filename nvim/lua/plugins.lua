@@ -22,7 +22,6 @@ plugins = {
     "neovim/nvim-lspconfig",
     "nvim-telescope/telescope.nvim",
     "nvim-tree/nvim-web-devicons",
-    "neovim/nvim-lspconfig",
     'numToStr/Comment.nvim',
     "hrsh7th/vim-vsnip",
     "hrsh7th/nvim-cmp",
@@ -85,6 +84,26 @@ plugins = {
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
+    },
+    {
+        "f-person/git-blame.nvim",
+        event = "VeryLazy",
+        opts = {
+            enabled = true,
+            message_template = " <summary> • <date> • <author> • <<sha>>",
+            date_format = "%m-%d-%Y %H:%M:%S",
+            virtual_text_column = 1,
+        },
+    },
+    {
+        'nvimdev/lspsaga.nvim',
+        config = function()
+            require('lspsaga').setup({})
+        end,
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter', -- optional
+            'nvim-tree/nvim-web-devicons',     -- optional
+        }
     }
 }
 
@@ -98,3 +117,4 @@ require("mason-lspconfig").setup {
 }
 
 require'lspconfig'.biome.setup{}
+
