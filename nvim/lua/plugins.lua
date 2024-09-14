@@ -90,11 +90,11 @@ plugins = {
 
 require("lazy").setup(plugins, opts)
 
+require('lualine').setup()
+
 require("mason").setup()
 require("mason-lspconfig").setup {
     ensure_installed = { "rust_analyzer", "clangd", "pyright", "biome" }
 }
-
-require('lualine').setup()
 
 require'lspconfig'.biome.setup{}
