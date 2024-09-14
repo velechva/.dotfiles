@@ -23,7 +23,6 @@ plugins = {
     "nvim-telescope/telescope.nvim",
     "nvim-tree/nvim-web-devicons",
     "neovim/nvim-lspconfig",
-    "nvim-lualine/lualine.nvim",
     'numToStr/Comment.nvim',
     "hrsh7th/vim-vsnip",
     "hrsh7th/nvim-cmp",
@@ -82,6 +81,10 @@ plugins = {
           desc = "Buffer Local Keymaps (which-key)",
         },
       },
+    },
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' }
     }
 }
 
@@ -89,6 +92,9 @@ require("lazy").setup(plugins, opts)
 
 require("mason").setup()
 require("mason-lspconfig").setup {
-    ensure_installed = { "rust_analyzer", "clangd", "pyright" }
+    ensure_installed = { "rust_analyzer", "clangd", "pyright", "biome" }
 }
 
+require('lualine').setup()
+
+require'lspconfig'.biome.setup{}
