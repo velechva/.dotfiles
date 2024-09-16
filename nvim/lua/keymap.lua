@@ -21,8 +21,9 @@ vim.keymap.set("n", "<leader>ut", "<cmd>Telescope colorscheme<CR>", { desc = "Th
 vim.keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Git status" })
 vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "Git branches" })
 vim.keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Git commits" })
+vim.keymap.set("n", "<leader>gl", "<cmd>GitBlameToggle<CR>", { desc = "Toggle git blame" })
 
-vim.keymap.set("n", "<leader>n", "<cmd>NERDTree<CR>", { desc = "File tree" })
+vim.keymap.set("n", "<leader>n", "<cmd>NERDTreeToggle<CR>", { desc = "File tree" })
 
 -- Lsp
 vim.keymap.set("n", "<leader>lr", "<cmd>Telescope lsp_references<CR>", { desc = "Find References" })

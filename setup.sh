@@ -76,3 +76,12 @@ then
     fi
 fi
 
+read -p "Install neovim?" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    wget https://nodejs.org/dist/v20.17.0/node-v20.17.0-darwin-x64.tar.gz
+    tar -xzf node-v20.17.0-darwin-x64.tar.gz
+    mv node-v20.17.0-darwin-x64.tar.gz /opt
+    echo "export PATH=\"$PATH:/opt/node-v20.17.0-darwin-x64.tar.gz/bin\"" >> ~/.zshcustom
+fi

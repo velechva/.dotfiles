@@ -7,7 +7,10 @@ lspconfig.rust_analyzer.setup {
 	capabilities = capabilities
 }
 
-lspconfig.pyright.setup {}
+lspconfig.pyright.setup {
+	capabilities = capabilities
+}
+
 lspconfig.clangd.setup  {
 	default_config = {
 		root_dir = [[
