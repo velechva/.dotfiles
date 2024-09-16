@@ -6,3 +6,4 @@ vim.opt.smartcase = true
 
 vim.g.mapleader = " "
 
+vim.g.gitblame_enabled = 0
