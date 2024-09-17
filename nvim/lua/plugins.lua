@@ -31,8 +31,8 @@ plugins = {
     "hrsh7th/cmp-cmdline",
     "tpope/vim-sleuth",
     "Mofiqul/dracula.nvim",
-    "sindrets/diffview.nvim",
     "rmagatti/auto-session",
+    "sindrets/diffview.nvim",
     { 
         "catppuccin/nvim", 
         name = "catppuccin", 
@@ -98,7 +98,11 @@ plugins = {
     {
         'nvimdev/lspsaga.nvim',
         config = function()
-            require('lspsaga').setup({})
+            require('lspsaga').setup{
+                ui = {
+                    
+                }
+            }
         end,
         dependencies = {
             'nvim-treesitter/nvim-treesitter', -- optional
