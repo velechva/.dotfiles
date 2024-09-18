@@ -34,3 +34,6 @@ vim.keymap.set("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<CR>", { desc = 
 vim.keymap.set("n", "<leader>le", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show diagnostics" })
 vim.keymap.set("n", "<leader>l<leader>", "<cmd>lua vim.lsp.buf.completion()<CR>", { desc = "Autocomplete" })
 
+vim.keymap.set("n", "<leader>pf", "<cmd>SessionSearch<CR>", { desc = "Show sessions" })
+vim.keymap.set("n", "<leader>ps", "<cmd>SessionSave<CR>", { desc = "Save session" })
+vim.keymap.set("n", "<leader>px", "<cmd>SessionDelete<CR>", { desc = "Delete session" })
