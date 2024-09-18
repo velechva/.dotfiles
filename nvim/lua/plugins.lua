@@ -32,7 +32,16 @@ plugins = {
     "tpope/vim-sleuth",
     "Mofiqul/dracula.nvim",
     "sindrets/diffview.nvim",
-    "rmagatti/auto-session",
+    {
+        "rmagatti/auto-session",
+        config = function()
+            require("auto-session").setup {
+                root_dir = "~/.nvim-sessions",
+                auto_restore = false,
+
+            }
+        end
+    },
     { 
         "catppuccin/nvim", 
         name = "catppuccin", 
@@ -69,6 +78,7 @@ plugins = {
             { "<leader>g", group = "+Git" },
             { "<leader>w", group = "+Window" },
             { "<leader>l", group = "+Lsp" },
+            { "<leader>l", group = "+Projects" },
         },
       },
       keys = {
