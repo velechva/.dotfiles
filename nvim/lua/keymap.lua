@@ -6,6 +6,8 @@ vim.keymap.set("n", "<leader>fq", "<cmd>exit<CR>", { desc = "Quit" })
 vim.keymap.set("n", "<C-w>-", "<cmd>split<CR>", { desc = "Split vertically" })
 vim.keymap.set("n", "<C-w>\\", "<cmd>vsplit<CR>", { desc = "Split vertically" })
 vim.keymap.set("n", "<C-w>x", "<cmd>quit<CR>", { desc = "Quit" })
+vim.keymap.set("n", "<C-w>n", "<cmd>tabnext<CR>", { desc = "Next tab" })
+vim.keymap.set("n", "<C-w>p", "<cmd>tabprevious<CR>", { desc = "Previous tab" })
 
 -- Search
 vim.keymap.set("n", "<leader>sf", "<cmd>lua require('fzf-lua').files()<CR>", { desc = "Files" })
