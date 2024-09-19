@@ -1,3 +1,4 @@
+-- Exit VIM!
 local function quit()
   local bufnr = vim.api.nvim_get_current_buf()
   local buf_windows = vim.call("win_findbuf", bufnr)
@@ -20,10 +21,7 @@ local function quit()
   end
 end
 
-vim.keymap.set("n", "<leader>q", quit, { silent = true })
-
--- Exit VIM!
--- vim.keymap.set("n", "<leader>qq", "<cmd>qa!<CR>", { desc = "Quit vim!" })
+vim.keymap.set("n", "<leader>qq", quit, { silent = true })
 
 -- File
 vim.keymap.set("n", "<leader>fs", "<cmd>write<CR>", { desc = "Save" })
