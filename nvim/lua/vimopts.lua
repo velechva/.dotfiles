@@ -8,3 +8,5 @@ vim.opt.signcolumn = "yes:1"
 vim.g.mapleader = " "
 
 vim.g.gitblame_enabled = 0
+
+vim.cmd 'command! SplitDiff windo diffthis'

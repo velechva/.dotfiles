@@ -37,8 +37,9 @@ plugins = {
         config = function()
             require("auto-session").setup {
                 root_dir = "~/.nvim-sessions",
-                auto_restore = false,
-                auto_save = false,
+                auto_restore = true,
+                auto_save = true,
+                auto_create = false,
             }
         end
     },
@@ -78,7 +79,8 @@ plugins = {
             { "<leader>g", group = "+Git" },
             { "<leader>w", group = "+Window" },
             { "<leader>l", group = "+Lsp" },
-            { "<leader>l", group = "+Projects" },
+            { "<leader>p", group = "+Projects" },
+            { "<leader>q", group = "+Quit" },
         },
       },
       keys = {
