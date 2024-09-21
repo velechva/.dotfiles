@@ -30,15 +30,15 @@ def apt_install(pkg):
     exec(f'sudo apt-get install -y {pkg}')
 
 class OS(Enum):
-    OSX     = "Darwin",
-    LINUX   = "Linux",
+    Darwin = "Darwin",
+    Linux  = "Linux",
 
 def get_os():
     return OS[exec("uname -s", capture=True).stdout.strip()]
 
 class ARCH(Enum):
-    X86_64  = "X86_64",
-    ARM_64  = "ARM_64",
+    x86_64  = "x86_64",
+    arm_64  = "arm_64",
 
 def get_arch():
     return ARCH[exec("uname -m", capture=True).stdout.strip()]
@@ -53,16 +53,16 @@ def append_path(path):
         print(f'Path {path} already appended. Skipping.')
         PATHS_APPENDED.append(path)
 
-    exec(f'echo "export PATH={path}:$PATH" >> ~/.zshcustom')
+    exec(f'echo "export PATH={path}:\$PATH" >> ~/.zshcustom')
 
 def rm(path, force=False, recurse=False):
     force_flag      = '-f' if force   else ''
-    recurse_flag    = '-r' if recurse else '' 
+    recurse_flag    = '-r' if recurse else ''
 
     exec(f'rm {force_flag} {recurse_flag} {path}')
 
 def curl_untar(url, fname):
-    exec(f'curl -L0 {url}')
+    exec(f'curl -LO {url}')
     exec(f'tar xzf {fname}')
 
 class BasicInstaller:
@@ -77,8 +77,9 @@ class BasicInstaller:
 
 class Fzf:
     def common(self):
-        git_clone("https://github.com/junegunn/fzf.git", "~/.fzf")
+        exec("git clone https://github.com/junegunn/fzf.git ~/.fzf")
         exec("~/.fzf/install")
+        append_path("~/.fzf/bin")
 
 class Neovim:
     def osx_silicon(self):
@@ -92,27 +93,57 @@ class Neovim:
         rm('./nvim-macos-arm64', force=True, recurse=True)
 
     def linux(self):
-        fname = 'nvim-macos-x86_64.tar.gz'
-        curl_untar("https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz", fname)
         rm("/opt/nvim", force=True, recurse=True)
+
+        fname = 'nvim-linux64.tar.gz'
+        curl_untar("https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz", fname)
+
         exec("sudo tar -C /opt -xzf nvim-linux64.tar.gz")
-        rm('./nvim-macos-x86_64', force=True, recurse=True)
+
+        rm('./nvim-linux64',       force=True, recurse=True)
+        rm('./nvim-linux64.tar.gz', force=True, recurse=True)
+
+        append_path('/opt/nvim-linux64/bin')
+
+class OhMyZsh:
+    def common(self):
+        exec('sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"')
+
+class OhMyZshPlugins:
+    def common(self):
+        exec('git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions')
+        exec('git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1')
+        exec('git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k')
+        exec('git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search')
+        exec('ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"')
+        exec('rm ~/.zshrc*')
+        exec(f'mv {get_dotfiles_dir()}/zsh/.zshrc ~/.zshrc')
+
+class Tmux:
+    def common():
+        exec('git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm')
+
+    def osx():
+        exec('brew install tmux --HEAD')
+
+    def linux():
+        apt_install('tmux')
 
 INSTALLERS = {
-    'fzf'       : Fzf(),
-    'ripgrep'   : BasicInstaller('ripgrep'),
-    'neovim'    : Neovim()
+    'fzf'           : Fzf(),
+    'ripgrep'       : BasicInstaller('ripgrep'),
+    'neovim'        : Neovim(),
+    'omz'           : OhMyZsh(),
+    'omz-plugins'   : OhMyZshPlugins(),
+    'lazygit'       : BasicInstaller('lazygit')
 }
 
 def print_help():
-    msg = """
+    msg = f"""
 Usage: python setup.py [application]+
        python setup.py --help to display this message
 
-Applications:
-    fzf
-    ripgrep
-    neovim
+Applications: {INSTALLERS.keys()}
     """
 
     print(msg)
@@ -128,13 +159,13 @@ def install(name):
     os      = get_os()
     arch    = get_arch()
 
-    if os == OS.OSX and arch == ARCH.ARM_64 and hasattr(installer, 'osx_silicon'):
+    if os == OS.Darwin and arch == ARCH.arm_64 and hasattr(installer, 'osx_silicon'):
         installer.osx_silicon()
 
-    elif os == OS.OSX:
+    elif os == OS.Darwin:
         installer.osx()
 
-    elif os == OS.LINUX:
+    elif os == OS.Linux:
         installer.linux()
 
     else:
