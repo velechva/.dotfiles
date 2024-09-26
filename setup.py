@@ -1,7 +1,37 @@
 import sys
 import subprocess
+import re
+import pathlib
 
-class BasicInstaller:
+home = pathlib.Path.home()
+
+### Base Installer ###
+
+def exec(cmd, capture=False, shell=True, check=True, text=True):
+    return subprocess.run(
+        cmd, 
+        shell=shell,
+        check=check,
+        text=text, 
+        capture_output=capture
+    )
+
+def append_path_if_missing(path):
+    with open(home /'.zshcustom') as f:
+        f = f.read()
+
+        if re.findall(f'export PATH.*${path}', f) is not None:
+            print(f'{path} is already added in zshcustom. Skipping..')
+            return
+
+    cmd = f'echo "export PATH=\"{path}:$PATH\"" >> ~/.zshcustom'
+    exec(cmd)
+
+def get_os():
+    return exec("uname -s", capture=True).stdout.strip()
+
+# BaseInstaller Simply uses apt/brew
+class BaseInstaller:
     def __init__(self, name):
         self.name = name
 
@@ -13,31 +43,37 @@ class BasicInstaller:
 
 class Fzf:
     def common(self):
-        exec("git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf")
-        exec("~/.fzf/install")
+        exec('git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf')
+        exec('~/.fzf/install')
 
-def exec(cmd, capture=False):
-    return subprocess.run(cmd, shell=True, check=True, text=True, capture_output=capture)
+class Neovim:
+    def linux(self):
+        exec('rm -rf /opt/nvim')
 
-installers = {
+        exec('curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz')
+        exec('sudo tar -C /opt -xzf nvim-linux64.tar.gz')
+        exec('echo "export PATH=/opt/nvim-linux64/bin:$PATH >> ~/.zshcustom')
+
+        exec('rm -rf ./nvim-linux64.tar.gz')
+
+### CLI ###
+
+Installers = {
     'fzf': Fzf(),
-    'ripgrep': BasicInstaller('ripgrep')
+    'ripgrep': BaseInstaller('ripgrep'),
+    'neovim': Neovim(),
 }
-
-def get_os():
-    return exec("uname -s", capture=True).stdout.strip()
 
 def print_help():
     msg = """
 Usage: python setup.py [application]+
        python setup.py --help to display this message
-
-Applications:
-    fzf
-    ripgrep
     """
 
+    applications = "\n".join(Installers.keys())
+
     print(msg)
+    print(applications)
     exit(1)
 
 if __name__ == '__main__':
@@ -46,8 +82,8 @@ if __name__ == '__main__':
         exit(1)
 
     for arg in sys.argv[1:]:
-        if arg in installers:
-            installer = installers[arg]
+        if arg in Installers:
+            installer = Installers[arg]
             if hasattr(installer, 'common'):
                 installer.common()
             else:

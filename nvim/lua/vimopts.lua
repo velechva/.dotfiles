@@ -10,3 +10,6 @@ vim.g.mapleader = " "
 vim.g.gitblame_enabled = 0
 
 vim.cmd 'command! SplitDiff windo diffthis'
+
+vim.g.xml_syntax_folding = 1
+vim.opt.syntax = "on"
