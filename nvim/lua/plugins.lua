@@ -32,6 +32,7 @@ plugins = {
     "tpope/vim-sleuth",
     "Mofiqul/dracula.nvim",
     "sindrets/diffview.nvim",
+    "petertriho/nvim-scrollbar",
     {
         "rmagatti/auto-session",
         config = function()
@@ -133,4 +134,6 @@ require("mason-lspconfig").setup {
 }
 
 require'lspconfig'.biome.setup{}
+
+require("scrollbar").setup()
 
