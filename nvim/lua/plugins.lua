@@ -126,14 +126,21 @@ plugins = {
 
 require("lazy").setup(plugins, opts)
 
-require('lualine').setup()
+require('lualine').setup{
+    sections = {
+        lualine_a = {{
+            'filename',
+            file_status = true,
+            path = 2
+        }}
+    }
+}
 
 require("mason").setup()
 require("mason-lspconfig").setup {
-    ensure_installed = { "rust_analyzer", "clangd", "pyright", "biome" }
+    ensure_installed = { "rust_analyzer", "clangd", "pyright", "biome", "ruby_lsp" }
 }
 
 require'lspconfig'.biome.setup{}
-
-require("scrollbar").setup()
+require'lspconfig'.ruby_lsp.setup{}
 
