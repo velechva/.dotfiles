@@ -92,6 +92,8 @@ alias gb="git branch"
 alias gl="git log -n 5"
 alias greset="git reset --hard HEAD"
 
+alias find-largest-files="du -a /dir/ | sort -n -r"
+
 git config --global core.excludesfile ~/.gitignore
 
 ## Environment ##
