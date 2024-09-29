@@ -1,1 +1,2 @@
-vim.cmd 'colorscheme catppuccin-macchiato'
+local theme = require('last-color').recall() or 'default'
+vim.cmd.colorscheme(theme)

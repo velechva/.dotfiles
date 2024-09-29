@@ -32,6 +32,7 @@ plugins = {
     "tpope/vim-sleuth",
     "Mofiqul/dracula.nvim",
     "sindrets/diffview.nvim",
+    'raddari/last-color.nvim',
     {
         "rmagatti/auto-session",
         config = function()
