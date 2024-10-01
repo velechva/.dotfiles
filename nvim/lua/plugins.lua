@@ -39,8 +39,8 @@ plugins = {
         config = function()
             require("auto-session").setup {
                 root_dir = "~/.nvim-sessions",
-                auto_restore = true,
-                auto_save = true,
+                auto_restore = false,
+                auto_save = false,
                 auto_create = false,
             }
         end
