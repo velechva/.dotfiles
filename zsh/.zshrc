@@ -135,7 +135,29 @@ backup() {
 }
 
 function pgrep() {
-	ps aux | grep "$@" | grep -v grep | grep -v defunct | awk '{ print $2; }'
+	pid=false
+
+	if [ "$1" = "-p" ]
+	then
+		pid=true
+		shift
+	fi
+
+	if [ -z "$1" ]
+	then
+		echo "Missing search query.\n\nSyntax: pgrep [-p] query\n\nFlags:\n\t-p: Only print pids"
+		return
+	fi
+
+	search="$1"
+
+	if [ "$pid" = false ]
+	then
+		ps aux | grep "$@" | grep -v grep | grep -v defunct
+	else
+		ps aux | grep "$@" | grep -v grep | grep -v defunct | awk '{ print $2; }'
+	fi
+
 }
 
 function killall() {
