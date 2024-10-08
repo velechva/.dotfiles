@@ -13,3 +13,10 @@ vim.cmd 'command! SplitDiff windo diffthis'
 
 vim.g.xml_syntax_folding = 1
 vim.opt.syntax = "on"
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "xml",
+  callback = function(args)
+    vim.opt.foldmethod = "syntax"
+  end
+})
