@@ -20,3 +20,6 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt.foldmethod = "syntax"
   end
 })
+
+-- Use patience algorithm for better git diffs
+vim.cmd([[ set diffopt+=internal,algorithm:patience ]])

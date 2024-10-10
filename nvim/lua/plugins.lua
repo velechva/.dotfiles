@@ -144,4 +144,5 @@ require("mason-lspconfig").setup {
 
 require'lspconfig'.biome.setup{}
 require'lspconfig'.ruby_lsp.setup{}
+require'lspconfig'.lemminx.setup{}
 
