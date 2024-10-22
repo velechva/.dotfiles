@@ -55,7 +55,8 @@ vim.keymap.set("n", "<leader>n", "<cmd>NERDTreeToggle<CR>", { desc = "File tree"
 vim.keymap.set("n", "<leader>N", "<cmd>NERDTreeFind<CR>", { desc = "Find file in tree" })
 
 -- Lsp
-vim.keymap.set("n", "<leader>lr", "<cmd>Telescope lsp_references<CR>", { desc = "Find References" })
+vim.keymap.set("n", "<leader>lr", "<cmd>Telescope lsp_references<CR>", { desc = "Find References, including tests" })
+vim.keymap.set("n", "<leader>lt", "<cmd>lua require('telescope.builtin').lsp_references({ file_ignore_patterns = { 'tests' }})<CR>", { desc = "Find Refereneces, excluding tests" })
 vim.keymap.set("n", "<leader>ld", "<cmd>Telescope lsp_definitions<CR>", { desc = "Go To Definition" })
 vim.keymap.set("n", "<leader>lh", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Lsp Hover" })
 vim.keymap.set("n", "<leader>ls", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename" })
