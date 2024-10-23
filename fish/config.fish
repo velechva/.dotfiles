@@ -40,7 +40,7 @@ if status is-interactive
 
 		git config --global core.excludesfile ~/.gitignore
 
-		export EDITOR "nvim"
+		set -g EDITOR "nvim"
 
 		function killall
 			ps aux | grep -i "$1" | grep -v grep | grep -v defunct | awk '{ print $2; }' | xargs kill -9
