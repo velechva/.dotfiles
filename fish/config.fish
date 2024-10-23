@@ -40,7 +40,10 @@ if status is-interactive
 
 		git config --global core.excludesfile ~/.gitignore
 
-		set -g EDITOR "nvim"
+		if type -q nvim
+			set -g EDITOR "nvim"
+			alias vim="nvim"
+		end
 
 		function killall
 			ps aux | grep -i "$1" | grep -v grep | grep -v defunct | awk '{ print $2; }' | xargs kill -9

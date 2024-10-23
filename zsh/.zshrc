@@ -84,6 +84,11 @@ alias info="info --vi-keys"
 alias e.="open ."
 alias ..="cd .."
 
+if command -v "nvim" 1> /dev/null 2> /dev/null
+then
+	alias vim="nvim"
+fi
+
 ## Git ##
 
 alias g="git"
