@@ -37,6 +37,7 @@ vim.keymap.set('n', '<C-w>t', ':tabnew %<CR>', { noremap = true, silent = true }
 
 -- Search
 vim.keymap.set("n", "<leader>sf", "<cmd>lua require('fzf-lua').files()<CR>", { desc = "Files" })
+vim.keymap.set("n", "<leader>sr", "<cmd>lua require('telescope.builtin').resume()<CR>", { desc = "Resume telescope" })
 vim.keymap.set("n", "<leader>ss", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { desc = "Grep" })
 vim.keymap.set("n", "<leader>sm", "<cmd>Telescope marks<CR>", { desc = "Grep" })
 vim.keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>", { desc = "List buffers" })
