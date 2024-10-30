@@ -34,6 +34,7 @@ plugins = {
     "sindrets/diffview.nvim",
     'raddari/last-color.nvim',
     "petertriho/nvim-scrollbar",
+    'navarasu/onedark.nvim',
     {
         "rmagatti/auto-session",
         config = function()
