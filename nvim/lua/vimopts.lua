@@ -4,6 +4,7 @@ vim.opt.tabstop  = 4
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.signcolumn = "yes:1"
+vim.cmd 'set wrap!'
 
 vim.g.mapleader = " "
 
