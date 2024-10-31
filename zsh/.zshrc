@@ -28,21 +28,23 @@ then
 	    # typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 else
 	echo '
-ZSH installation not found. To install, run these commands:
-
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-# git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-rm ~/.zshrc
-mv ~/.zshrc* ~/.zshrc
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+ZSH installation not found. To install, run install_zsh_custom
 '
 fi
+
+install_zsh_custom() {
+		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+		git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+		ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+		rm ~/.zshrc
+		mv ~/.zshrc* ~/.zshrc
+		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+		~/.fzf/install
+}
 
 # Spaceship Prompt
 
