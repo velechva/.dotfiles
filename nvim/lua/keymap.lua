@@ -8,7 +8,7 @@ vim.keymap.set("n", "<C-w>\\", "<cmd>vsplit<CR><C-w>w", { desc = "Split vertical
 vim.keymap.set("n", "<C-w>x", "<cmd>quit<CR>", { desc = "Quit" })
 vim.keymap.set("n", "<C-w>n", "<cmd>tabnext<CR>", { desc = "Next tab" })
 vim.keymap.set("n", "<C-w>p", "<cmd>tabprevious<CR>", { desc = "Previous tab" })
-vim.keymap.set('n', '<C-w>t', ':tabnew %<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-w>t', ':tab split<CR>', { desc = "Open in new tab" })
 
 -- Search
 vim.keymap.set("n", "<leader>sf", "<cmd>lua require('fzf-lua').files()<CR>", { desc = "Files" })
