@@ -135,6 +135,15 @@ class LazyGit:
         exec("tar xf lazygit.tar.gz lazygit")
         exec("sudo install lazygit /usr/local/bin")
 
+class Node:
+    def linux(self):
+        exec("wget https://nodejs.org/dist/v23.1.0/node-v23.1.0-linux-x64.tar.xz")
+        exec("tar -xf node-v23.1.0-linux-x64.tar.xz")
+        exec("mv node-v23.1.0-linux-x64 /opt")
+        exec("rm node-v23.1.0-linux-x64.tar.xz")
+
+        append_path("/opt/node-v23.1.0-linux-x64/bin")
+
 INSTALLERS = {
     'fzf'           : Fzf(),
     'ripgrep'       : BasicInstaller('ripgrep'),
@@ -142,6 +151,7 @@ INSTALLERS = {
     'omz'           : OhMyZsh(),
     'omz-plugins'   : OhMyZshPlugins(),
     'lazygit'       : LazyGit(),
+    'node'          : Node(),
 }
 
 def print_help():
