@@ -129,13 +129,29 @@ class Tmux:
     def linux():
         apt_install('tmux')
 
+class LazyGit:
+    def linux(self):
+        exec("LAZYGIT_VERSION=$(curl -s \"https://api.github.com/repos/jesseduffield/lazygit/releases/latest\" | grep -Po '\"tag_name\": \"v\K[^\"]*') ; curl -Lo lazygit.tar.gz \"https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz\"")
+        exec("tar xf lazygit.tar.gz lazygit")
+        exec("sudo install lazygit /usr/local/bin")
+
+class Node:
+    def linux(self):
+        exec("wget https://nodejs.org/dist/v23.1.0/node-v23.1.0-linux-x64.tar.xz")
+        exec("tar -xf node-v23.1.0-linux-x64.tar.xz")
+        exec("mv node-v23.1.0-linux-x64 /opt")
+        exec("rm node-v23.1.0-linux-x64.tar.xz")
+
+        append_path("/opt/node-v23.1.0-linux-x64/bin")
+
 INSTALLERS = {
     'fzf'           : Fzf(),
     'ripgrep'       : BasicInstaller('ripgrep'),
     'neovim'        : Neovim(),
     'omz'           : OhMyZsh(),
     'omz-plugins'   : OhMyZshPlugins(),
-    'lazygit'       : BasicInstaller('lazygit')
+    'lazygit'       : LazyGit(),
+    'node'          : Node(),
 }
 
 def print_help():
