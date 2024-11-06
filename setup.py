@@ -120,13 +120,13 @@ class OhMyZshPlugins:
         exec(f'mv {get_dotfiles_dir()}/zsh/.zshrc ~/.zshrc')
 
 class Tmux:
-    def common():
+    def common(self):
         exec('git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm')
 
-    def osx():
+    def osx(self):
         exec('brew install tmux --HEAD')
 
-    def linux():
+    def linux(self):
         apt_install('tmux')
 
 class LazyGit:
@@ -134,6 +134,7 @@ class LazyGit:
         exec("LAZYGIT_VERSION=$(curl -s \"https://api.github.com/repos/jesseduffield/lazygit/releases/latest\" | grep -Po '\"tag_name\": \"v\K[^\"]*') ; curl -Lo lazygit.tar.gz \"https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz\"")
         exec("tar xf lazygit.tar.gz lazygit")
         exec("sudo install lazygit /usr/local/bin")
+        exec("rm ./lazygit ./lazygit.tar.gz")
 
 class Node:
     def linux(self):

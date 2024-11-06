@@ -16,6 +16,7 @@ ln -s "$(pwd)/vim/.vimrc" ~/.vimrc
 rm ~/.alacritty.toml 2> /dev/null
 ln -s "$(pwd)/alacritty/.alacritty.toml" ~/.alacritty.toml
 
+mkdir -p ~/.config/fish
 rm ~/.config/fish/config.fish 2> /dev/null
 ln -s "$(pwd)/fish/config.fish" ~/.config/fish/config.fish
 
