@@ -1,13 +1,18 @@
-import = [
-	"~/.dotfiles/alacritty/themes/dracula.toml"
+general.import = [
+	"~/alacritty-theme/themes/gruvbox_hard.toml"
 ]
 
-shell = "/bin/zsh"
+# terminal.shell = "/bin/zsh"
+# terminal.program = "tmux"
+[terminal.shell]
+program = "/usr/local/bin/tmux"
+args = ["new-session", "-A", "-s", "main"]
 
 [font]
 
 normal = { family = "JetbrainsMono Nerd Font" }
 size = 15
+offset.y = 5
 
 [window]
 
