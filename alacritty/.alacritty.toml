@@ -1,6 +1,9 @@
 general.import = [
-	"~/alacritty-theme/themes/gruvbox_hard.toml"
+	"~/alacritty-theme/themes/doom_one.toml"
 ]
+
+[env]
+term = "xterm-256color"
 
 # terminal.shell = "/bin/zsh"
 # terminal.program = "tmux"

@@ -1,4 +1,5 @@
 -- The basics
+vim.o.termguicolors = true
 vim.opt.encoding = "UTF-8"
 vim.opt.swapfile = false
 vim.opt.tabstop  = 4
