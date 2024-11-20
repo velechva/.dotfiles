@@ -4,7 +4,7 @@ un=$(uname -s)
 
 if [[ "$un" == "Darwin" ]]
 then
-	defaults write com.apple.finder CreateDesktop false
+    defaults write com.apple.finder CreateDesktop false
 fi
 
 export LANG="en_US.UTF-8"
@@ -17,39 +17,30 @@ export DISABLE_UPDATE_PROMPT=true
 
 if [ -d "$HOME/.oh-my-zsh" ]
 then
-       export ZSH="$HOME/.oh-my-zsh"
-	   export ZSH_THEME="spaceship"
-       plugins=(zsh-fzf-history-search)
-       source $ZSH/oh-my-zsh.sh
+   export ZSH="$HOME/.oh-my-zsh"
+   export ZSH_THEME="robbyrussell"
 
-		## Powerline10k
-	    # source ~/powerlevel10k/powerlevel10k.zsh-theme
-		# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-	    # typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+   plugins=(zsh-fzf-history-search)
+
+   source $ZSH/oh-my-zsh.sh
 else
-	echo '
-ZSH installation not found. To install, run install_zsh_custom
-'
+    echo 'ZSH installation not found. To install, run install_omz'
 fi
 
-install_zsh_custom() {
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-		git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
-		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
-		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-		ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-		rm ~/.zshrc
-		mv ~/.zshrc* ~/.zshrc
-		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-		~/.fzf/install
+intall_omz() {
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+    git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+    rm ~/.zshrc
+    mv ~/.zshrc* ~/.zshrc
+
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+
+    echo "Done. To finish, run python setup.py neovim ripgrep lazygit"
 }
-
-# Spaceship Prompt
-
-# export SPACESHIP_RUST_SHOW=false
-# export SPACESHIP_PACKAGE_SHOW=false
 
 ## ZSH ##
 
@@ -91,6 +82,10 @@ then
 	alias vim="nvim"
 fi
 
+## Environment ##
+
+export EDITOR=vim
+
 ## Git ##
 
 alias g="git"
@@ -99,33 +94,31 @@ alias gb="git branch"
 alias gl="git log -n 5"
 alias greset="git reset --hard HEAD"
 
-alias find-largest-files="du -a /dir/ | sort -n -r"
-
 git config --global core.excludesfile ~/.gitignore
 
-## Environment ##
+# Misc aliases
 
-export EDITOR=vim
+alias find-largest-files="du -a /dir/ | sort -n -r"
 
 ## Functions ##
 
 function run() {
-	if [[ -f "./run.sh" ]]
+    if [[ -f "./run.sh" ]]
+    then
+	if [[ -n $1 ]]
 	then
-		if [[ -n $1 ]]
-		then
-			func=$1
-		else
-			func="run"
-		fi
-
-		cp run.sh /tmp/.run.sh
-		echo "\n\$@" >> /tmp/.run.sh
-		bash /tmp/.run.sh $func
+	    func=$1
 	else
-		echo "run.sh missing..."
-		exit 1
+	    func="run"
 	fi
+
+	cp run.sh /tmp/.run.sh
+	echo "\n\$@" >> /tmp/.run.sh
+	bash /tmp/.run.sh $func
+    else
+	echo "run.sh missing..."
+	exit 1
+    fi
 }
 
 backup() {
@@ -142,47 +135,46 @@ backup() {
 }
 
 function pgrep() {
-	pid=false
+    pid=false
 
-	if [ "$1" = "-p" ]
-	then
-		pid=true
-		shift
-	fi
+    if [ "$1" = "-p" ]
+    then
+	pid=true
+	shift
+    fi
 
-	if [ -z "$1" ]
-	then
-		echo "Missing search query.\n\nSyntax: pgrep [-p] query\n\nFlags:\n\t-p: Only print pids"
-		return
-	fi
+    if [ -z "$1" ]
+    then
+	echo "Missing search query.\n\nSyntax: pgrep [-p] query\n\nFlags:\n\t-p: Only print pids"
+	return
+    fi
 
-	search="$1"
+    search="$1"
 
-	if [ "$pid" = false ]
-	then
-		ps aux | grep "$@" | grep -v grep | grep -v defunct
-	else
-		ps aux | grep "$@" | grep -v grep | grep -v defunct | awk '{ print $2; }'
-	fi
-
+    if [ "$pid" = false ]
+    then
+	ps aux | grep "$@" | grep -v grep | grep -v defunct
+    else
+	ps aux | grep "$@" | grep -v grep | grep -v defunct | awk '{ print $2; }'
+    fi
 }
 
 function killall() {
-	ps aux | grep "$@" | grep -v grep | grep -v defunct | awk '{ print $2; }' | xargs kill -9
+    ps aux | grep "$@" | grep -v grep | grep -v defunct | awk '{ print $2; }' | xargs kill -9
 }
 
 function devhints() {
-	if [[ -z $1 ]]
-	then
-		open "https://devhints.io"
-	elif [[ $1 == "--help" ]]
-	then
-		echo "Usage: devhints [<name>]"
-		echo "Ex."
-		echo "devhints bash"
-	else
-		open "https://devhints.io/$1"
-	fi
+    if [[ -z $1 ]]
+    then
+	open "https://devhints.io"
+    elif [[ $1 == "--help" ]]
+    then
+	echo "Usage: devhints [<name>]"
+	echo "Ex."
+	echo "devhints bash"
+    else
+	open "https://devhints.io/$1"
+    fi
 }
 
 ## Fzf ##
@@ -195,7 +187,7 @@ function devhints() {
 
 if [ -d "$HOME/python-scripts" ]
 then
-	export PYTHONPATH="$HOME/python-scripts:$PYTHONPATH"
+    export PYTHONPATH="$HOME/python-scripts:$PYTHONPATH"
 fi
 
 # Machine-specific config

@@ -111,12 +111,9 @@ class OhMyZsh:
 
 class OhMyZshPlugins:
     def common(self):
-        exec('git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions')
-        exec('git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1')
-        exec('git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k')
         exec('git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search')
-        exec('ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"')
         exec('rm ~/.zshrc*')
+        exec('~/.zshrc* ~/.zshrc')
         exec(f'mv {get_dotfiles_dir()}/zsh/.zshrc ~/.zshrc')
 
 class Tmux:

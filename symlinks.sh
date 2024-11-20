@@ -1,9 +1,6 @@
 rm ~/.zshrc 2> /dev/null
 ln -s "$(pwd)/zsh/.zshrc" ~/.zshrc
 
-rm ~/.p10k.zsh 2> /dev/null
-ln -s "$(pwd)/zsh/.p10k.zsh" ~/.p10k.zsh
-
 rm ~/.pythonrc 2> /dev/null
 ln -s "$(pwd)/python/.pythonrc" ~/.pythonrc
 
