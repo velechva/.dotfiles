@@ -32,6 +32,7 @@ plugins = {
             telescope.load_extension("live_grep_args")
         end
     },
+    'nmac427/guess-indent.nvim',
 
     -- Appearance
     "ryanoasis/vim-devicons",
@@ -157,3 +158,4 @@ require'lspconfig'.lemminx.setup  {}
 
 require'Comment'.setup{}
 
+require('guess-indent').setup {}
