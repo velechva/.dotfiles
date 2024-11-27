@@ -27,21 +27,6 @@ else
     echo 'ZSH installation not found. To install, run install_omz'
 fi
 
-intall_omz() {
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-    git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-    rm ~/.zshrc
-    mv ~/.zshrc* ~/.zshrc
-
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
-
-    echo "Done. To finish, run python setup.py neovim ripgrep lazygit"
-}
-
 ## ZSH ##
 
 # VI mode
