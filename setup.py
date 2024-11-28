@@ -142,6 +142,10 @@ class Node:
 
         append_path("/opt/node-v23.1.0-linux-x64/bin")
 
+class RustAnalyzer:
+    def common(self):
+        exec("rustup component add rust-analyzer")
+
 INSTALLERS = {
     'fzf'           : Fzf(),
     'ripgrep'       : BasicInstaller('ripgrep'),
@@ -150,6 +154,7 @@ INSTALLERS = {
     'omz-plugins'   : OhMyZshPlugins(),
     'lazygit'       : LazyGit(),
     'node'          : Node(),
+    'rust-analyzer' : RustAnalyzer()
 }
 
 def print_help():
