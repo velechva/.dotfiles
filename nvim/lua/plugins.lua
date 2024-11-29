@@ -134,7 +134,8 @@ plugins = {
             'nvim-treesitter/nvim-treesitter', -- optional
             'nvim-tree/nvim-web-devicons',     -- optional
         }
-    }
+    },
+    'nvim-treesitter/nvim-treesitter-context'
 }
 
 require("lazy").setup(plugins, opts)
@@ -159,3 +160,31 @@ require'lspconfig'.lemminx.setup  {}
 require'Comment'.setup{}
 
 require('guess-indent').setup {}
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "xml",
+  highlight = { enable = true },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+}
+
+require'treesitter-context'.setup{
+  enable = false,
+  multiwindow = false,
+  max_lines = 20,
+  min_window_height = 20,
+  line_numbers = true,
+  multiline_threshold = 20,
+  trim_scope = 'outer',
+  mode = 'cursor',
+  separator = nil,
+  zindex = 20,
+  on_attach = nil,
+}
