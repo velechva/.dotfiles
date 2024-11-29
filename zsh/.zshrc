@@ -23,6 +23,8 @@ then
    plugins=(zsh-fzf-history-search)
 
    source $ZSH/oh-my-zsh.sh
+
+   PROMPT="%m $PROMPT"
 else
     echo 'ZSH installation not found. To install, run install_omz'
 fi
