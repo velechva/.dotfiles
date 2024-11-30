@@ -18,7 +18,9 @@ export DISABLE_UPDATE_PROMPT=true
 if [ -d "$HOME/.oh-my-zsh" ]
 then
    export ZSH="$HOME/.oh-my-zsh"
-   export ZSH_THEME="robbyrussell"
+   # export ZSH_THEME="pure"
+   autoload -U promptinit; promptinit
+   prompt pure
 
    plugins=(zsh-fzf-history-search)
 

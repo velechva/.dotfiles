@@ -17,5 +17,5 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 cd ..
 ./symlinks.sh
 
-python3 ../setup.py neovim ripgrep lazygit rust-analyzer
+python3 ../setup.py neovim ripgrep lazygit rust-analyzer node pure
 

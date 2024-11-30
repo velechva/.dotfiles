@@ -146,6 +146,13 @@ class RustAnalyzer:
     def common(self):
         exec("rustup component add rust-analyzer")
 
+class Pure:
+    def linux(self):
+        exec("npm install --global pure-prompt")
+
+    def osx(self):
+        exec("brew install pure")
+
 INSTALLERS = {
     'fzf'           : Fzf(),
     'ripgrep'       : BasicInstaller('ripgrep'),
@@ -154,7 +161,8 @@ INSTALLERS = {
     'omz-plugins'   : OhMyZshPlugins(),
     'lazygit'       : LazyGit(),
     'node'          : Node(),
-    'rust-analyzer' : RustAnalyzer()
+    'rust-analyzer' : RustAnalyzer(),
+    'pure':           Pure()
 }
 
 def print_help():
