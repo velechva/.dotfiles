@@ -49,9 +49,9 @@ setopt HIST_SAVE_NO_DUPS
 if command -v "exa" 1> /dev/null 2> /dev/null
 then
 	alias ls="exa"
-	alias ll="exa -al"
+	alias ll="exa -alh"
 else
-	alias ll="ls -al"
+	alias ll="ls -alh"
 fi
 
 if command -v "lazygit" 1> /dev/null 2> /dev/null
