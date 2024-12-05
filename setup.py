@@ -147,11 +147,9 @@ class RustAnalyzer:
         exec("rustup component add rust-analyzer")
 
 class Pure:
-    def linux(self):
-        exec("npm install --global pure-prompt")
-
-    def osx(self):
-        exec("brew install pure")
+    def common(self):
+        exec("mkdir -p '$HOME/.zsh'")
+        exec("git clone https://github.com/sindresorhus/pure.git '$HOME/.zsh/pure'")
 
 INSTALLERS = {
     'fzf'           : Fzf(),
