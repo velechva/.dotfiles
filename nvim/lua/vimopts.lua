@@ -34,3 +34,21 @@ vim.cmd([[ set diffopt+=internal,algorithm:patience ]])
 vim.cmd 'cnoreabbrev ter ter zsh'
 -- Exit termianl
 vim.cmd ':tnoremap <Esc> <C-\\><C-n>'
+
+vim.api.nvim_create_user_command(
+  'Light', 
+  function() 
+    vim.o.background = 'light' 
+    print('Background set to light')
+  end, 
+  { desc = "Set background to light" }
+)
+
+vim.api.nvim_create_user_command(
+  'Dark', 
+  function() 
+    vim.o.background = 'dark' 
+    print('Background set to dark')
+  end, 
+  { desc = "Set background to dark" }
+)

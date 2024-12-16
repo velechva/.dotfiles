@@ -135,7 +135,16 @@ plugins = {
             'nvim-tree/nvim-web-devicons',     -- optional
         }
     },
-    'nvim-treesitter/nvim-treesitter-context'
+    'nvim-treesitter/nvim-treesitter-context',
+    {
+		  'maxmx03/solarized.nvim',
+		  lazy = false,
+		  priority = 1000,
+		  opts = {},
+		  config = function(_, opts)
+			require('solarized').setup(opts)
+		  end
+    }
 }
 
 require("lazy").setup(plugins, opts)
