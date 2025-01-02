@@ -148,8 +148,7 @@ class RustAnalyzer:
 
 class Pure:
     def common(self):
-        exec("mkdir -p '$HOME/.zsh'")
-        exec("git clone https://github.com/sindresorhus/pure.git '$HOME/.zsh/pure'")
+        exec("git clone https://github.com/sindresorhus/pure.git ~/.zsh/pure")
 
 INSTALLERS = {
     'fzf'           : Fzf(),
