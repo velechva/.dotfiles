@@ -29,6 +29,9 @@ def help():
 
 	print("")
 
+def exec(cmd):
+	subprocess.run(cmd, shell=True, text=True, check=True)
+
 def akamai_run(subcommand, args):
 	if len(args) < 1:
 		help()
@@ -44,20 +47,17 @@ def akamai_run(subcommand, args):
 		print("Unknown service")
 		exit(1)
 
-	cmd = f'/a/sbin/akamai_run {subcommand} {service}'
-	subprocess.run(cmd, shell=True, text=True, check=True)
+	exec(f'/a/sbin/akamai_run {subcommand} {service}')
 
 def metaupdate(args):
 	for arg in args:
 		if arg == 'pearl':
-			cmd = 'curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml'
+			exec('curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml')
 		if arg == "all":
-			cmd = "curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/www.v21.ewtest.example.xml; curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml; curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml; curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/baseline.data/baseline-hacks.xml; curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml"
+			exec("curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/www.v21.ewtest.example.xml; curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml; curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml; curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/baseline.data/baseline-hacks.xml; curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml")
 		else:
 			print('Unknown metadata update property')
 			exit(1)
-
-		subprocess.run(cmd, shell=True, text=True, check=True)
 
 if len(sys.argv) < 2:
 	help()
@@ -84,8 +84,7 @@ def tail(args):
 		print("Unknown logfile")
 		exit(1)
 
-	cmd = f'tail -n0 -f {logfile}'
-	subprocess.run(cmd, shell=True, text=True, check=True)
+	exec(f'tail -n0 -f {logfile}')
 
 def verbose(args):
 	if len(args) < 1:
@@ -117,8 +116,7 @@ def verbose_gh(args):
 		args = ["HTTP","CLIENT","FWD","STRMCLD","SSL","CRYPTO","CERT"]
 
 	for arg in args:
-		cmd = f'echo "debugsection set global section {arg} level 10 timeout 3600" | /a/bin/ouiji'
-		subprocess.run(cmd, shell=True, text=True, check=True)
+		exec(f'echo "debugsection set global section {arg} level 10 timeout 3600" | /a/bin/ouiji')
 
 cmd  = sys.argv[1]
 args = sys.argv[2:]
