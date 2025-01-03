@@ -1,0 +1,138 @@
+#!/usr/bin/env python3
+
+import sys
+import subprocess
+
+def help():
+	print("Examples:")
+
+	print("\n// Restart services\n")
+	print("ak rs sc")
+	print("ak rs gh")
+
+	print("\n// Check services\n")
+	print("ak ck sc")
+
+	print("\n// Metadata updates")
+	print("ak mu pearl")
+	print("ak mu all")
+
+	print("\n// Clear log files")
+	print("ak clr sc")
+
+	print("\n// Verbose logging")
+	print("ak vb sc")
+	print("ak vb gh STRMCLD")
+
+	print("\n// Tail logfile")
+	print("ak tail stormlet.log")
+
+	print("")
+
+def akamai_run(subcommand, args):
+	if len(args) < 1:
+		help()
+		exit(1)
+
+	svc = args[0]
+
+	if svc == 'sc':
+		service = 'stormcloud'
+	elif svc == 'gh':
+		service = 'webghost'
+	else:
+		print("Unknown service")
+		exit(1)
+
+	cmd = f'/a/sbin/akamai_run {subcommand} {service}'
+	subprocess.run(cmd, shell=True, text=True, check=True)
+
+def metaupdate(args):
+	for arg in args:
+		if arg == 'pearl':
+			cmd = 'curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml'
+		if arg == "all":
+			cmd = "curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/www.v21.ewtest.example.xml; curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml; curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml; curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/baseline.data/baseline-hacks.xml; curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml"
+		else:
+			print('Unknown metadata update property')
+			exit(1)
+
+		subprocess.run(cmd, shell=True, text=True, check=True)
+
+if len(sys.argv) < 2:
+	help()
+	exit(1)
+
+def tail(args):
+	if len(args) < 1:
+		help()
+		exit(1)
+
+	file = args[0]
+
+	if file == 'stormlet.log':
+		logfile = '/a/logs/stormcloud/stormlet_javascript/stormlet.log'
+	elif file == 'stormcloud.log':
+		logfile = '/a/logs/stormcloud/stormcloud.log'
+	elif file == 'stormcloud.out':
+		logfile = '/a/logs/stormcloud/stormcloud.out'
+	elif file == 'ghost.access.log':
+		logfile = '/a/logs/ghost.access.log'
+	elif file == 'cache.log':
+		logfile = '/a/logs/cache.log'
+	else:
+		print("Unknown logfile")
+		exit(1)
+
+	cmd = f'tail -n0 -f {logfile}'
+	subprocess.run(cmd, shell=True, text=True, check=True)
+
+def verbose(args):
+	if len(args) < 1:
+		help()
+		exit(1)
+	
+	svc = args[0]
+
+	if svc == 'sc':
+		verbose_sc()
+	elif svc == 'gh':
+		verbose_gh(args[1:])
+	else:
+		print("Unknown service")
+		exit(1)
+
+def verbose_sc():
+	with open("/a/etc/akamai.conf", "r") as file:
+		lines = file.readlines()
+
+	filtered = [ line for line in lines if "STORMCLOUD_LOG_LEVEL" not in line ]
+	filtered.append("STORMCLOUD_LOG_LEVEL=debug; export STORMCLOUD_LOG_LEVEL")
+
+	with open("/a/etc/akamai.conf", "w") as file:
+		file.writelines(filtered)
+
+def verbose_gh(args):
+	if len(args) < 1:
+		args = ["HTTP","CLIENT","FWD","STRMCLD","SSL","CRYPTO","CERT"]
+
+	for arg in args:
+		cmd = f'echo "debugsection set global section {arg} level 10 timeout 3600" | /a/bin/ouiji'
+		subprocess.run(cmd, shell=True, text=True, check=True)
+
+cmd  = sys.argv[1]
+args = sys.argv[2:]
+
+if cmd == 'rs':
+	akamai_run('restart', args)
+if cmd == 'ck':
+	akamai_run('check', args)
+elif cmd == "mu":
+	metaupdate(args)
+elif cmd == "tail":
+	tail(args)
+elif cmd == "vb":
+	verbose(args)
+else:
+	print("Unknown command")
+	exit(1)
