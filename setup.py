@@ -108,13 +108,7 @@ class Neovim:
 class OhMyZsh:
     def common(self):
         exec('sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"')
-
-class OhMyZshPlugins:
-    def common(self):
         exec('git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search')
-        exec('rm ~/.zshrc*')
-        exec('~/.zshrc* ~/.zshrc')
-        exec(f'mv {get_dotfiles_dir()}/zsh/.zshrc ~/.zshrc')
 
 class Tmux:
     def common(self):
@@ -161,7 +155,6 @@ INSTALLERS = {
     'ripgrep'       : BasicInstaller('ripgrep'),
     'neovim'        : Neovim(),
     'omz'           : OhMyZsh(),
-    'omz-plugins'   : OhMyZshPlugins(),
     'lazygit'       : LazyGit(),
     'node'          : Node(),
     'rust-analyzer' : RustAnalyzer(),

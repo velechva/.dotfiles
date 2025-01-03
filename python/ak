@@ -53,7 +53,7 @@ def metaupdate(args):
 	for arg in args:
 		if arg == 'pearl':
 			exec('curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml')
-		if arg == "all":
+		elif arg == "all":
 			exec("curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/www.v21.ewtest.example.xml; curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml; curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml; curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/baseline.data/baseline-hacks.xml; curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml")
 		else:
 			print('Unknown metadata update property')
@@ -123,7 +123,7 @@ args = sys.argv[2:]
 
 if cmd == 'rs':
 	akamai_run('restart', args)
-if cmd == 'ck':
+elif cmd == 'ck':
 	akamai_run('check', args)
 elif cmd == "mu":
 	metaupdate(args)
