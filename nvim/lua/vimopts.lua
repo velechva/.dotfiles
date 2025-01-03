@@ -35,20 +35,54 @@ vim.cmd 'cnoreabbrev ter ter zsh'
 -- Exit termianl
 vim.cmd ':tnoremap <Esc> <C-\\><C-n>'
 
+local function write_to_bg_file(value)
+  local home = os.getenv("HOME")
+  local path = home .. "/.nvimbg"
+
+  -- Create or truncate
+  local file, err = io.open(path, "w")
+
+  if not file then
+    error("Error opening file: " .. err)
+  end
+
+  file:write(value)
+
+  file:close()
+end
+
+local function read_bg_file(value)
+  local home = os.getenv("HOME")
+  local path = home .. "/.nvimbg"
+
+  -- Create or truncate
+  local file, err = io.open(path, "w")
+
+  if not file then
+    error("Error opening file: " .. err)
+  end
+
+  local content = file:read("*all")
+
+  file:close()
+end
+
 vim.api.nvim_create_user_command(
-  'Light', 
-  function() 
-    vim.o.background = 'light' 
+  'Light',
+  function()
+    vim.o.background = 'light'
+    write_to_bg_file('light')
     print('Background set to light')
-  end, 
+  end,
   { desc = "Set background to light" }
 )
 
 vim.api.nvim_create_user_command(
-  'Dark', 
-  function() 
-    vim.o.background = 'dark' 
+  'Dark',
+  function()
+    vim.o.background = 'dark'
+    write_to_bg_file('dark')
     print('Background set to dark')
-  end, 
+  end,
   { desc = "Set background to dark" }
 )

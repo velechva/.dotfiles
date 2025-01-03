@@ -3,8 +3,7 @@ local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 -- Bootstrap lazy if missing
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({
-        "git",
-        "clone",
+        "git clone",
         "--filter=blob:none",
         "https://github.com/folke/lazy.nvim.git",
         "--branch=stable",
@@ -15,15 +14,19 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 plugins = {
-    -- Basics --
+    -- Plugin Management --
+
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
+
+    -- Core --
+
     "preservim/nerdtree",
-    "neovim/nvim-lspconfig",
+    'nmac427/guess-indent.nvim',
     {
-        "nvim-telescope/telescope.nvim", 
+        "nvim-telescope/telescope.nvim",
         tag = "0.1.6",
-        dependencies = { 
+        dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-live-grep-args.nvim"
         },
@@ -32,37 +35,48 @@ plugins = {
             telescope.load_extension("live_grep_args")
         end
     },
-    'nmac427/guess-indent.nvim',
 
-    -- Appearance
+    -- LSP --
+
+    "neovim/nvim-lspconfig",
+
+    -- Appearance --
+
     "ryanoasis/vim-devicons",
     "nvim-tree/nvim-web-devicons",
 
-    -- Themes
+    -- Themes --
+
+    'raddari/last-color.nvim',
+
     "Mofiqul/dracula.nvim",
     'navarasu/onedark.nvim',
     'NTBBloodbath/doom-one.nvim',
-    { 
-        "catppuccin/nvim", 
-        name = "catppuccin", 
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
         priority = 1000
     },
 
-    -- Language features
+    -- Language features --
     'numToStr/Comment.nvim',
     "hrsh7th/vim-vsnip",
 
-    -- Auto-complete
+    -- Cmp --
     "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
 
+    -- Etc --
+
     "tpope/vim-sleuth",
     "sindrets/diffview.nvim",
-    'raddari/last-color.nvim',
     "petertriho/nvim-scrollbar",
+
+    -- Session Mgmt --
+
     {
         "rmagatti/auto-session",
         config = function()
@@ -111,6 +125,9 @@ plugins = {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
+
+    -- SCM --
+
     {
         "f-person/git-blame.nvim",
         event = "VeryLazy",
@@ -121,30 +138,6 @@ plugins = {
             virtual_text_column = 1,
         },
     },
-    {
-        'nvimdev/lspsaga.nvim',
-        config = function()
-            require('lspsaga').setup{
-                ui = {
-                    
-                }
-            }
-        end,
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter', -- optional
-            'nvim-tree/nvim-web-devicons',     -- optional
-        }
-    },
-    'nvim-treesitter/nvim-treesitter-context',
-    {
-		  'maxmx03/solarized.nvim',
-		  lazy = false,
-		  priority = 1000,
-		  opts = {},
-		  config = function(_, opts)
-			require('solarized').setup(opts)
-		  end
-    }
 }
 
 require("lazy").setup(plugins, opts)
@@ -162,6 +155,7 @@ require('lualine').setup{
 
 require("mason").setup()
 require("mason-lspconfig").setup  {}
+
 require'lspconfig'.biome.setup    {}
 require'lspconfig'.ruby_lsp.setup {}
 require'lspconfig'.lemminx.setup  {}
@@ -169,31 +163,3 @@ require'lspconfig'.lemminx.setup  {}
 require'Comment'.setup{}
 
 require('guess-indent').setup {}
-
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "xml",
-  highlight = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    },
-  },
-}
-
-require'treesitter-context'.setup{
-  enable = false,
-  multiwindow = false,
-  max_lines = 20,
-  min_window_height = 20,
-  line_numbers = true,
-  multiline_threshold = 20,
-  trim_scope = 'outer',
-  mode = 'cursor',
-  separator = nil,
-  zindex = 20,
-  on_attach = nil,
-}

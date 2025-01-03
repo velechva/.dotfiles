@@ -150,6 +150,12 @@ class Pure:
     def common(self):
         exec("git clone https://github.com/sindresorhus/pure.git ~/.zsh/pure")
 
+class Ak:
+    def common(self):
+        cwd = os.getcwd()
+
+        exec(f"sudo ln -s {cwd}/python/ak /usr/local/bin/ak")
+
 INSTALLERS = {
     'fzf'           : Fzf(),
     'ripgrep'       : BasicInstaller('ripgrep'),
@@ -159,7 +165,8 @@ INSTALLERS = {
     'lazygit'       : LazyGit(),
     'node'          : Node(),
     'rust-analyzer' : RustAnalyzer(),
-    'pure':           Pure()
+    'pure'          : Pure(),
+    'ak'            : Ak()
 }
 
 def print_help():
@@ -174,6 +181,10 @@ Applications: {INSTALLERS.keys()}
     exit(1)
 
 def install(name):
+    print("\n\n\n-------------------------")
+    print(f"Installing {name}")
+    print("-------------------------\n\n\n")
+
     installer = INSTALLERS[name]
 
     if hasattr(installer, 'common'):
@@ -183,18 +194,22 @@ def install(name):
     os      = get_os()
     arch    = get_arch()
 
-    if os == OS.Darwin and arch == ARCH.arm_64 and hasattr(installer, 'osx_silicon'):
-        installer.osx_silicon()
+    try:
+        if os == OS.Darwin and arch == ARCH.arm_64 and hasattr(installer, 'osx_silicon'):
+            installer.osx_silicon()
 
-    elif os == OS.Darwin:
-        installer.osx()
+        elif os == OS.Darwin:
+            installer.osx()
 
-    elif os == OS.Linux:
-        installer.linux()
+        elif os == OS.Linux:
+            installer.linux()
 
-    else:
-        print(f'Unknown os: {os}')
-        exit(1)
+        else:
+            print(f'Unknown os: {os}')
+            exit(1)
+
+    except subprocess.CalledProcessError:
+        print(f"{name}: FAILED")
 
 if __name__ == '__main__':
     dotfiles_dir = get_dotfiles_dir()
