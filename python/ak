@@ -30,6 +30,9 @@ def help():
 	print("\n// Flush metrics")
 	print("ak flushmetrics")
 
+	print("\n// Print metrics")
+	print("ak printmetrics stormlet_javascript_event_handlers")
+
 	print("")
 
 def exec(cmd):
@@ -73,21 +76,27 @@ def tail(args):
 
 	file = args[0]
 
-	if file == 'stormlet.log':
-		logfile = '/a/logs/stormcloud/stormlet_javascript/stormlet.log'
-	elif file == 'stormcloud.log':
-		logfile = '/a/logs/stormcloud/stormcloud.log'
-	elif file == 'stormcloud.out':
-		logfile = '/a/logs/stormcloud/stormcloud.out'
-	elif file == 'ghost.access.log':
-		logfile = '/a/logs/ghost.access.log'
-	elif file == 'cache.log':
-		logfile = '/a/logs/cache.log'
-	else:
-		print("Unknown logfile")
-		exit(1)
+	known_files = {
+		'stormlet.log'		: '/a/logs/stormcloud/stormlet_javascript/stormlet.log',
+		'stormcloud.log'	: '/a/logs/stormcloud/stormcloud.log',
+		'stormcloud.out'	: '/a/logs/stormcloud/stormcloud.out',
+		'ghost.access.log'	: '/a/logs/ghost.access.log',
+		'cache.log'			: '/a/logs/cache.log',
+		'ghost.ddc.log'		: '/a/logs/ghost.ddc.log',
+		'load_stats.log'	: '/a/logs/stormcloud/stormlet_javascript/load_stats.log',
+	}
 
-	exec(f'tail -n0 -f {logfile}')
+	if file not in known_files:
+		keys = "\n".join(list(known_files.keys()))
+
+		print("Unknown logfile...\n")
+		print(f"Known log files: \n\n{keys}")
+
+		exit(1)
+	
+	file = known_files[file]
+
+	exec(f'tail -n0 -f {file}')
 
 def verbose(args):
 	if len(args) < 1:
@@ -124,6 +133,15 @@ def verbose_gh(args):
 def flush_metrics():
 	exec("ps aux | grep stormrunner_javascript | grep -v grep | awk '{ print $2; }' | xargs kill -SIGUSR1")
 
+def print_metrics(args):
+	if len(args) < 1:
+		print("Missing tablename")
+		exit(1)
+
+	tablename = args[0]
+
+	exec(f"cat /a/stormcloud/stormlets/release/deployed/stormlet_javascript@0.0.0/writable_dir/metrics/{tablename}.csv | sed 1,5d")
+
 cmd  = sys.argv[1]
 args = sys.argv[2:]
 
@@ -139,6 +157,9 @@ elif cmd == "vb":
 	verbose(args)
 elif cmd == "flushmetrics":
 	flush_metrics()
+elif cmd == "printmetrics":
+	print_metrics(args)
 else:
 	print("Unknown command")
 	exit(1)
+
