@@ -27,6 +27,9 @@ def help():
 	print("\n// Tail logfile")
 	print("ak tail stormlet.log")
 
+	print("\n// Flush metrics")
+	print("ak flushmetrics")
+
 	print("")
 
 def exec(cmd):
@@ -118,6 +121,9 @@ def verbose_gh(args):
 	for arg in args:
 		exec(f'echo "debugsection set global section {arg} level 10 timeout 3600" | /a/bin/ouiji')
 
+def flush_metrics():
+	exec("ps aux | grep stormrunner_javascript | grep -v grep | awk '{ print $2; }' | xargs kill -SIGUSR1")
+
 cmd  = sys.argv[1]
 args = sys.argv[2:]
 
@@ -131,6 +137,8 @@ elif cmd == "tail":
 	tail(args)
 elif cmd == "vb":
 	verbose(args)
+elif cmd == "flushmetrics":
+	flush_metrics()
 else:
 	print("Unknown command")
 	exit(1)
