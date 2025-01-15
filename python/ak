@@ -15,6 +15,7 @@ def help():
 
 	print("\n// Metadata updates")
 	print("ak mu pearl")
+	print("ak mu billingpearl")
 	print("ak mu all")
 
 	print("\n// Clear log files")
@@ -59,6 +60,8 @@ def metaupdate(args):
 	for arg in args:
 		if arg == 'pearl':
 			exec('curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml')
+		elif arg == 'billingpearl':
+			exec('curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearlbilling.data/ew_billingpearls.xml')
 		elif arg == "all":
 			exec("curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/www.v21.ewtest.example.xml; curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml; curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml; curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/baseline.data/baseline-hacks.xml; curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml")
 		else:
