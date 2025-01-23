@@ -19,17 +19,14 @@ if [ -d "$HOME/.oh-my-zsh" ]
 then
    export ZSH="$HOME/.oh-my-zsh"
 
-   if [ -d "$HOME/.zsh/pure" ]
-   then
-       fpath+=($HOME/.zsh/pure)
-   fi
-
-   autoload -U promptinit; promptinit
-   prompt pure
+   ZSH_THEME=robbyrussell
 
    plugins=(zsh-fzf-history-search)
 
    source $ZSH/oh-my-zsh.sh
+
+   # Add hostname to prompt
+   PROMPT="%m $PROMPT"
 else
     echo 'ZSH installation not found. To install, run install_omz'
 fi

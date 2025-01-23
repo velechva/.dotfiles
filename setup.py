@@ -131,7 +131,7 @@ class Node:
     def linux(self):
         exec("wget https://nodejs.org/dist/v23.1.0/node-v23.1.0-linux-x64.tar.xz")
         exec("tar -xf node-v23.1.0-linux-x64.tar.xz")
-        exec("mv node-v23.1.0-linux-x64 /opt")
+        exec("sudo mv node-v23.1.0-linux-x64 /opt")
         exec("rm node-v23.1.0-linux-x64.tar.xz")
 
         append_path("/opt/node-v23.1.0-linux-x64/bin")
@@ -150,6 +150,11 @@ class Ak:
 
         exec(f"sudo ln -s {cwd}/python/ak /usr/local/bin/ak")
 
+class Locale:
+    def linux(self):
+        exec("sudo apt-get install -y locales")
+        exec("sudo locale-gen en_US.UTF-8")
+
 INSTALLERS = {
     'fzf'           : Fzf(),
     'ripgrep'       : BasicInstaller('ripgrep'),
@@ -159,15 +164,20 @@ INSTALLERS = {
     'node'          : Node(),
     'rust-analyzer' : RustAnalyzer(),
     'pure'          : Pure(),
+    'locale'        : Locale(),
     'ak'            : Ak()
 }
 
 def print_help():
     msg = f"""
-Usage: python setup.py [application]+
+Usage: python setup.py [application...]+
        python setup.py --help to display this message
 
 Applications: {INSTALLERS.keys()}
+
+Recommended setup: python setup.py omz lazygit fzf ripgrep neovim locale node
+
+Note: restart the shell after installing in order to get PATH updates
     """
 
     print(msg)
