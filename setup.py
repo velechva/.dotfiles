@@ -55,14 +55,18 @@ def append_path(path):
 
     exec(f'echo "export PATH={path}:\$PATH" >> ~/.zshcustom')
 
-def rm(path, force=False, recurse=False):
+def rm(path, force=False, recurse=False, ignore_error=False):
     force_flag      = '-f' if force   else ''
     recurse_flag    = '-r' if recurse else ''
 
-    exec(f'rm {force_flag} {recurse_flag} {path}')
+    try:
+        exec(f'rm {force_flag} {recurse_flag} {path}')
+    except:
+        if not ignore_error:
+            raise Exception(f'Failed to remove {path}')
 
 def curl_untar(url, fname):
-    exec(f'curl -LO {url}')
+    exec(f'curl -LO {url} -o {fname}')
     exec(f'tar xzf {fname}')
 
 class BasicInstaller:
@@ -93,17 +97,19 @@ class Neovim:
         rm('./nvim-macos-arm64', force=True, recurse=True)
 
     def linux(self):
-        rm("/opt/nvim", force=True, recurse=True)
+        rm("/opt/nvim", force=True, recurse=True, ignore_error=True)
 
-        fname = 'nvim-linux64.tar.gz'
-        curl_untar("https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz", fname)
+        fname   = 'nvim-linux-x86_64.tar.gz'
+        pathname = 'nvim-linux-x86_64'
 
-        exec("sudo tar -C /opt -xzf nvim-linux64.tar.gz")
+        curl_untar("https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz", fname)
 
-        rm('./nvim-linux64',       force=True, recurse=True)
-        rm('./nvim-linux64.tar.gz', force=True, recurse=True)
+        exec(f"sudo tar -C /opt -xzf {fname}")
 
-        append_path('/opt/nvim-linux64/bin')
+        rm(f"./{fname}*", force=True, recurse=True)
+        rm(f"./{pathname}*", force=True, recurse=True)
+
+        append_path(f"/opt/{pathname}/bin")
 
 class OhMyZsh:
     def common(self):
