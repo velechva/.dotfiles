@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import re
+import argparse
+
+PATTERN_NAME = re.compile(r"<name>.*%\(.*\).*</name>")
+PATTERN_ASSIGN = re.compile(r"<assign:variable")
+
+def main():
+    parser = argparse.ArgumentParser(
+        prog="fancysearch"
+    )
+    parser.add_argument(
+        "pattern",
+        help="Search pattern"
+    )
+    parser.add_argument(
+        "path",
+        help="Search pattern"
+    )
+    parser.add_argument(
+        "context",
+        help="Context pattern"
+    )
+
+    args = parser.parse_args()
+
+    search(args.path, args.pattern, args.context)
+
+def search(path, pattern, context, end=4):
+    pattern = re.compile(pattern)
+    context = re.compile(context)
+
+    for root, _, files in os.walk(path):
+        for filename in files:
+            file_path = os.path.join(root, filename)
+            
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    lines = f.readlines()
+
+            except (UnicodeDecodeError, PermissionError):
+                continue
+
+            for i, line in enumerate(lines):
+                if pattern.search(line):
+                    found = False
+
+                    for offset in range(0, 4):
+                        prev_index = i - offset
+
+                        if prev_index < 0:
+                            break
+                        
+                        if context.search(lines[prev_index]):
+                            found = True
+                            break
+                    
+                    if found:
+                        print(f"File: {file_path}")
+                        print(f"Line {i+1}: {line.strip()}")
+                        print("-" * 50)
+
+if __name__ == "__main__":
+    main()
+
