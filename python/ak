@@ -2,83 +2,38 @@
 
 import sys
 import subprocess
-
-def help():
-	print("Examples:")
-
-	print("\n// Restart services\n")
-	print("ak rs sc")
-	print("ak rs gh")
-
-	print("\n// Check services\n")
-	print("ak ck sc")
-
-	print("\n// Metadata updates")
-	print("ak mu pearl")
-	print("ak mu billingpearl")
-	print("ak mu all")
-
-	print("\n// Clear log files")
-	print("ak clr sc")
-
-	print("\n// Verbose logging")
-	print("ak vb sc")
-	print("ak vb gh STRMCLD")
-
-	print("\n// Tail logfile")
-	print("ak tail stormlet.log")
-
-	print("\n// Flush metrics")
-	print("ak flushmetrics")
-
-	print("\n// Print metrics")
-	print("ak printmetrics stormlet_javascript_event_handlers")
-
-	print("")
+import argparse
 
 def exec(cmd):
 	subprocess.run(cmd, shell=True, text=True, check=True)
 
-def akamai_run(subcommand, args):
-	if len(args) < 1:
-		help()
-		exit(1)
-
-	svc = args[0]
-
-	if svc == 'sc':
-		service = 'stormcloud'
+def akamai_run(subcommand, svc):
+	if   svc == 'sc':
+		service         = 'stormcloud'
 	elif svc == 'gh':
-		service = 'webghost'
-	else:
-		print("Unknown service")
-		exit(1)
+		service         = 'webghost'
+	elif svc == 'ak':
+		service         = 'akamai'
 
-	exec(f'/a/sbin/akamai_run {subcommand} {service}')
+	exec(f"/a/sbin/akamai_run {subcommand} {service}")
 
-def metaupdate(args):
-	for arg in args:
-		if arg == 'pearl':
-			exec('curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml')
-		elif arg == 'billingpearl':
-			exec('curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearlbilling.data/ew_billingpearls.xml')
-		elif arg == "all":
-			exec("curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/www.v21.ewtest.example.xml; curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml; curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml; curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/baseline.data/baseline-hacks.xml; curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml")
-		else:
-			print('Unknown metadata update property')
-			exit(1)
+def metaupdate(arg):
+    if   arg == 'pearl':
+        exec("curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml")
+    elif arg == 'billingpearl':
+        exec("curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearlbilling.data/ew_billingpearls.xml")
+    elif arg == "all":
+        exec(
+            """
+                curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/www.v21.ewtest.example.xml;
+                curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml; 
+                curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/pearl.data/ew_pearls.xml; 
+                curl -v -sX AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/pearl.data/127.0.0.1/usr/local/akamai/etc/ghost/baseline.data/baseline-hacks.xml; 
+                curl -i -X AKAMAI_META_UPDATE http://127.0.0.1/7/7/7/arl.data/stager.akamai.com/usr/local/akamai/etc/ghost/arl.data/ARL_edgeworkers-put-delete-options-2022-01-20.200155153.xml
+            """
+        )
 
-if len(sys.argv) < 2:
-	help()
-	exit(1)
-
-def tail(args):
-	if len(args) < 1:
-		help()
-		exit(1)
-
-	file = args[0]
-
+def tail(file):
 	known_files = {
 		'stormlet.log'		: '/a/logs/stormcloud/stormlet_javascript/stormlet.log',
 		'stormcloud.log'	: '/a/logs/stormcloud/stormcloud.log',
@@ -101,20 +56,11 @@ def tail(args):
 
 	exec(f'tail -n0 -f {file}')
 
-def verbose(args):
-	if len(args) < 1:
-		help()
-		exit(1)
-	
-	svc = args[0]
-
-	if svc == 'sc':
+def verbose(svc, args):
+	if   svc == 'sc':
 		verbose_sc()
 	elif svc == 'gh':
-		verbose_gh(args[1:])
-	else:
-		print("Unknown service")
-		exit(1)
+		verbose_gh(args)
 
 def verbose_sc():
 	with open("/a/etc/akamai.conf", "r") as file:
@@ -136,33 +82,153 @@ def verbose_gh(args):
 def flush_metrics():
 	exec("ps aux | grep stormrunner_javascript | grep -v grep | awk '{ print $2; }' | xargs kill -SIGUSR1")
 
-def print_metrics(args):
-	if len(args) < 1:
-		print("Missing tablename")
-		exit(1)
-
-	tablename = args[0]
-
+def print_metrics(tablename):
 	exec(f"cat /a/stormcloud/stormlets/release/deployed/stormlet_javascript@0.0.0/writable_dir/metrics/{tablename}.csv | sed 1,5d")
 
-cmd  = sys.argv[1]
-args = sys.argv[2:]
+def main():
+    parser = argparse.ArgumentParser(
+        prog="ak",
+        description="Command-line interface for 'ak' utility."
+    )
+    
+    subparsers = parser.add_subparsers(
+        title="subcommands",
+        dest="command",
+        help="Available subcommands"
+    )
+    
+    # ------------------------------------------------------------------------
+    # rs: Restart Services
+    # Examples:
+    #   ak rs sc
+    #   ak rs gh
+    # ------------------------------------------------------------------------
+    rs_parser = subparsers.add_parser("rs", help="Restart services.")
+    rs_parser.add_argument(
+        "service",
+        choices=["sc", "gh", "ak"],
+        help="Name of the service to restart."
+    )
+    
+    # ------------------------------------------------------------------------
+    # ck: Check Services
+    # Example:
+    #   ak ck sc
+    # ------------------------------------------------------------------------
+    ck_parser = subparsers.add_parser("ck", help="Check services.")
+    ck_parser.add_argument(
+        "service",
+        choices=["sc", "gh", "ak"],
+        help="Name of the service to check."
+    )
+    
+    # ------------------------------------------------------------------------
+    # mu: Metadata Updates
+    # Examples:
+    #   ak mu pearl
+    #   ak mu billingpearl
+    #   ak mu all
+    # ------------------------------------------------------------------------
+    mu_parser = subparsers.add_parser("mu", help="Metadata updates.")
+    mu_parser.add_argument(
+        "target",
+        choices=["pearl", "billingpearl", "all"],
+        help="Target for metadata update."
+    )
+    
+    # ------------------------------------------------------------------------
+    # clr: Clear log files
+    # Example:
+    #   ak clr sc
+    # ------------------------------------------------------------------------
+    clr_parser = subparsers.add_parser("clr", help="Clear log files.")
+    clr_parser.add_argument(
+        "service",
+        choices=["sc"],
+        help="Service whose logs to clear."
+    )
+    
+    # ------------------------------------------------------------------------
+    # vb: Verbose logging
+    # Examples:
+    #   ak vb sc
+    #   ak vb gh STRMCLD
+    # ------------------------------------------------------------------------
+    vb_parser = subparsers.add_parser("vb", help="Enable verbose logging.")
+    vb_parser.add_argument(
+        "service",
+        choices=["sc", "gh"],
+        help="One or more services to enable verbose logging for. (e.g. 'sc' or 'gh STRMCLD')"
+    )
+    vb_parser.add_argument(
+        "sections",
+        nargs="*",
+        help="One or more debugsections to enable verbose logging for Ghost"
+    )
+    
+    # ------------------------------------------------------------------------
+    # tail: Tail logfile
+    # Example:
+    #   ak tail stormlet.log
+    # ------------------------------------------------------------------------
+    tail_parser = subparsers.add_parser("tail", help="Tail a logfile.")
+    tail_parser.add_argument(
+        "filename",
+        help="Name of the logfile to tail."
+    )
+    
+    # ------------------------------------------------------------------------
+    # flushmetrics: Flush metrics
+    # Example:
+    #   ak flushmetrics
+    # ------------------------------------------------------------------------
+    subparsers.add_parser("flushmetrics", help="Flush metrics.")
+    
+    # ------------------------------------------------------------------------
+    # printmetrics: Print metrics
+    # Example:
+    #   ak printmetrics stormlet_javascript_event_handlers
+    # ------------------------------------------------------------------------
+    printmetrics_parser = subparsers.add_parser("printmetrics", help="Print metrics.")
+    printmetrics_parser.add_argument(
+        "metric_name",
+        help="Name of the metric to print."
+    )
+    
+    args = parser.parse_args()
+    
+    if not args.command:
+        parser.print_help(sys.stderr)
+        sys.exit(1)
+    
+    if   args.command == "rs":
+        akamai_run('restart', args.service)
+        
+    elif args.command == "ck":
+        akamai_run('check', args.service)
+        
+    elif args.command == "mu":
+        metaupdate(args.target)
+        
+    elif args.command == "clr":
+        # TODO: Implement logic to clear logs for the given service
+        pass
+        
+    elif args.command == "vb":
+        verbose(args.service, args.sections)
+        
+    elif args.command == "tail":
+        tail(args.filename)
+        
+    elif args.command == "flushmetrics":
+        flush_metrics()
+        
+    elif args.command == "printmetrics":
+        print_metrics(args.metric_name)
+        
+    else:
+        parser.print_help(sys.stderr)
+        sys.exit(1)
 
-if cmd == 'rs':
-	akamai_run('restart', args)
-elif cmd == 'ck':
-	akamai_run('check', args)
-elif cmd == "mu":
-	metaupdate(args)
-elif cmd == "tail":
-	tail(args)
-elif cmd == "vb":
-	verbose(args)
-elif cmd == "flushmetrics":
-	flush_metrics()
-elif cmd == "printmetrics":
-	print_metrics(args)
-else:
-	print("Unknown command")
-	exit(1)
-
+if __name__ == "__main__":
+    main()
