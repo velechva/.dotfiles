@@ -25,6 +25,8 @@ plugins = {
     "williamboman/mason-lspconfig.nvim",
 
     -- Core --
+    
+    "SmiteshP/nvim-navic",
 
     "preservim/nerdtree",
     'nmac427/guess-indent.nvim',
@@ -43,7 +45,19 @@ plugins = {
 
     -- LSP --
 
-    "neovim/nvim-lspconfig",
+    {
+        "neovim/nvim-lspconfig",
+        dependencies = {
+            {
+                "SmiteshP/nvim-navbuddy",
+                dependencies = {
+                    "SmiteshP/nvim-navic",
+                    "MunifTanjim/nui.nvim"
+                },
+                opts = { lsp = { auto_attach = true } }
+            }
+        }
+    },
 
     -- Appearance --
 
@@ -57,7 +71,6 @@ plugins = {
     "Mofiqul/dracula.nvim",
     'navarasu/onedark.nvim',
     'NTBBloodbath/doom-one.nvim',
-    { 'projekt0n/github-nvim-theme', name = 'github-theme' },
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
     -- Language features --
@@ -160,8 +173,20 @@ require("mason-lspconfig").setup  {}
 
 require'lspconfig'.biome.setup    {}
 require'lspconfig'.ruby_lsp.setup {}
-require'lspconfig'.lemminx.setup  {}
+require'lspconfig'.lemminx.setup  {
+    on_attach = function(client, bufnr)
+        navic.attach(client, bufnr)
+    end
+}
 
 require'Comment'.setup{}
 
 require('guess-indent').setup {}
+
+local navbuddy = require("nvim-navbuddy")
+
+require("lspconfig").clangd.setup {
+    on_attach = function(client, bufnr)
+        navbuddy.attach(client, bufnr)
+    end
+}
