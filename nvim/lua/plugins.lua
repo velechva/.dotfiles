@@ -28,6 +28,8 @@ plugins = {
     
     "SmiteshP/nvim-navic",
 
+    "velechva/bigblue",
+
     "preservim/nerdtree",
     'nmac427/guess-indent.nvim',
     {
