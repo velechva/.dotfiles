@@ -41,7 +41,7 @@ def search(path, pattern, context, end=4):
                 with open(file_path, "r", encoding="utf-8") as f:
                     lines = f.readlines()
 
-            except (UnicodeDecodeError, PermissionError):
+            except (UnicodeDecodeError, PermissionError, OSError):
                 continue
 
             for i, line in enumerate(lines):
