@@ -72,3 +72,13 @@ end
 
 vim.keymap.set("n", "<leader>qq", quit, { silent = true })
 
+vim.api.nvim_create_user_command(
+  'E',
+  function(opts)
+    local dir = vim.fn.expand('%:p:h')
+    local file = dir .. '/' .. opts.args
+    vim.cmd('edit ' .. vim.fn.fnameescape(file))
+  end,
+  { nargs = 1 }
+)
+

@@ -3,6 +3,7 @@ vim.o.termguicolors = true
 vim.opt.encoding = "UTF-8"
 vim.opt.swapfile = false
 vim.opt.tabstop  = 4
+vim.opt.shiftwidth = 4
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.signcolumn = "yes:1"
