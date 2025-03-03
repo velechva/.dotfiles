@@ -132,6 +132,8 @@ plugins = {
 
     -- SCM --
 
+    "rhysd/conflict-marker.vim",
+
     {
         "f-person/git-blame.nvim",
         event = "VeryLazy",
