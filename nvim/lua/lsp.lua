@@ -29,3 +29,5 @@ lspconfig.clangd.setup  {
 	},
 }
 
+lspconfig.gopls.setup {}
+
