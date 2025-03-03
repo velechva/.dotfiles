@@ -26,8 +26,6 @@ plugins = {
 
     -- Core --
     
-    "SmiteshP/nvim-navic",
-
     "velechva/bigblue",
 
     "preservim/nerdtree",
@@ -47,19 +45,7 @@ plugins = {
 
     -- LSP --
 
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = {
-            {
-                "SmiteshP/nvim-navbuddy",
-                dependencies = {
-                    "SmiteshP/nvim-navic",
-                    "MunifTanjim/nui.nvim"
-                },
-                opts = { lsp = { auto_attach = true } }
-            }
-        }
-    },
+    "neovim/nvim-lspconfig",
 
     -- Appearance --
 
@@ -73,6 +59,7 @@ plugins = {
     "Mofiqul/dracula.nvim",
     'navarasu/onedark.nvim',
     'NTBBloodbath/doom-one.nvim',
+    'loctvl842/monokai-pro.nvim',
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
     -- Language features --
@@ -175,20 +162,10 @@ require("mason-lspconfig").setup  {}
 
 require'lspconfig'.biome.setup    {}
 require'lspconfig'.ruby_lsp.setup {}
-require'lspconfig'.lemminx.setup  {
-    on_attach = function(client, bufnr)
-        navic.attach(client, bufnr)
-    end
-}
+require'lspconfig'.lemminx.setup  {}
 
 require'Comment'.setup{}
 
 require('guess-indent').setup {}
 
-local navbuddy = require("nvim-navbuddy")
-
-require("lspconfig").clangd.setup {
-    on_attach = function(client, bufnr)
-        navbuddy.attach(client, bufnr)
-    end
-}
+require("lspconfig").clangd.setup {}

@@ -40,7 +40,6 @@ vim.keymap.set("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<CR>", { desc = 
 vim.keymap.set("n", "<leader>le", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show diagnostics" })
 vim.keymap.set("n", "<leader>l<leader>", "<cmd>lua vim.lsp.buf.completion()<CR>", { desc = "Autocomplete" })
 vim.keymap.set("n", "<leader>ly", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", { desc = "Show diagnostics" })
-vim.keymap.set("n", "<leader>ln", "<cmd>Navbuddy<CR>", { desc = "Show breadcrumps" })
 
 vim.keymap.set("n", "<leader>pf", "<cmd>SessionSearch<CR>", { desc = "Show sessions" })
 vim.keymap.set("n", "<leader>ps", "<cmd>SessionSave<CR>", { desc = "Save session" })
@@ -71,4 +70,14 @@ local function quit()
 end
 
 vim.keymap.set("n", "<leader>qq", quit, { silent = true })
+
+vim.api.nvim_create_user_command(
+  'E',
+  function(opts)
+    local dir = vim.fn.expand('%:p:h')
+    local file = dir .. '/' .. opts.args
+    vim.cmd('edit ' .. vim.fn.fnameescape(file))
+  end,
+  { nargs = 1 }
+)
 
