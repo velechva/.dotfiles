@@ -4,21 +4,28 @@ import subprocess
 
 from enum import Enum
 
-def exec(cmd, capture=False):
-    return subprocess.run(cmd, shell=True, check=True, text=True, capture_output=capture)
+from pathlib import Path
+
+## Utilities ##
+
+def exec(cmd, capture=False, check=True, text=True):
+    return subprocess.run(cmd, shell=True, check=check, text=text, capture_output=capture)
 
 def git_clone(repo, dest, depth=None):
-    flag_depth = '' if depth is None else f'--depth={depth}'
+    flag_depth = "" if depth is None else f"--depth={depth}"
 
-    exec(f'git clone {flag_depth} {repo} {dest}')
+    exec(f"git clone {flag_depth} {repo} {dest}")
 
 def brew_install(pkg):
-    exec(f'brew install {pkg}')
+    exec(f"brew install {pkg}")
 
 def apt_update():
-    exec(f'sudo apt-get update')
+    exec(f"sudo apt-get update")
 
 HAS_UPDATED_APT = False
+
+def program_in_path(program):
+    return exec(f"which {program}", capture=True, check=False).returncode == 0
 
 def apt_install(pkg):
     global HAS_UPDATED_APT
@@ -27,7 +34,9 @@ def apt_install(pkg):
         apt_update()
         HAS_UPDATED_APT = True
 
-    exec(f'sudo apt-get install -y {pkg}')
+    exec(f"sudo apt-get install -y {pkg}")
+
+## Target Definitions ##
 
 class OS(Enum):
     Darwin = "Darwin",
@@ -36,24 +45,31 @@ class OS(Enum):
 def get_os():
     return OS[exec("uname -s", capture=True).stdout.strip()]
 
-class ARCH(Enum):
+class Architecture(Enum):
     x86_64  = "x86_64",
     arm_64  = "arm_64",
 
-def get_arch():
-    return ARCH[exec("uname -m", capture=True).stdout.strip()]
+def get_architecture():
+    return Architecture[exec("uname -m", capture=True).stdout.strip()]
 
 def get_dotfiles_dir():
     return os.path.dirname(os.path.realpath(__file__))
 
-PATHS_APPENDED = []
+def maybe_append_path(path):
+    fname = Path.home() / ".zshcustom"
+
+    with open(fname) as zshcustom:
+        existing = [x for x in zshcustom.readlines() if "# Added by setup.py" in x]
+
+        for ex in existing:
+            if path in ex:
+                print(f"Path {path} already in ~/.zshcustom")
+                return
+
+    append_path(path)
 
 def append_path(path):
-    if path in PATHS_APPENDED:
-        print(f'Path {path} already appended. Skipping.')
-        PATHS_APPENDED.append(path)
-
-    exec(f'echo "export PATH={path}:\$PATH" >> ~/.zshcustom')
+    exec(f'echo "export PATH={path}:\\$PATH # Added by setup.py" >> ~/.zshcustom')
 
 def rm(path, force=False, recurse=False, ignore_error=False):
     force_flag      = '-f' if force   else ''
@@ -65,9 +81,15 @@ def rm(path, force=False, recurse=False, ignore_error=False):
         if not ignore_error:
             raise Exception(f'Failed to remove {path}')
 
-def curl_untar(url, fname):
+def curl(url, fname):
     exec(f'curl -LO {url} -o {fname}')
+
+def untar(fname):
     exec(f'tar xzf {fname}')
+
+def curl_untar(url, fname):
+    curl(url, fname)
+    untar(fname)
 
 class BasicInstaller:
     def __init__(self, name):
@@ -83,7 +105,10 @@ class Fzf:
     def common(self):
         exec("git clone https://github.com/junegunn/fzf.git ~/.fzf")
         exec("~/.fzf/install")
-        append_path("~/.fzf/bin")
+        maybe_append_path("~/.fzf/bin")
+
+    def installed(self):
+        return os.path.exists(Path.home() / ".fzf")
 
 class Neovim:
     def osx_silicon(self):
@@ -109,42 +134,60 @@ class Neovim:
         rm(f"./{fname}*", force=True, recurse=True)
         rm(f"./{pathname}*", force=True, recurse=True)
 
-        append_path(f"/opt/{pathname}/bin")
+        maybe_append_path(f"/opt/{pathname}/bin")
+
+    def installed(self):
+        return program_in_path("nvim")
 
 class OhMyZsh:
     def common(self):
         exec('sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"')
-        exec('git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search')
+        exec("git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search")
 
 class Tmux:
     def common(self):
-        exec('git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm')
+        exec("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
 
     def osx(self):
-        exec('brew install tmux --HEAD')
+        exec("brew install tmux --HEAD")
 
     def linux(self):
-        apt_install('tmux')
+        apt_install("tmux")
+
+    def installed(self):
+        return program_in_path("tmux")
 
 class LazyGit:
     def linux(self):
-        exec("LAZYGIT_VERSION=$(curl -s \"https://api.github.com/repos/jesseduffield/lazygit/releases/latest\" | grep -Po '\"tag_name\": \"v\K[^\"]*') ; curl -Lo lazygit.tar.gz \"https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz\"")
+        exec("LAZYGIT_VERSION=$(curl -s \"https://api.github.com/repos/jesseduffield/lazygit/releases/latest\" | grep -Po '\"tag_name\": \"v\\K[^\"]*') ; curl -Lo lazygit.tar.gz \"https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz\"")
         exec("tar xf lazygit.tar.gz lazygit")
         exec("sudo install lazygit /usr/local/bin")
         exec("rm ./lazygit ./lazygit.tar.gz")
 
-class Node:
-    def linux(self):
-        exec("wget https://nodejs.org/dist/v23.1.0/node-v23.1.0-linux-x64.tar.xz")
-        exec("tar -xf node-v23.1.0-linux-x64.tar.xz")
-        exec("sudo mv node-v23.1.0-linux-x64 /opt")
-        exec("rm node-v23.1.0-linux-x64.tar.xz")
+    def installed(self):
+        return program_in_path("lazygit")
 
-        append_path("/opt/node-v23.1.0-linux-x64/bin")
+class Node:
+    def __init__(self, version):
+        self.version = version
+
+    def linux(self):
+        exec(f"wget https://nodejs.org/dist/v23.1.0/{self.version}-linux-x64.tar.xz")
+        exec(f"tar -xf {self.version}-linux-x64.tar.xz")
+        exec(f"sudo mv {self.version}-linux-x64 /opt")
+        exec(f"rm {self.version}-linux-x64.tar.xz")
+
+        maybe_append_path(f"/opt/{self.version}-linux-x64/bin")
+
+    def installed(self):
+        return os.path.exists(f"/opt/{self.version}-linux-x64")
 
 class RustAnalyzer:
     def common(self):
         exec("rustup component add rust-analyzer")
+
+    def installed(self):
+        return program_in_path("rust-analyzer")
 
 class Pure:
     def common(self):
@@ -155,6 +198,9 @@ class Ak:
         cwd = os.getcwd()
 
         exec(f"sudo ln -s {cwd}/python/ak /usr/local/bin/ak")
+
+    def installed(self):
+        return program_in_path("ak")
 
 class Locale:
     def linux(self):
@@ -167,7 +213,7 @@ INSTALLERS = {
     'neovim'        : Neovim(),
     'omz'           : OhMyZsh(),
     'lazygit'       : LazyGit(),
-    'node'          : Node(),
+    'node'          : Node("23.1.0"),
     'rust-analyzer' : RustAnalyzer(),
     'pure'          : Pure(),
     'locale'        : Locale(),
@@ -191,20 +237,26 @@ Note: restart the shell after installing in order to get PATH updates
 
 def install(name):
     print("\n\n\n-------------------------")
-    print(f"Installing {name}")
-    print("-------------------------\n\n\n")
 
     installer = INSTALLERS[name]
 
-    if hasattr(installer, 'common'):
-        installer.common()
-        return
+    if hasattr(installer, 'installed') and installer.installed():
+        print(f"{name} already installed")
+        print("-------------------------\n\n\n")
+        return True
+
+    print(f"Installing {name}")
+    print("-------------------------\n\n\n")
 
     os      = get_os()
-    arch    = get_arch()
+    arch    = get_architecture()
 
     try:
-        if os == OS.Darwin and arch == ARCH.arm_64 and hasattr(installer, 'osx_silicon'):
+        if hasattr(installer, 'common'):
+            installer.common()
+            return True
+
+        elif os == OS.Darwin and arch == Architecture.arm_64 and hasattr(installer, 'osx_silicon'):
             installer.osx_silicon()
 
         elif os == OS.Darwin:
@@ -219,8 +271,14 @@ def install(name):
 
     except subprocess.CalledProcessError:
         print(f"{name}: FAILED")
+        return False
+
+    return True
 
 if __name__ == '__main__':
+    failures  = []
+    successes = []
+
     dotfiles_dir = get_dotfiles_dir()
 
     if len(sys.argv) < 2 or '--help' in sys.argv:
@@ -229,10 +287,25 @@ if __name__ == '__main__':
 
     for arg in sys.argv[1:]:
         if arg in INSTALLERS:
-            install(arg)
+            if not install(arg):
+                failures.append(arg)
+            else:
+                successes.append(arg)
 
         else:
             print(f"Unknown option: {arg}")
             print_help()
             exit(1)
+
+    print("\n\n\n-------------------------")
+    print("Installation Summary")
+    print("-------------------------\n\n\n")
+
+    print("Successes:")
+    for s in successes:
+        print(f"  {s}")
+
+    print("\n\nFailures:")
+    for f in failures:
+        print(f"  {f}")
 
