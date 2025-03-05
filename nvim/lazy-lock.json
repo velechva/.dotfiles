@@ -8,6 +8,7 @@
   "cmp-nvim-lsp": { "branch": "main", "commit": "99290b3ec1322070bcfb9e846450a46f6efa50f0" },
   "cmp-path": { "branch": "main", "commit": "91ff86cd9c29299a64f968ebb45846c485725f23" },
   "conflict-marker.vim": { "branch": "master", "commit": "62742b2ffe7a433988759c67b5c5a22eff74a14b" },
+  "copilot.vim": { "branch": "release", "commit": "cd7f01009fb7b30e22840cadc4faad88b05c6eef" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "doom-one.nvim": { "branch": "main", "commit": "2d15798d1eccdaf12c2cb7dda571c5b0ae65a257" },
   "dracula.nvim": { "branch": "main", "commit": "515acae4fd294fcefa5b15237a333c2606e958d1" },
