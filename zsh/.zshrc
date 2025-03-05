@@ -66,7 +66,7 @@ alias info="info --vi-keys"
 alias e.="open ."
 alias ..="cd .."
 
-alias tmuxa="tmux attach || tmux"
+alias tmuxa="tmux -S ~/tmux attach || tmux -S ~/tmux"
 
 if command -v "nvim" 1> /dev/null 2> /dev/null
 then

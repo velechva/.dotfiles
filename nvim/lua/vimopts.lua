@@ -87,3 +87,10 @@ vim.api.nvim_create_user_command(
   end,
   { desc = "Set background to dark" }
 )
+
+-- Code formatting --
+
+vim.api.nvim_create_user_command('FormatJson', function()
+  vim.cmd([[%!jq .]])
+end, {})
+
