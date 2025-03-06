@@ -1,12 +1,29 @@
 import sys
 import os
 import subprocess
+import graphlib
 
 from enum import Enum
 
 from pathlib import Path
 
 ## Utilities ##
+
+def build_dep_graph(programs):
+    graph = {}
+
+    for program in programs:
+        installer = INSTALLERS[program]
+
+        if hasattr(installer, "dependencies"):
+            deps = installer.dependencies()
+
+            graph[program] = deps
+        else:
+            graph[program] = []
+
+    ts = graphlib.TopologicalSorter(graph)
+    return list(ts.static_order())
 
 def exec(cmd, capture=False, check=True, text=True):
     return subprocess.run(cmd, shell=True, check=check, text=text, capture_output=capture)
@@ -173,11 +190,11 @@ class NodeVersionManager:
 
         with open(Path.home() / ".zshcustom", "a") as zshcustom:
             zshcustom.write('export NVM_DIR="$HOME/.nvm"\n')
-            zshcustom.write('[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm\n')
-            zshcustom.write('[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion\n')
+            zshcustom.write('[ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"  # This loads nvm\n')
+            zshcustom.write('[ -s "$NVM_DIR/bash_completion" ] && \\. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion\n')
 
     def installed(self):
-        return False # "NVM_DIR" in os.environ
+        return False
 
 class Node:
     def __init__(self, version):
@@ -193,6 +210,9 @@ class Node:
 
     def installed(self):
         return os.path.exists(f"/opt/{self.version}-linux-x64")
+
+    def dependencies(self):
+        return ["nvm"]
 
 class RustAnalyzer:
     def common(self):
@@ -298,7 +318,10 @@ if __name__ == '__main__':
         print_help()
         exit(1)
 
-    for arg in sys.argv[1:]:
+
+    progs = build_dep_graph(progs)
+
+    for arg in progs:
         if arg in INSTALLERS:
             if not install(arg):
                 failures.append(arg)
