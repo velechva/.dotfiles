@@ -167,6 +167,18 @@ class LazyGit:
     def installed(self):
         return program_in_path("lazygit")
 
+class NodeVersionManager:
+    def common(self):
+        exec("curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash")
+
+        with open(Path.home() / ".zshcustom", "a") as zshcustom:
+            zshcustom.write('export NVM_DIR="$HOME/.nvm"\n')
+            zshcustom.write('[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm\n')
+            zshcustom.write('[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion\n')
+
+    def installed(self):
+        return False # "NVM_DIR" in os.environ
+
 class Node:
     def __init__(self, version):
         self.version = version
@@ -214,6 +226,7 @@ INSTALLERS = {
     'omz'           : OhMyZsh(),
     'lazygit'       : LazyGit(),
     'node'          : Node("23.1.0"),
+    'nvm'           : NodeVersionManager(),
     'rust-analyzer' : RustAnalyzer(),
     'pure'          : Pure(),
     'locale'        : Locale(),
@@ -227,7 +240,7 @@ Usage: python setup.py [application...]+
 
 Applications: {INSTALLERS.keys()}
 
-Recommended setup: python setup.py omz lazygit fzf ripgrep neovim locale node
+Recommended setup: python setup.py omz lazygit fzf ripgrep neovim locale nvm
 
 Note: restart the shell after installing in order to get PATH updates
     """
@@ -236,17 +249,17 @@ Note: restart the shell after installing in order to get PATH updates
     exit(1)
 
 def install(name):
-    print("\n\n\n-------------------------")
+    print("\n-------------------------")
 
     installer = INSTALLERS[name]
 
     if hasattr(installer, 'installed') and installer.installed():
-        print(f"{name} already installed")
-        print("-------------------------\n\n\n")
+        print(f"({name}) already installed")
+        print("-------------------------\n")
         return True
 
-    print(f"Installing {name}")
-    print("-------------------------\n\n\n")
+    print(f"Installing ({name})")
+    print("-------------------------\n")
 
     os      = get_os()
     arch    = get_architecture()
@@ -270,7 +283,7 @@ def install(name):
             exit(1)
 
     except subprocess.CalledProcessError:
-        print(f"{name}: FAILED")
+        print(f"({name}): FAILED")
         return False
 
     return True
@@ -297,15 +310,15 @@ if __name__ == '__main__':
             print_help()
             exit(1)
 
-    print("\n\n\n-------------------------")
+    print("\n-------------------------")
     print("Installation Summary")
-    print("-------------------------\n\n\n")
+    print("-------------------------\n")
 
     print("Successes:")
     for s in successes:
         print(f"  {s}")
 
-    print("\n\nFailures:")
+    print("Failures:")
     for f in failures:
         print(f"  {f}")
 
