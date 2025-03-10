@@ -38,7 +38,7 @@ def get_os():
 
 class ARCH(Enum):
     x86_64  = "x86_64",
-    arm_64  = "arm_64",
+    arm64  = "arm64",
 
 def get_arch():
     return ARCH[exec("uname -m", capture=True).stdout.strip()]
@@ -204,7 +204,7 @@ def install(name):
     arch    = get_arch()
 
     try:
-        if os == OS.Darwin and arch == ARCH.arm_64 and hasattr(installer, 'osx_silicon'):
+        if os == OS.Darwin and arch == ARCH.arm64 and hasattr(installer, 'osx_silicon'):
             installer.osx_silicon()
 
         elif os == OS.Darwin:
