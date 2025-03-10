@@ -19,6 +19,18 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 plugins = {
+    'nvim-treesitter/nvim-treesitter',
+    {
+      "nvim-orgmode/orgmode",
+      event = "VeryLazy",
+      ft = { "org" },
+      config = function()
+        require("orgmode").setup({
+          org_agenda_files = "~/org/**/*",
+          org_default_notes_file = "~/org/scratch.org",
+        })
+      end
+    },
     -- Plugin Management --
 
     "williamboman/mason.nvim",
