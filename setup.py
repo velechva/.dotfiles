@@ -87,14 +87,14 @@ class Fzf:
 
 class Neovim:
     def osx_silicon(self):
-        curl_untar('https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz', 'nvim-macos-arm64.tar.gz')
-        exec('cp ./nvim-macos-arm64/bin/nvim /usr/local/bin')
-        rm('./nvim-macos-arm64', force=True, recurse=True)
+        curl_untar('https://github.com/neovim/neovim/releases/download/stable/nvim-macos-amd64.tar.gz', 'nvim-macos.tar.gz')
+        exec('cp ./nvim-macos/* /usr/local/')
+        rm('./nvim-macos', force=True, recurse=True)
 
     def osx(self):
-        curl_untar('https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-x86_64.tar.gz', 'nvim-macos-x86_64.tar.gz')
-        exec('cp ./nvim-macos-arm64/bin/nvim /usr/local/bin')
-        rm('./nvim-macos-arm64', force=True, recurse=True)
+        curl_untar('https://github.com/neovim/neovim/releases/download/stable/nvim-macos-x86_64.tar.gz', 'nvim-macos.tar.gz')
+        exec('cp ./nvim-macos/* /usr/local/')
+        rm('./nvim-macos', force=True, recurse=True)
 
     def linux(self):
         rm("/opt/nvim", force=True, recurse=True, ignore_error=True)
