@@ -150,6 +150,11 @@ class Pure:
     def common(self):
         exec("git clone https://github.com/sindresorhus/pure.git ~/.zsh/pure")
 
+class Ldev:
+    def common(self):
+        cwd = os.getcwd()
+
+        exec(f"sudo ln -s {cwd}/python/ldev /usr/local/bin/ldev")
 class Ak:
     def common(self):
         cwd = os.getcwd()
@@ -171,7 +176,8 @@ INSTALLERS = {
     'rust-analyzer' : RustAnalyzer(),
     'pure'          : Pure(),
     'locale'        : Locale(),
-    'ak'            : Ak()
+    'ak'            : Ak(),
+    'ldev'            : Ldev()
 }
 
 def print_help():
