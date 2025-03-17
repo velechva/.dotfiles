@@ -2,6 +2,8 @@
 
 import argparse
 import subprocess
+import os
+import shutil
 
 def exec(cmd):
 	proc = subprocess.Popen(cmd, shell=True, text=True)
@@ -45,6 +47,10 @@ def make_parser():
     parser_attach.add_argument('container',       help='The container to exec in')
     parser_attach.add_argument('cmd',             help='The command to run')
 
+    ## Rename config.ini files ##
+
+    parser_config_rename = subparsers.add_parser('renameconfig', help='Renaming config.ini.example -> config.ini')
+
     return parser
 
 def cmd_db(args):
@@ -62,6 +68,23 @@ def cmd_exec(args):
 def cmd_logs(args):
     print(f"TODO {args.container}")
 
+def cmd_rename_config():
+      PATH = "/home/vvelecho/cometlab-setup/devenv/repos"
+      os.chdir(PATH)
+
+      dirs = []
+
+      for (_, dirnames, _) in os.walk(PATH):
+          dirs.extend(dirnames)
+          break
+
+      for dir in dirs:
+          fp = f"./{dir}/config.ini.example"
+          fp_dest = f"./{dir}/config.ini"
+
+          if os.path.isfile(fp):
+              shutil.copyfile(fp, fp_dest)
+
 def main():
     parser = make_parser()
     
@@ -77,6 +100,8 @@ def main():
         cmd_exec(args)
     elif args.command == 'logs':
         cmd_logs(args)
+    elif args.command == 'renameconfig':
+        cmd_rename_config()
     else:
         parser.print_help()
 
