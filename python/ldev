@@ -4,6 +4,7 @@ import argparse
 import subprocess
 import os
 import shutil
+import ipaddress
 
 def exec(cmd):
 	proc = subprocess.Popen(cmd, shell=True, text=True)
@@ -49,7 +50,12 @@ def make_parser():
 
     ## Rename config.ini files ##
 
-    parser_config_rename = subparsers.add_parser('renameconfig', help='Renaming config.ini.example -> config.ini')
+    subparsers.add_parser('renameconfig', help='Renaming config.ini.example -> config.ini')
+
+    ## CIDR Calculator
+
+    parser_cidr = subparsers.add_parser('cidr', help='Parse CIDR')
+    parser_cidr.add_argument('cidr',            help='CIDR IPv4 Address')
 
     return parser
 
@@ -85,6 +91,15 @@ def cmd_rename_config():
           if os.path.isfile(fp):
               shutil.copyfile(fp, fp_dest)
 
+def cmd_cidr(args):
+    ip = args.cidr
+
+    network = ipaddress.ip_network(ip, strict=False)
+    min_ip = str(network.network_address)
+    max_ip = str(network.broadcast_address)
+
+    print(f"{ip} -> [{min_ip} ... {max_ip}]")
+
 def main():
     parser = make_parser()
     
@@ -102,6 +117,8 @@ def main():
         cmd_logs(args)
     elif args.command == 'renameconfig':
         cmd_rename_config()
+    elif args.command == 'cidr':
+        cmd_cidr(args)
     else:
         parser.print_help()
 
