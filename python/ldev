@@ -6,9 +6,14 @@ import os
 import shutil
 import ipaddress
 
-def exec(cmd):
-	proc = subprocess.Popen(cmd, shell=True, text=True)
-	proc.communicate()
+def exec(cmd, pipe=False):
+    print(cmd)
+    if pipe:
+        proc = subprocess.Popen(cmd, shell=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        return proc.communicate()
+    else:
+        proc = subprocess.Popen(cmd, shell=True, text=True)
+        proc.communicate()
 
 def make_parser():
     parser = argparse.ArgumentParser(
@@ -57,6 +62,12 @@ def make_parser():
     parser_cidr = subparsers.add_parser('cidr', help='Parse CIDR')
     parser_cidr.add_argument('cidr',            help='CIDR IPv4 Address')
 
+    ## Docker
+
+    parser_docker = subparsers.add_parser('d', help='Docker')
+    parser_docker.add_argument('cmd',          help='Command to execute', choices = ['stop', 'start', 'ls' ])
+    parser_docker.add_argument('container',    help='Container (or "all")')
+
     return parser
 
 def cmd_db(args):
@@ -100,6 +111,27 @@ def cmd_cidr(args):
 
     print(f"{ip} -> [{min_ip} ... {max_ip}]")
 
+def get_containers(args):
+    if args.container == 'all':
+        (out, _) = exec("docker ps -a -q", pipe=True)
+        return out.replace('\n', ' ')
+
+    return f"devenv-{args.container}-1"
+
+def cmd_docker_ls():
+    exec("docker ls")
+
+def cmd_docker_lifecycle(cmd, container):
+    exec(f"docker {cmd} {container}")
+
+def cmd_docker(args):
+    container = get_containers(args)
+
+    if   args.cmd in ['stop', 'start']:
+        cmd_docker_lifecycle(args.cmd, container)
+    elif args.command == 'ls':
+        cmd_docker_ls()
+
 def main():
     parser = make_parser()
     
@@ -119,6 +151,8 @@ def main():
         cmd_rename_config()
     elif args.command == 'cidr':
         cmd_cidr(args)
+    elif args.command == 'd':
+        cmd_docker(args)
     else:
         parser.print_help()
 
