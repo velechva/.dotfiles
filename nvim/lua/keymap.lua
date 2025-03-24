@@ -27,8 +27,8 @@ vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "G
 vim.keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Git commits" })
 vim.keymap.set("n", "<leader>gl", "<cmd>GitBlameToggle<CR>", { desc = "Toggle git blame" })
 
-vim.keymap.set("n", "<leader>n", "<cmd>NERDTreeToggle<CR>", { desc = "File tree" })
-vim.keymap.set("n", "<leader>N", "<cmd>NERDTreeFind<CR>", { desc = "Find file in tree" })
+vim.keymap.set("n", "<leader>N", "<cmd>NERDTreeToggle<CR>", { desc = "File tree" })
+vim.keymap.set("n", "<leader>n", "<cmd>NERDTreeFind<CR>", { desc = "Find file in tree" })
 
 -- Lsp
 vim.keymap.set("n", "<leader>lr", "<cmd>Telescope lsp_references<CR>", { desc = "Find References, including tests" })
