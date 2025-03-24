@@ -1,0 +1,161 @@
+#!/usr/bin/env python3
+
+import argparse
+import subprocess
+import os
+import shutil
+import ipaddress
+
+def exec(cmd, pipe=False):
+    print(cmd)
+    if pipe:
+        proc = subprocess.Popen(cmd, shell=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        return proc.communicate()
+    else:
+        proc = subprocess.Popen(cmd, shell=True, text=True)
+        proc.communicate()
+
+def make_parser():
+    parser = argparse.ArgumentParser(
+        prog='ld', 
+        description='Common linode dev commands'
+    )
+    
+    subparsers = parser.add_subparsers(
+        dest='command', 
+        help='Available subcommands'
+    )
+    
+    ## Query ##
+
+    parser_db = subparsers.add_parser('db', help='Execute a db command')
+    parser_db.add_argument('query', help='The db command to execute')
+    
+
+    ## Start Env ##
+
+    subparsers.add_parser('start', help='Start the env')
+    
+    ## Tail Logs ##
+
+    parser_logs = subparsers.add_parser('logs', help='Tail logs for a container')
+    parser_logs.add_argument('container',       help='The container to view logs for')
+
+
+    ## Attach to Bash ##
+
+    parser_attach = subparsers.add_parser('attach', help='Attach to a container')
+    parser_attach.add_argument('container',         help='The container to attach to')
+
+    ## Execute a Bash Command ##
+
+    parser_attach = subparsers.add_parser('exec', help='Execute a bash command in a container')
+    parser_attach.add_argument('container',       help='The container to exec in')
+    parser_attach.add_argument('cmd',             help='The command to run')
+
+    ## Rename config.ini files ##
+
+    subparsers.add_parser('renameconfig', help='Renaming config.ini.example -> config.ini')
+
+    ## CIDR Calculator
+
+    parser_cidr = subparsers.add_parser('cidr', help='Parse CIDR')
+    parser_cidr.add_argument('cidr',            help='CIDR IPv4 Address')
+
+    ## Docker
+
+    parser_docker = subparsers.add_parser('d', help='Docker')
+    parser_docker.add_argument('cmd',          help='Command to execute', choices = ['stop', 'start', 'ls' ])
+    parser_docker.add_argument('container',    help='Container (or "all")')
+
+    return parser
+
+def cmd_db(args):
+    exec(f"docker compose exec -it db mysql hosting --user=root --password=r1r1r1 -P 5033 --silent --execute '{args.query}'")
+
+def cmd_start():
+    exec("~/cometlab-setup/start.sh")
+
+def cmd_attach(args):
+    exec(f"docker exec -it {args.container} bash")
+
+def cmd_exec(args):
+    exec(f"docker exec {args.container} {args.cmd}")
+
+def cmd_logs(args):
+    print(f"TODO {args.container}")
+
+def cmd_rename_config():
+      PATH = "/home/vvelecho/cometlab-setup/devenv/repos"
+      os.chdir(PATH)
+
+      dirs = []
+
+      for (_, dirnames, _) in os.walk(PATH):
+          dirs.extend(dirnames)
+          break
+
+      for dir in dirs:
+          fp = f"./{dir}/config.ini.example"
+          fp_dest = f"./{dir}/config.ini"
+
+          if os.path.isfile(fp):
+              shutil.copyfile(fp, fp_dest)
+
+def cmd_cidr(args):
+    ip = args.cidr
+
+    network = ipaddress.ip_network(ip, strict=False)
+    min_ip = str(network.network_address)
+    max_ip = str(network.broadcast_address)
+
+    print(f"{ip} -> [{min_ip} ... {max_ip}]")
+
+def get_containers(args):
+    if args.container == 'all':
+        (out, _) = exec("docker ps -a -q", pipe=True)
+        return out.replace('\n', ' ')
+
+    return f"devenv-{args.container}-1"
+
+def cmd_docker_ls():
+    exec("docker ls")
+
+def cmd_docker_lifecycle(cmd, container):
+    exec(f"docker {cmd} {container}")
+
+def cmd_docker(args):
+    container = get_containers(args)
+
+    if   args.cmd in ['stop', 'start']:
+        cmd_docker_lifecycle(args.cmd, container)
+    elif args.command == 'ls':
+        cmd_docker_ls()
+
+def main():
+    parser = make_parser()
+    
+    args = parser.parse_args()
+    
+    if   args.command == 'db':
+        cmd_db(args)
+    elif args.command == 'start':
+        cmd_start()
+    elif args.command == 'attach':
+        cmd_attach(args)
+    elif args.command == 'exec':
+        cmd_exec(args)
+    elif args.command == 'logs':
+        cmd_logs(args)
+    elif args.command == 'renameconfig':
+        cmd_rename_config()
+    elif args.command == 'cidr':
+        cmd_cidr(args)
+    elif args.command == 'd':
+        cmd_docker(args)
+    else:
+        parser.print_help()
+
+if __name__ == '__main__':
+    main()
+
