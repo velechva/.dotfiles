@@ -18,25 +18,39 @@ def exec(cmd, pipe=False):
 
 def make_parser():
     parser = argparse.ArgumentParser(
-        prog='ld', 
+        prog='ld',
         description='Common linode dev commands'
     )
-    
+
     subparsers = parser.add_subparsers(
-        dest='command', 
+        dest='command',
         help='Available subcommands'
     )
-    
-    ## Query ##
+
+    ## Query DB ##
 
     parser_db = subparsers.add_parser('db', help='Execute a db command')
-    parser_db.add_argument('query', help='The db command to execute')
-    
+    parser_db.add_argument(
+        '-db',
+        choices=['local', 'devcloud'],
+        default='local',
+        help='The db to execute the command on'
+    )
+    parser_db.add_argument(
+        '-it',
+        default=False,
+        action='store_true',
+        help='Run an interactive shell'
+    )
+    parser_db.add_argument(
+        'query',
+        help='The db command to execute'
+    )
 
     ## Start Env ##
 
     subparsers.add_parser('start', help='Start the env')
-    
+
     ## Tail Logs ##
 
     parser_logs = subparsers.add_parser('logs', help='Tail logs for a container')
@@ -72,7 +86,25 @@ def make_parser():
     return parser
 
 def cmd_db(args):
-    exec(f"docker compose exec db mysql hosting --user=root --password=r1r1r1 -P 5033 --execute '{args.query}'")
+    db = args.db
+    it = args.it
+
+    match db:
+        case "local":
+            prefix = "docker compose exec db mysql hosting --user=root --password=r1r1r1 -P 5033"
+        case "devcloud":
+            prefix = "docker compose exec db mysql -u db_reader -p -h db-1.labkrk2.pl.devcloud.linode.com hosting -A"
+        case _:
+            print("Unknown db")
+            exit(1)
+
+    match it:
+        case True:
+            suffix = ""
+        case False:
+            suffix = f"--execute '{args.query}'"
+
+    exec(f"{prefix} {suffix}")
 
 def cmd_start():
     exec("~/cometlab-setup/start.sh")
@@ -135,9 +167,9 @@ def cmd_docker(args):
 
 def main():
     parser = make_parser()
-    
+
     args = parser.parse_args()
-    
+
     if   args.command == 'db':
         cmd_db(args)
     elif args.command == 'start':
