@@ -10,5 +10,9 @@
     {
         "command": "workbench.action.debug.stepOut",
         "key": "F8"
+    },
+    {
+        "command": "workbench.action.debug.nextConsole",
+        "key": "Ctrl+b, n"
     }
 ]
