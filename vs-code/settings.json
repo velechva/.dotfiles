@@ -7,7 +7,7 @@
 
     // EDITOR //
 
-    "editor.fontFamily": "JetBrainsMono Nerd Font",
+    "editor.fontFamily": "JetBrainsMono NFM Regular",
     "editor.fontSize": 15,
     "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.minimap.enabled": false,
@@ -31,11 +31,10 @@
     // THEME //
 
     "window.autoDetectColorScheme": true,
-    "workbench.preferredLightColorTheme": "Atom One Light",
 
     // TERMINAL //
 
-    "terminal.integrated.fontFamily": "JetBrains Mono",
+    "terminal.integrated.fontFamily": "JetBrainsMono NFM Regular",
     "terminal.integrated.fontSize": 15,
 
     // RUST //
@@ -54,12 +53,20 @@
     "vim.useSystemClipboard": true,
     "vim.normalModeKeyBindingsNonRecursive": [
         {
-            "before": ["<leader>", "%"],
-            "commands": [
-                {
-                "command": "editor.emmet.action.matchTag"
-                }
-            ]
+            "before": ["<C-w>", "\\"],
+            "commands": [ "workbench.action.splitEditor" ]
+        },
+        {
+            "before": ["<C-w>", "-"],
+            "commands": [ "workbench.action.splitEditorDown" ]
+        },
+        {
+            "before": ["<C-b>"],
+            "commands": [ "workbench.action.toggleSidebarVisibility" ]
+        },
+        {
+            "before": ["<C-j>"],
+            "commands": [ "workbench.action.togglePanel" ]
         }
     ],
     "vim.foldfix": true,
@@ -80,5 +87,5 @@
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "diffEditor.maxComputationTime": 0,
-    "workbench.preferredDarkColorTheme": "Catppuccin Frappé"
+    "workbench.preferredDarkColorTheme": "Catppuccin Macchiato"
 }
