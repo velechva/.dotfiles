@@ -44,6 +44,7 @@ def make_parser():
     )
     parser_db.add_argument(
         'query',
+        nargs="?",
         help='The db command to execute'
     )
 
