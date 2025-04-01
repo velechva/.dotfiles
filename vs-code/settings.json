@@ -89,6 +89,12 @@
     "[python]": {
         "editor.formatOnType": true
     },
+    "python.analysis.extraPaths": [
+        "~/devenv/repos/nimbus",
+        "~/devenv/repos/napi",
+        "~/devenv/repos/apinext",
+        "~/devenv/repos/stratus"
+    ],
 
     // Ruby //
 
