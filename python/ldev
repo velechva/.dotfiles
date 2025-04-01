@@ -47,6 +47,12 @@ def make_parser():
         nargs="?",
         help='The db command to execute'
     )
+    parser_db.add_argument(
+        '-perrow',
+        default=False,
+        action='store_true',
+        help='Display results one row at a time (useful for large outputs)'
+    )
 
     ## Start Env ##
 
@@ -119,6 +125,9 @@ def cmd_db(args):
     suffix = ""
     if not it:
         suffix = f"--execute '{args.query}'"
+
+        if args.perrow:
+            suffix += "\\\G"
 
     exec(f"{prefix} {suffix}")
 
