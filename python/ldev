@@ -84,7 +84,22 @@ def make_parser():
     parser_docker.add_argument('cmd',          help='Command to execute', choices = ['stop', 'start', 'ls' ])
     parser_docker.add_argument('container',    help='Container (or "all")')
 
+    ## Cometlab
+
+    parser_cometlab = subparsers.add_parser('comet', help='Cometlab utils')
+    parser_cometlab.add_argument('cmd', help='Command to execute', choices = ['install', 'start'])
+
     return parser
+
+def cmd_cometlab(args):
+    match args.cmd:
+        case "install":
+            exec("cd ~/cometlab-setup; sudo -E ./cometlab_install.sh -f --user vvelecho --local-install")
+        case "start":
+            exec("cd ~/cometlab-setup; ./start.sh -j2 netv5")
+        case _:
+            print("Unknown cometlab command")
+            exit(1)
 
 def cmd_db(args):
     db = args.db
@@ -101,11 +116,9 @@ def cmd_db(args):
             print("Unknown db")
             exit(1)
 
-    match it:
-        case True:
-            suffix = ""
-        case False:
-            suffix = f"--execute '{args.query}'"
+    suffix = ""
+    if not it:
+        suffix = f"--execute '{args.query}'"
 
     exec(f"{prefix} {suffix}")
 
