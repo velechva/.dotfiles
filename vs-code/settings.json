@@ -1,55 +1,61 @@
 {
     // GENERAL //
 
-    // Spammy bullshit
+    // Disable spammy bullshit
     "extensions.ignoreRecommendations": true,
     "security.workspace.trust.enabled": false,
 
-    // EDITOR //
+    // Font //
 
     "editor.fontFamily": "JetBrainsMono NFM Regular",
     "editor.fontSize": 15,
+
+    // Editor //
+
     "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.minimap.enabled": false,
     "editor.autoClosingBrackets": "never",
     "editor.rulers": [ 120 ],
     "editor.wordWrap": "off",
 
+    "diffEditor.maxComputationTime": 0,
+
+    // Files //
+
     "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true,
+    "files.insertFinalNewline": false,
+
+    // Custom file associations
     "files.associations": {
         "*.in": "toml"
     },
 
-    // WORKBENCH //
+    // UI //
 
     "workbench.startupEditor": "none",
     "workbench.editorLargeFileConfirmation": 20,
     "workbench.sideBar.location": "left",
     "workbench.activityBar.location": "top",
 
-    // THEME //
+    // Theme //
 
+    // Auto-detect light/dark theme
     "window.autoDetectColorScheme": true,
+    "workbench.preferredDarkColorTheme": "Catppuccin Macchiato",
+    "workbench.preferredLightColorTheme": "Visual Studio Light",
 
-    // TERMINAL //
+    // Terminal //
 
     "terminal.integrated.fontFamily": "JetBrainsMono NFM Regular",
     "terminal.integrated.fontSize": 15,
 
-    // RUST //
-
-    "rust-analyzer.trace.server": "verbose",
-    "rust-analyzer.server.extraEnv": {
-        "RA_LOG": "warn"
-    },
-
-    // GIT //
+    // Git //
 
     "git.openRepositoryInParentFolders": "never",
 
-    // VIM //
+    // Vim //
 
+    "vim.leader": "<space>",
     "vim.useSystemClipboard": true,
     "vim.normalModeKeyBindingsNonRecursive": [
         {
@@ -71,21 +77,26 @@
     ],
     "vim.foldfix": true,
 
-    // PYTHON //
+    // Rust //
+
+    "rust-analyzer.trace.server": "verbose",
+    "rust-analyzer.server.extraEnv": {
+        "RA_LOG": "warn"
+    },
+
+    // Python //
 
     "[python]": {
         "editor.formatOnType": true
     },
 
-    // RUBY //
+    // Ruby //
 
     "sorbet.enabled": true,
 
-    // JAVASCRIPT //
+    // Javascript //
 
     "[javascript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
-    "diffEditor.maxComputationTime": 0,
-    "workbench.preferredDarkColorTheme": "Catppuccin Macchiato"
 }

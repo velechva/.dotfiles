@@ -1,4 +1,6 @@
 [
+    // Debugging //
+
     {
         "command": "workbench.action.debug.stepOver",
         "key": "F6"
@@ -11,8 +13,28 @@
         "command": "workbench.action.debug.stepOut",
         "key": "F8"
     },
+
+
+    // Terminal //
+
     {
-        "command": "workbench.action.debug.nextConsole",
-        "key": "Ctrl+b, n"
-    }
+        "command": "workbench.action.terminal.focusNext",
+        "key": "Ctrl+b n"
+    },
+    {
+        "command": "workbench.action.terminal.focusPrevious",
+        "key": "Ctrl+b p"
+    },
+    {
+        "command": "workbench.action.terminal.new",
+        "key": "Ctrl+b c"
+    },
+    {
+        "command": "workbench.action.terminal.kill",
+        "key": "Ctrl+b x y"
+    },
+    {
+        "command": "workbench.action.toggleMaximizedPanel",
+        "key": "Ctrl+b z"
+    },
 ]
