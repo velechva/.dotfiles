@@ -94,7 +94,9 @@ def cmd_db(args):
         case "local":
             prefix = "docker compose exec db mysql hosting --user=root --password=r1r1r1 -P 5033"
         case "devcloud":
-            prefix = "docker compose exec db mysql -u db_reader -p -h db-1.labkrk2.pl.devcloud.linode.com hosting -A"
+            pwd = os.environ['DEVCLOUD_DB_PWD']
+
+            prefix = f"docker compose exec db mysql -u db_reader --password={pwd} -h db-1.labkrk2.pl.devcloud.linode.com hosting -A"
         case _:
             print("Unknown db")
             exit(1)
