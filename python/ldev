@@ -87,7 +87,7 @@ def make_parser():
     ## Docker
 
     parser_docker = subparsers.add_parser('d', help='Docker')
-    parser_docker.add_argument('cmd',          help='Command to execute', choices = ['stop', 'start', 'ls' ])
+    parser_docker.add_argument('cmd',          help='Command to execute', choices = ['stop', 'start', 'ls', 'restart' ])
     parser_docker.add_argument('container',    help='Container (or "all")')
 
     ## Cometlab
@@ -141,7 +141,7 @@ def cmd_exec(args):
     exec(f"docker exec {args.container} {args.cmd}")
 
 def cmd_logs(args):
-    print(f"TODO {args.container}")
+    exec(f"docker logs -f devenv-{args.container}-1")
 
 def cmd_rename_config():
       PATH = "/home/vvelecho/cometlab-setup/devenv/repos"
@@ -185,7 +185,7 @@ def cmd_docker_lifecycle(cmd, container):
 def cmd_docker(args):
     container = get_containers(args)
 
-    if   args.cmd in ['stop', 'start']:
+    if   args.cmd in ['stop', 'start', 'ls', 'restart']:
         cmd_docker_lifecycle(args.cmd, container)
     elif args.command == 'ls':
         cmd_docker_ls()
