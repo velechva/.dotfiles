@@ -141,7 +141,7 @@ def cmd_exec(args):
     exec(f"docker exec {args.container} {args.cmd}")
 
 def cmd_logs(args):
-    print(f"TODO {args.container}")
+    exec(f"docker logs -f devenv-{args.container}-1")
 
 def cmd_rename_config():
       PATH = "/home/vvelecho/cometlab-setup/devenv/repos"
