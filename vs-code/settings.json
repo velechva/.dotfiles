@@ -93,7 +93,8 @@
         "~/devenv/repos/nimbus",
         "~/devenv/repos/napi",
         "~/devenv/repos/apinext",
-        "~/devenv/repos/stratus"
+        "~/devenv/repos/stratus",
+        "/home/vvelecho/.local/lib/python3.10/site-packages"
     ],
 
     // Ruby //
