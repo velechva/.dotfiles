@@ -1,109 +1,84 @@
 {
     // GENERAL //
 
-    // Disable spammy bullshit
+    // Spammy bullshit
     "extensions.ignoreRecommendations": true,
     "security.workspace.trust.enabled": false,
 
-    // Font //
+    // EDITOR //
 
     "editor.fontFamily": "JetBrainsMono NFM Regular",
     "editor.fontSize": 15,
-
-    // Editor //
-
     "editor.inlayHints.enabled": "offUnlessPressed",
     "editor.minimap.enabled": false,
     "editor.autoClosingBrackets": "never",
     "editor.rulers": [ 120 ],
     "editor.wordWrap": "off",
 
-    "diffEditor.maxComputationTime": 0,
-
-    // Files //
-
     "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": false,
-
-    // Custom file associations
+    "files.insertFinalNewline": true,
     "files.associations": {
         "*.in": "toml"
     },
 
-    // UI //
+    // WORKBENCH //
 
     "workbench.startupEditor": "none",
     "workbench.editorLargeFileConfirmation": 20,
     "workbench.sideBar.location": "left",
     "workbench.activityBar.location": "top",
 
-    // Theme //
+    // THEME //
 
-    // Auto-detect light/dark theme
     "window.autoDetectColorScheme": true,
-    "workbench.preferredDarkColorTheme": "Catppuccin Macchiato",
-    "workbench.preferredLightColorTheme": "Visual Studio Light",
 
-    // Terminal //
+    // TERMINAL //
 
     "terminal.integrated.fontFamily": "JetBrainsMono NFM Regular",
     "terminal.integrated.fontSize": 15,
 
-    // Git //
-
-    "git.openRepositoryInParentFolders": "never",
-
-    // Vim //
-
-    "vim.leader": "<space>",
-    "vim.useSystemClipboard": true,
-    "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": ["<C-w>", "\\"],
-            "commands": [ "workbench.action.splitEditor" ]
-        },
-        {
-            "before": ["<C-w>", "-"],
-            "commands": [ "workbench.action.splitEditorDown" ]
-        },
-        {
-            "before": ["<C-b>"],
-            "commands": [ "workbench.action.toggleSidebarVisibility" ]
-        },
-        {
-            "before": ["<C-j>"],
-            "commands": [ "workbench.action.togglePanel" ]
-        }
-    ],
-    "vim.foldfix": true,
-
-    // Rust //
+    // RUST //
 
     "rust-analyzer.trace.server": "verbose",
     "rust-analyzer.server.extraEnv": {
         "RA_LOG": "warn"
     },
 
-    // Python //
+    // GIT //
+
+    "git.openRepositoryInParentFolders": "never",
+
+    // VIM //
+
+    "vim.useSystemClipboard": true,
+    "vim.leader": "<space>",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        { "before": ["<leader>", "f", "s"],     "commands": [ "workbench.action.files.save" ] },
+        { "before": ["<leader>", "f", "q"],     "commands": [ "workbench.action.closeActiveEditor" ] },
+        { "before": ["<leader>", "p", "f"],     "commands": [ "workbench.action.quickOpen" ] },
+        { "before": ["<leader>", "s", "s"],     "commands": [ "workbench.view.search" ] },
+        { "before": ["<leader>", "<leader>"],   "commands": [ "workbench.action.showCommands" ] },
+        { "before": ["<C-w>", "\\"],            "commands": [ "workbench.action.splitEditor" ] },
+        { "before": ["<C-w>", "-"],             "commands": [ "workbench.action.splitEditorDown" ] },
+        { "before": ["<C-b>" ],                 "commands": [ "workbench.action.toggleSidebarVisibility" ] },
+    ],
+    "vim.foldfix": true,
+
+    // PYTHON //
 
     "[python]": {
         "editor.formatOnType": true
     },
-    "python.analysis.extraPaths": [
-        "~/devenv/repos/nimbus",
-        "~/devenv/repos/napi",
-        "~/devenv/repos/apinext",
-        "~/devenv/repos/stratus",
-        "/home/vvelecho/.local/lib/python3.10/site-packages"
-    ],
 
-    // Ruby //
+    // RUBY //
 
     "sorbet.enabled": true,
 
-    // Javascript //
+    // JAVASCRIPT //
 
     "[javascript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
+    "diffEditor.maxComputationTime": 0,
+    "workbench.preferredDarkColorTheme": "Catppuccin Macchiato"
 }
