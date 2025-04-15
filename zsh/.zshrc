@@ -54,7 +54,7 @@ else
 	alias ll="ls -alh"
 fi
 
-if command -v "lazygit" &> /dev/null
+if command -v "lazygit" 1> /dev/null 2> /dev/null
 then
 	alias lg="lazygit"
 fi
