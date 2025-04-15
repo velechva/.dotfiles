@@ -80,5 +80,5 @@
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "diffEditor.maxComputationTime": 0,
-    "workbench.preferredDarkColorTheme": "Catppuccin Macchiato"
+    "workbench.preferredDarkColorTheme": "Monokai Pro"
 }

@@ -166,6 +166,11 @@ class Locale:
         exec("sudo apt-get install -y locales")
         exec("sudo locale-gen en_US.UTF-8")
 
+class Karabiner:
+    def osx(self):
+        # https://github.com/rux616/karabiner-windows-mode
+        exec("open karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/rux616/karabiner-windows-mode/main/json/windows_shortcuts.json")
+
 INSTALLERS = {
     'fzf'           : Fzf(),
     'ripgrep'       : BasicInstaller('ripgrep'),
