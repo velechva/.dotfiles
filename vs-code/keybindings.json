@@ -1,19 +1,7 @@
 [
-    { "key": "ctrl+a",                 "command": "editor.action.selectAll" },
-    { "key": "ctrl+c",                 "command": "execCopy" },
-    { "key": "ctrl+x",                 "command": "execCut" },
-    { "key": "ctrl+v",                 "command": "execPaste" },
-    { "key": "ctrl+s",                 "command": "workbench.action.files.save" },
-    { "key": "shift+ctrl+s",           "command": "workbench.action.files.saveAs" },
-    { "key": "ctrl+f",                 "command": "actions.find" },
-
-    { "key": "cmd+b",  "command": "workbench.action.toggleSidebarVisibility" },
-    { "key": "cmd+j", "command": "workbench.action.togglePanel" },
-    { "key": "cmd+z",  "command": "workbench.action.toggleMaximizedPanel" },
-    { "key": "cmd+n", "command": "workbench.action.debug.nextConsole" },
-    { "key": "cmd+p", "command": "workbench.action.debug.previousConsole" },
-
     { "command": "workbench.action.debug.stepOver", "key": "F6" },
     { "command": "workbench.action.debug.stepInto", "key": "F7" },
     { "command": "workbench.action.debug.stepOut", "key": "F8" },
+    { "command": "workbench.action.debug.nextConsole", "key": "Ctrl+b, n" }
+    { "command": "workbench.action.togglePanel", "key": "Ctrl+j" }
 ]
