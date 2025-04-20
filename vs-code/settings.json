@@ -51,16 +51,13 @@
     // VIM //
 
     "vim.useSystemClipboard": true,
-    "vim.leader": "<space>",
     "vim.normalModeKeyBindingsNonRecursive": [
-        { "before": ["<leader>", "f", "s"],     "commands": [ "workbench.action.files.save" ] },
-        { "before": ["<leader>", "f", "q"],     "commands": [ "workbench.action.closeActiveEditor" ] },
-        { "before": ["<leader>", "p", "f"],     "commands": [ "workbench.action.quickOpen" ] },
-        { "before": ["<leader>", "s", "s"],     "commands": [ "workbench.view.search" ] },
-        { "before": ["<leader>", "<leader>"],   "commands": [ "workbench.action.showCommands" ] },
         { "before": ["<C-w>", "\\"],            "commands": [ "workbench.action.splitEditor" ] },
         { "before": ["<C-w>", "-"],             "commands": [ "workbench.action.splitEditorDown" ] },
+        { "before": ["<C-p>" ],                 "commands": [ "workbench.action.quickOpen" ] },
         { "before": ["<C-b>" ],                 "commands": [ "workbench.action.toggleSidebarVisibility" ] },
+        { "before": ["<C-f>" ],                 "commands": [ "actions.find" ] },
+        { "before": ["<C-o>" ],                 "commands": [ "workbench.action.files.openFile" ] },
     ],
     "vim.foldfix": true,
 
@@ -80,5 +77,6 @@
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "diffEditor.maxComputationTime": 0,
-    "workbench.preferredDarkColorTheme": "Catppuccin Macchiato"
+    "workbench.preferredDarkColorTheme": "Catppuccin Macchiato",
+    "workbench.preferredLightColorTheme": "Monokai Pro Light"
 }
