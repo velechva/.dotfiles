@@ -9,6 +9,15 @@ PATTERN_NAME = re.compile(r"<name>.*%\(.*\).*</name>")
 PATTERN_ASSIGN = re.compile(r"<assign:variable")
 
 def main():
+    """
+    Searches for patterns with corresponding contexts.
+
+    Command-line arguments:
+    - pattern: The regex pattern to search for in the files.
+    - path: The directory path to search within.
+    - context: The regex pattern for the context to check before the match.
+    - contextlength: The number of lines to check for the context before the match.
+    """
     parser = argparse.ArgumentParser(
         prog="fancysearch"
     )
@@ -18,16 +27,21 @@ def main():
     )
     parser.add_argument(
         "path",
-        help="Search pattern"
+        help="Search path"
     )
     parser.add_argument(
         "context",
         help="Context pattern"
     )
+    # parser.add_argument(
+    #     "contextlength",
+    #     default=4,
+    #     help="How many lines around the pattern context could be"
+    # )
 
     args = parser.parse_args()
 
-    search(args.path, args.pattern, args.context)
+    search(args.path, args.pattern, args.context, args.contextlength)
 
 def search(path, pattern, context, end=4):
     pattern = re.compile(pattern)
@@ -36,7 +50,7 @@ def search(path, pattern, context, end=4):
     for root, _, files in os.walk(path):
         for filename in files:
             file_path = os.path.join(root, filename)
-            
+
             try:
                 with open(file_path, "r", encoding="utf-8") as f:
                     lines = f.readlines()
@@ -48,16 +62,16 @@ def search(path, pattern, context, end=4):
                 if pattern.search(line):
                     found = False
 
-                    for offset in range(0, 4):
+                    for offset in range(0, end):
                         prev_index = i - offset
 
                         if prev_index < 0:
                             break
-                        
+
                         if context.search(lines[prev_index]):
                             found = True
                             break
-                    
+
                     if found:
                         print(f"File: {file_path}")
                         print(f"Line {i+1}: {line.strip()}")
