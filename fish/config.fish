@@ -58,6 +58,8 @@ if status is-interactive
 		end
 
 		bind --user -M insert \cr history-pager
+
+		alias tmuxa="tmux -S ~/tmux attach || tmux -S ~/tmux"
 end
 
 if [ "$un" = "Darwin" ]
