@@ -1,9 +1,11 @@
 {
+
     // GENERAL //
 
     // Spammy bullshit
     "extensions.ignoreRecommendations": true,
     "security.workspace.trust.enabled": false,
+    "workbench.editor.enablePreview": false,
 
     // EDITOR //
 
@@ -78,5 +80,12 @@
     },
     "diffEditor.maxComputationTime": 0,
     "workbench.preferredDarkColorTheme": "Monokai Pro",
-    "workbench.preferredLightColorTheme": "Monokai Pro Light"
+    "workbench.preferredLightColorTheme": "Monokai Pro Light",
+
+    // Remote SSH //
+
+    "remote.SSH.useLocalServer": false,
+    "remote.SSH.remotePlatform": {
+        "vm": "linux"
+    }
 }
