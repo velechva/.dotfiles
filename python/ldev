@@ -7,6 +7,15 @@ import sys
 import shutil
 import ipaddress
 
+def _confirm():
+    print("Are you sure you want to continue? (y/n)")
+
+    choice = input().lower()
+
+    if choice not in ['y', 'yes']:
+        print("Aborting...")
+        exit(1)
+
 def exec(cmd, pipe=False):
     print(cmd, file=sys.stderr)
     if pipe:
@@ -86,9 +95,9 @@ def make_parser():
 
     ## Docker
 
-    parser_docker = subparsers.add_parser('d', help='Docker')
-    parser_docker.add_argument('cmd',          help='Command to execute', choices = ['stop', 'start', 'ls', 'restart' ])
-    parser_docker.add_argument('container',    help='Container (or "all")')
+    parser_docker = subparsers.add_parser('docker', aliases=['d'], help='Docker')
+    parser_docker.add_argument('cmd',          help='Command to execute', choices = ['stop', 'start', 'ls', 'restart', 'prune' ])
+    parser_docker.add_argument('container',    help='Container (or "all")', nargs="?", default=None)
 
     ## Cometlab
 
@@ -127,7 +136,7 @@ def cmd_db(args):
         suffix = f"--execute '{args.query}'"
 
         if args.perrow:
-            suffix += "\\\G"
+            suffix += "\\G"
 
     exec(f"{prefix} {suffix}")
 
@@ -170,6 +179,10 @@ def cmd_cidr(args):
     print(f"{ip} -> [{min_ip} ... {max_ip}]")
 
 def get_containers(args):
+    if not args.container:
+        print("Missing container")
+        exit(1)
+
     if args.container == 'all':
         (out, _) = exec("docker ps -a -q", pipe=True)
         return out.replace('\n', ' ')
@@ -183,6 +196,11 @@ def cmd_docker_lifecycle(cmd, container):
     exec(f"docker {cmd} {container}")
 
 def cmd_docker(args):
+    if args.cmd == 'prune':
+        _confirm()
+        exec("docker system prune -f --volumes")
+        return
+
     container = get_containers(args)
 
     if   args.cmd in ['stop', 'start', 'ls', 'restart']:
