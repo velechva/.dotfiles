@@ -17,6 +17,10 @@ if status is-interactive
 			alias lg="lazygit"
 		end
 
+		if type -q lazydocker
+			alias lzd="lazydocker"
+		end
+
 		if type -q exa
 			alias ls="exa"
 			alias ll="exa -al"

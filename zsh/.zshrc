@@ -59,6 +59,11 @@ then
 	alias lg="lazygit"
 fi
 
+if command -v "lazydocker" &> /dev/null
+then
+	alias lzd="lazydocker"
+fi
+
 alias mkdir="mkdir -pv"
 
 alias info="info --vi-keys"
@@ -188,3 +193,56 @@ export PYENV_ROOT="$HOME/.pyenv"
 
 # Machine-specific config
 [ -f ~/.zshcustom ] && source ~/.zshcustom
+export PATH=$PATH:$HOME/cometlab-setup/scripts:$HOME/.local/bin/ # the cometlab-setup lab and lab-complete commands are here
+
+# Always start in cometlab-setup
+cd $HOME/cometlab-setup
+
+# for pattern search (the wildcard `\*` will use zsh completion)
+bindkey -v
+bindkey "^R" history-incremental-pattern-search-backward
+
+# allow shift-tab to move backwards for auto-completion
+bindkey '^[[Z' reverse-menu-complete
+
+# Auto-completion setup
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+
+# Load auto-completion for lab command and linode-compose
+source .source/linode-compose.sh
+source .source/lab.sh
+
+# Git prompt
+setopt prompt_subst
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' stagedstr 'S' 
+zstyle ':vcs_info:*' unstagedstr 'U' 
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats   '%F{5}[%F{2}%b%F{5}] %F{2}%c%F{3}%u%f'
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+zstyle ':vcs_info:*' enable git 
++vi-git-untracked() {
+  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] &&   [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
+  hook_com[unstaged]+='%F{1}?%f'
+fi
+}
+precmd () { vcs_info }
+PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_} %f%# '
+
+# Highlighting for autocompletion menus, useful for the lab command especially
+zstyle ':completion:*' menu select
+
+# Store more history
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=20000
+SAVEHIST=20000
+setopt SHARE_HISTORY
+
+# Color LS output
+alias ls='ls --color=auto'
+alias ll='ls -l --color=auto'
+
+# Color ip output
+alias ip="ip --color=auto"
