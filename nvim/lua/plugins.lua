@@ -19,6 +19,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 plugins = {
+    "jabirali/vim-tmux-yank",
+
     'nvim-treesitter/nvim-treesitter',
     {
       "nvim-orgmode/orgmode",
