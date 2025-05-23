@@ -166,6 +166,13 @@ class Locale:
         exec("sudo apt-get install -y locales")
         exec("sudo locale-gen en_US.UTF-8")
 
+class Zoxide:
+    def linux(self):
+        exec("curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh")
+
+    def osx(self):
+        exec("brew install zoxide")
+
 INSTALLERS = {
     'fzf'           : Fzf(),
     'ripgrep'       : BasicInstaller('ripgrep'),
@@ -177,7 +184,8 @@ INSTALLERS = {
     'pure'          : Pure(),
     'locale'        : Locale(),
     'ak'            : Ak(),
-    'ldev'            : Ldev()
+    'ldev'          : Ldev(),
+    'zoxide'        : Zoxide()
 }
 
 def print_help():
@@ -187,7 +195,7 @@ Usage: python setup.py [application...]+
 
 Applications: {INSTALLERS.keys()}
 
-Recommended setup: python setup.py omz lazygit fzf ripgrep neovim locale node
+Recommended setup: python setup.py omz lazygit fzf ripgrep neovim locale node zoxide
 
 Note: restart the shell after installing in order to get PATH updates
     """

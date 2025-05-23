@@ -64,6 +64,8 @@ if status is-interactive
 		bind --user -M insert \cr history-pager
 
 		alias tmuxa="tmux -S ~/tmux attach || tmux -S ~/tmux"
+
+		zoxide init fish | source
 end
 
 if [ "$un" = "Darwin" ]
