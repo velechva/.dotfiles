@@ -2,6 +2,11 @@
     { "command": "workbench.action.debug.stepOver", "key": "F6" },
     { "command": "workbench.action.debug.stepInto", "key": "F7" },
     { "command": "workbench.action.debug.stepOut", "key": "F8" },
-    { "command": "workbench.action.debug.nextConsole", "key": "Ctrl+b, n" }
-    { "command": "workbench.action.togglePanel", "key": "Ctrl+j" }
+    { "command": "workbench.action.debug.nextConsole", "key": "Ctrl+b, n" },
+    { "command": "workbench.action.togglePanel", "key": "Ctrl+j" },
+    { "command": "github.copilot.chat.generate", "key": "Ctrl+q" },
+    { "command": "github.copilot.chat.review.accept", "key": "Ctrl+Enter" },
+    { "command": "github.copilot.chat.review.reject", "key": "Ctrl+Shift+Enter" },
+    { "command": "github.copilot.chat.review.showNext", "key": "Ctrl+Shift+N" },
+    { "command": "github.copilot.chat.review.showPrevious", "key": "Ctrl+Shift+B" },
 ]

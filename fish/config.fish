@@ -68,6 +68,8 @@ if status is-interactive
 		zoxide init fish | source
 
 		export EDITOR=vim
+
+		alias setkeys="python ~/.dotfiles/setkeys.py"
 end
 
 if [ "$un" = "Darwin" ]
