@@ -2,7 +2,56 @@ import sys
 import os
 import subprocess
 
-from enum import Enum
+import json
+
+from enum       import Enum
+from datetime   import datetime
+
+MANIFEST_PATH = "~/.dotfiles/.manifest"
+
+def read_manifest():
+    manifest_path = os.path.expanduser(MANIFEST_PATH)
+
+    if not os.path.exists(manifest_path):
+        manifest = {
+            "installed": {}
+        }
+
+        write_manifest(manifest)
+
+        return manifest
+
+    with open(manifest_path, 'r') as f:
+        return json.load(f)
+
+def write_manifest(data):
+    manifest_path = os.path.expanduser(MANIFEST_PATH)
+
+    with open(manifest_path, 'w') as f:
+        json.dump(data, f, indent=4)
+
+def set_manifest(name, location=None, status="installed"):
+    manifest    = read_manifest()
+    installed   = manifest["installed"]
+
+    installed[name] = {
+        "name":     name,
+        "location": location,
+        "status":   status,
+        "date":     datetime.now().isoformat()
+    }
+
+    write_manifest(manifest)
+
+def status(name):
+    manifest = read_manifest()
+
+    if name in manifest["installed"]:
+        entry = manifest["installed"][name]
+
+        return entry["status"]
+
+    return None
 
 def exec(cmd, capture=False):
     return subprocess.run(cmd, shell=True, check=True, text=True, capture_output=capture)
@@ -146,9 +195,22 @@ class RustAnalyzer:
     def common(self):
         exec("rustup component add rust-analyzer")
 
+def template_git_clone(repo_url, dest_path):
+    def decorator(cls):
+        def common(self):
+            exec(f"git clone {repo_url} {dest_path}")
+
+        cls.common = common
+        return cls
+
+    return decorator
+
+@template_git_clone(
+    "https://github.com/sindresorhus/pure.git",
+    "~/.zsh/pure"
+)
 class Pure:
-    def common(self):
-        exec("git clone https://github.com/sindresorhus/pure.git ~/.zsh/pure")
+    pass
 
 class Ldev:
     def common(self):
@@ -191,11 +253,12 @@ INSTALLERS = {
 def print_help():
     msg = f"""
 Usage: python setup.py [application...]+
-       python setup.py --help to display this message
+       python setup.py defaults             # Install the default applications
+       python setup.py --help               # display this message
 
 Applications: {INSTALLERS.keys()}
 
-Recommended setup: python setup.py omz lazygit fzf ripgrep neovim locale node zoxide
+Defautls: python setup.py omz lazygit fzf ripgrep neovim locale node zoxide
 
 Note: restart the shell after installing in order to get PATH updates
     """
@@ -218,6 +281,10 @@ def install(name):
     arch    = get_arch()
 
     try:
+        if status(name) == "installed":
+            print(f"{name}: already installed")
+            return
+
         if os == OS.Darwin and arch == ARCH.arm64 and hasattr(installer, 'osx_silicon'):
             installer.osx_silicon()
 
@@ -231,8 +298,16 @@ def install(name):
             print(f'Unknown os: {os}')
             exit(1)
 
+        set_manifest(name, status="installed")
+
+
     except subprocess.CalledProcessError:
+        set_manifest(name, status="failed")
         print(f"{name}: FAILED")
+
+DEFAULTS = [
+    'omz', 'lazygit', 'fzf', 'ripgrep', 'neovim', 'locale', 'node', 'zoxide', 'rust-analyzer'
+]
 
 if __name__ == '__main__':
     dotfiles_dir = get_dotfiles_dir()
@@ -242,6 +317,9 @@ if __name__ == '__main__':
         exit(1)
 
     for arg in sys.argv[1:]:
+        if arg == 'defaults':
+            for x in DEFAULTS:
+                install(x)
         if arg in INSTALLERS:
             install(arg)
 
