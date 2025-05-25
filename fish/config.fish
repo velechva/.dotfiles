@@ -66,6 +66,8 @@ if status is-interactive
 		alias tmuxa="tmux -S ~/tmux attach || tmux -S ~/tmux"
 
 		zoxide init fish | source
+
+		export EDITOR=vim
 end
 
 if [ "$un" = "Darwin" ]
